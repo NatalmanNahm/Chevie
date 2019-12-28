@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Chevie</string>
+
+    //news Content string example
+    <string name="news_content_string">
+        Free-agent wide receiver Antonio Brown is working out with the New Orleans Saints this morning,
+        per Adam Schefter. The Saints have been without a legitimate number-two receiver next to Michael
+        Thomas all year- and Brown would be more than capable. As Schefter stated, the Saints are doing their
+        \"due diligence\", so it will be interesting to see what comes of the workout. Thomas and Brown have both caught at
+        least 125 passes twice in their careers. Having them on the same team would be a nightmare for opposing DBs and a dream come
+        true for Drew  Brees.
+    </string>
 </resources>
