@@ -1,6 +1,10 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
+repositories {
+    mavenCentral()
+}
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -16,6 +20,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    buildTypes.each{
+        it.buildConfigField 'String', 'nflSportDataIoApiKey', nflSportDataIoApiKey
     }
 }
 
