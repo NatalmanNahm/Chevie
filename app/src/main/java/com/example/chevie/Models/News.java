@@ -7,7 +7,8 @@ package com.example.chevie.Models;
 public class News {
 
     //Initializers
-    private int mNewsId;
+    private int mNewsPlayerId;
+    private String mPlayerShortName;
     private String mSource;
     private String mTimeShared;
     private String mTitle;
@@ -15,16 +16,19 @@ public class News {
     private String mPlayerPic;
 
     /**
-     * Constructor for the news Object
-     * @param newsId
+     * Constructor for the news
+     * Object
+     * @param playerId
+     * @param shortName
      * @param source
      * @param timeShared
      * @param title
      * @param content
      * @param playerPic
      */
-    public News(int newsId, String source, String timeShared, String title, String content, String playerPic){
-        mNewsId = newsId;
+    public News(int playerId, String shortName, String source, String timeShared, String title, String content, String playerPic){
+        mNewsPlayerId = playerId;
+        mPlayerShortName = shortName;
         mSource = source;
         mTimeShared = timeShared;
         mTitle = title;
@@ -32,8 +36,12 @@ public class News {
         mPlayerPic = playerPic;
     }
 
-    public int getmNewsId() {
-        return mNewsId;
+    public int getmNewsPlayerId() {
+        return mNewsPlayerId;
+    }
+
+    public String getmPlayerShortName() {
+        return mPlayerShortName;
     }
 
     public String getmSource() {
