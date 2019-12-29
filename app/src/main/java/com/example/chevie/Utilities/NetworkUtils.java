@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.example.chevie.BuildConfig;
+import com.example.chevie.Models.News;
 import com.example.chevie.Models.PlayerProfile;
 
 import java.io.BufferedReader;
@@ -181,25 +182,30 @@ public class NetworkUtils {
     }
 
     /**
-     * Query sport data and then return PlayerProfile data
+     * Query sport data and then return news data
      * @param playerId
      * @return
      */
-    public static ArrayList<PlayerProfile> fetchPlayerPhoto(int playerId){
-        //Create a url object
-        URL url = build_player_info_url(playerId, NFL_KEY);
+    public static ArrayList<News> fetchNews(int playerId){
+        //Create url objects
 
-        String jsonResponse = null;
+        URL urlNews = build_news_url(NFL_KEY);
+        URL urlPlayer = build_player_info_url(playerId, NFL_KEY);
+
+        String jsonResponsePlayer = null;
+        String jsonResponseNews = null;
 
         try {
-            jsonResponse = getResponseFromHttpUrl(url);
+            jsonResponsePlayer = getResponseFromHttpUrl(urlPlayer);
+            jsonResponseNews = getResponseFromHttpUrl(urlNews);
+
         } catch (IOException e) {
             Log.e(TAG, "Problem making the HTTP request", e);
         }
 
-        ArrayList<PlayerProfile> playerProfile = OpenJsonUtils.playerProf(jsonResponse);
+        ArrayList<News> news = OpenJsonUtils.extractNewsJson(jsonResponseNews, jsonResponsePlayer);
 
-        return playerProfile;
+        return news;
 
     }
 
