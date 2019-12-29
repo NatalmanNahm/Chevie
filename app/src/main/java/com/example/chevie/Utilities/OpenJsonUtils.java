@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.example.chevie.Models.News;
+import com.example.chevie.Models.PlayerProfile;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -57,37 +58,36 @@ public class OpenJsonUtils {
 
     }
 
-    public static String PlayerPic (String json, int playerId){
+    /**
+     * Getting the info needed to create a player image
+     * @param json
+     * @return return a string data to build image
+     */
+    public static ArrayList<PlayerProfile> playerProf (String json){
 
         //If the string Json is empty the return early
         if (TextUtils.isEmpty(json)){
             return null;
         }
 
-        //Create an empty String for the Player Picture String Url
-        String playerPic = "";
+        //Create an empty ArrayList for the Player profile object
+        ArrayList<PlayerProfile> playerArray = new ArrayList<>();
 
         try{
             //Getting the rootJosn that will be decomposed to get the data needed
-            JSONArray rootJson = new JSONArray(json);
+            JSONObject playerJson = new JSONObject(json);
 
-            //iterate through the array to get data needed
-            for (int i = 0; i < rootJson.length(); i++){
-                JSONObject jsonObject = rootJson.getJSONObject(i);
+            String playerPic = playerJson.getString("PhotoUrl");
+            String playerNane = playerJson.getString("ShortName");
 
-                String picUrl = jsonObject.getString("PhotoUrl");
-                int id = jsonObject.getInt("PlayerID");
+            playerArray.add(new PlayerProfile(playerPic, playerNane));
 
-                if (playerId == id){
-                    playerPic = picUrl;
-                }
-            }
 
         } catch (JSONException e) {
             //If there is a problem parsing the Json object print this message
-            Log.e(TAG, "Error parsing the news Json object");
+            Log.e(TAG, "Error parsing the player Json object");
         }
 
-        return playerPic;
+        return playerArray;
     }
 }

@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.example.chevie.BuildConfig;
+import com.example.chevie.Models.PlayerProfile;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,6 +14,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 
 public class NetworkUtils {
 
@@ -28,6 +30,7 @@ public class NetworkUtils {
     private static String JSON = "json";
     private static String NEWS = "News";
     private static String API_KEY = "Key";
+    private static String PLAYER = "Player";
 
     private static String NFL_KEY = BuildConfig.nflSportDataIoApiKey;
 
@@ -65,6 +68,34 @@ public class NetworkUtils {
     public static URL build_news_url(String key) {
         Uri uriBuilder = Uri.parse(buildUrl_nfl().toString()).buildUpon()
                 .appendPath(NEWS)
+                .appendQueryParameter(API_KEY, key)
+                .build();
+
+        URL url = null;
+
+        try {
+            url = new URL(uriBuilder.toString());
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        Log.v(TAG, "Built URI " + url);
+
+        return url;
+    }
+
+
+    /**
+     * build the Url to query the sport data to get a player detail
+     * @param playerId
+     * @param key
+     * @return url to be used to fetch data from database
+     */
+    public static URL build_player_info_url(int playerId, String key){
+        Uri uriBuilder = Uri.parse(buildUrl_nfl().toString()).buildUpon()
+                .appendPath(PLAYER)
+                .appendPath(String.valueOf(playerId))
                 .appendQueryParameter(API_KEY, key)
                 .build();
 
@@ -147,6 +178,29 @@ public class NetworkUtils {
             }
         }
         return output.toString();
+    }
+
+    /**
+     * Query sport data and then return PlayerProfile data
+     * @param playerId
+     * @return
+     */
+    public static ArrayList<PlayerProfile> fetchPlayerPhoto(int playerId){
+        //Create a url object
+        URL url = build_player_info_url(playerId, NFL_KEY);
+
+        String jsonResponse = null;
+
+        try {
+            jsonResponse = getResponseFromHttpUrl(url);
+        } catch (IOException e) {
+            Log.e(TAG, "Problem making the HTTP request", e);
+        }
+
+        ArrayList<PlayerProfile> playerProfile = OpenJsonUtils.playerProf(jsonResponse);
+
+        return playerProfile;
+
     }
 
 }
