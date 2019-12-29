@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Chevie</string>
 
+    <!-- All News String here -->
     //news Content string example
     <string name="news_content_string">
         Free-agent wide receiver Antonio Brown is working out with the New Orleans Saints this morning,
@@ -10,9 +11,8 @@
         least 125 passes twice in their careers. Having them on the same team would be a nightmare for opposing DBs and a dream come
         true for Drew  Brees.
     </string>
-
     <string name="news_error">No news Available</string>
+    <string name="news_label">Headlines</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
