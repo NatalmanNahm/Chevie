@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.example.chevie.Models.News;
+import com.example.chevie.Models.NewsInfo;
 import com.example.chevie.Models.PlayerProfile;
 
 import org.json.JSONArray;
@@ -36,39 +37,33 @@ public class OpenJsonUtils {
     }
 
     /**
-     * Getting all the info needed to create news object
-     * @param newsJson
-     * @param playerJson
-     * @return
+     * Getting all the info needed to create news info object
+     * @param json
+     * @return arraylist of newsInfo
      */
-    public static ArrayList<News> extractNewsJson(String newsJson, String playerJson){
+    public static ArrayList<NewsInfo> extractNewsJson(String json){
 
-        isEmptyStringJson(newsJson);
-        isEmptyStringJson(playerJson);
+        isEmptyStringJson(json);
 
-        //create empty Arraylist that will hold news data needed
-        ArrayList<News> newsArraylist = new ArrayList<>();
-        int playerId = 0;
-        String source = "";
-        String timeAgo = "";
-        String title = "";
-        String content = "";
-        String photoUrl = "";
-        String shortName = "";
+        //create empty Arraylist that will hold news info data needed
+        ArrayList<NewsInfo> newsInfoArraylist = new ArrayList<>();
 
         try{
             //Getting the rootJosn that will be decomposed to get the data needed
-            JSONArray rootJson = new JSONArray(newsJson);
+            JSONArray rootJson = new JSONArray(json);
 
             //iterate through the array to get data needed
             for (int i = 0; i < rootJson.length(); i++){
                 JSONObject jsonObject = rootJson.getJSONObject(i);
 
-                source = jsonObject.getString("Source");
-                timeAgo = jsonObject.getString("TimeAgo");
-                title = jsonObject.getString("Title");
-                content = jsonObject.getString("Content");
-                playerId = jsonObject.getInt("PlayerID");
+                String source = jsonObject.getString("Source");
+                String timeAgo = jsonObject.getString("TimeAgo");
+                String title = jsonObject.getString("Title");
+                String content = jsonObject.getString("Content");
+                int playerId = jsonObject.getInt("PlayerID");
+
+
+                newsInfoArraylist.add(new NewsInfo(playerId, source, timeAgo, title, content));
 
                 //Getting the rootJosn that will be decomposed to get the data needed
                 JSONObject pJson = new JSONObject(playerJson);
@@ -86,40 +81,36 @@ public class OpenJsonUtils {
         }
 
 
-        return newsArraylist;
+        return newsInfoArraylist;
 
     }
 
-//    /**
-//     * Getting the info needed to create a player image
-//     * @param json
-//     * @return return a string data to build image
-//     */
-//    public static ArrayList<PlayerProfile> playerProf (String json){
-//
-//        //If the string Json is empty the return early
-//        if (TextUtils.isEmpty(json)){
-//            return null;
-//        }
-//
-//        //Create an empty ArrayList for the Player profile object
-//        ArrayList<PlayerProfile> playerArray = new ArrayList<>();
-//
-//        try{
-//            //Getting the rootJosn that will be decomposed to get the data needed
-//            JSONObject playerJson = new JSONObject(json);
-//
-//            String playerPic = playerJson.getString("PhotoUrl");
-//            String playerNane = playerJson.getString("ShortName");
-//
-//            playerArray.add(new PlayerProfile(playerPic, playerNane));
-//
-//
-//        } catch (JSONException e) {
-//            //If there is a problem parsing the Json object print this message
-//            Log.e(TAG, "Error parsing the player Json object");
-//        }
-//
-//        return playerArray;
-//    }
+    /**
+     * Getting the info needed to get player info
+     * @param json
+     * @return arrayList of PlayerProfile
+     */
+    public static ArrayList<PlayerProfile> playerId (String json){
+
+        isEmptyStringJson(json);
+
+        //Create an empty ArrayList for the Player profile object
+        ArrayList<PlayerProfile> playerArray = new ArrayList<>();
+
+        try{
+            //Getting the rootJosn that will be decomposed to get the data needed
+            JSONObject playerJson = new JSONObject(json);
+
+            String playerPic = playerJson.getString("PhotoUrl");
+            String playerNane = playerJson.getString("ShortName");
+
+            playerArray.add(new PlayerProfile(playerPic, playerNane));
+
+
+        } catch (JSONException e) {
+            //If there is a problem parsing the Json object print this message
+            Log.e(TAG, "Error parsing the player Json object");
+        }
+        return playerArray;
+    }
 }
