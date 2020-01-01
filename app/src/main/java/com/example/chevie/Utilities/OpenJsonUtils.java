@@ -65,14 +65,6 @@ public class OpenJsonUtils {
 
                 newsInfoArraylist.add(new NewsInfo(playerId, source, timeAgo, title, content));
 
-                //Getting the rootJosn that will be decomposed to get the data needed
-                JSONObject pJson = new JSONObject(playerJson);
-
-                photoUrl = pJson.getString("PhotoUrl");
-                shortName = pJson.getString("ShortName");
-
-                newsArraylist.add(new News(playerId, shortName, source, timeAgo, title, content, photoUrl));
-
             }
 
         } catch (JSONException e) {
