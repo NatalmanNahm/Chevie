@@ -82,7 +82,7 @@ public class OpenJsonUtils {
      * @param json
      * @return arrayList of PlayerProfile
      */
-    public static ArrayList<PlayerProfile> playerId (String json){
+    public static ArrayList<PlayerProfile> playerProfile (String json){
 
         isEmptyStringJson(json);
 

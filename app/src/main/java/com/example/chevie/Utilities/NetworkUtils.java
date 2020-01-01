@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.chevie.BuildConfig;
 import com.example.chevie.Models.News;
+import com.example.chevie.Models.NewsInfo;
 import com.example.chevie.Models.PlayerProfile;
 
 import java.io.BufferedReader;
@@ -182,31 +183,47 @@ public class NetworkUtils {
     }
 
     /**
-     * Query sport data and then return news data
-     * @param playerId
+     * Query sport data and then return news info data
      * @return
      */
-    public static ArrayList<News> fetchNews(int playerId){
+    public static ArrayList<NewsInfo> fetchNews(){
         //Create url objects
 
         URL urlNews = build_news_url(NFL_KEY);
-        URL urlPlayer = build_player_info_url(playerId, NFL_KEY);
 
-        String jsonResponsePlayer = null;
         String jsonResponseNews = null;
 
         try {
-            jsonResponsePlayer = getResponseFromHttpUrl(urlPlayer);
             jsonResponseNews = getResponseFromHttpUrl(urlNews);
 
         } catch (IOException e) {
             Log.e(TAG, "Problem making the HTTP request", e);
         }
 
-        ArrayList<News> news = OpenJsonUtils.extractNewsJson(jsonResponseNews, jsonResponsePlayer);
+        ArrayList<NewsInfo> newsInfos = OpenJsonUtils.extractNewsJson(jsonResponseNews);
 
-        return news;
+        return newsInfos;
 
+    }
+
+    /**
+     * Query data to get player Profile info
+     * @return a player profile data
+     */
+    public static ArrayList<PlayerProfile> fetchPlayerProfile (int playerId){
+        URL playerUrl = build_player_info_url(playerId, NFL_KEY);
+
+        String jsonReponse = null;
+
+        try {
+            jsonReponse = getResponseFromHttpUrl(playerUrl);
+        } catch (IOException e) {
+            Log.e(TAG, "Problem making the HTTP request", e);
+        }
+
+        ArrayList<PlayerProfile> playerProfile = OpenJsonUtils.playerProfile(jsonReponse);
+
+        return playerProfile;
     }
 
 }
