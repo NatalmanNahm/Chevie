@@ -56,6 +56,7 @@ public class NewsFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_news, container, false);
 
         //Getting reference to the recyclerview
+        mNewsArrayList = new ArrayList<>();
         mNewsRecyclerView = (RecyclerView) rootView.findViewById(R.id.news_recyclerView);
         mNewserrorMessage = (TextView) rootView.findViewById(R.id.error_message);
 
@@ -103,7 +104,6 @@ public class NewsFragment extends Fragment {
 
         @Override
         protected ArrayList<News> doInBackground(String... strings) {
-
             //Just getting the news info
             mInfoArray = NetworkUtils.fetchNews();
 

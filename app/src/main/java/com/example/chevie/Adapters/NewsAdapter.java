@@ -78,7 +78,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewholder
         @Bind(R.id.news_title) TextView mNewsTitle;
         @Bind(R.id.news_time_shared) TextView mTime;
         @Bind(R.id.source) TextView mSource;
-        @Bind(R.id.news_content) TextView mNewsContent;
         @Bind(R.id.player_name) TextView mPlayerShortName;
         @Bind(R.id.player_Pic) ImageView mPlayerImg;
         Context mContext;
@@ -95,7 +94,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewholder
             mNewsTitle.setText(news.getmTitle());
             mTime.setText(news.getmTimeShared());
             mSource.setText(news.getmSource());
-            mNewsContent.setText(news.getmContent());
             mPlayerShortName.setText(news.getmPlayerShortName());
 
             Picasso.get().load(news.getmPlayerPic()).into(mPlayerImg);
