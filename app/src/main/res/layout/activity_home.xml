@@ -28,7 +28,7 @@
             android:text="@string/news_label"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-        <androidx.viewpager.widget.ViewPager
+        <FrameLayout
             android:id="@+id/news_Fragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

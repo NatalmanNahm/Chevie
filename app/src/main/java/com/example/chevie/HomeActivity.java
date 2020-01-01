@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.chevie.Auth.LoginActivity;
+import com.example.chevie.Fragments.NewsFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class HomeActivity extends AppCompatActivity {
@@ -17,11 +18,19 @@ public class HomeActivity extends AppCompatActivity {
     FirebaseAuth mFirebaseAuth;
     private Context mContext;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
+    private NewsFragment mNewsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+
+        //Beginning the transaction of the News Fragment.
+        mNewsFragment = new NewsFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.news_Fragment, mNewsFragment)
+                .commit();
 
         mLogOutBtn = (Button) findViewById(R.id.logOut_btn);
         mContext = this;
