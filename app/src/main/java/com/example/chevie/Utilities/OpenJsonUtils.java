@@ -3,6 +3,7 @@ package com.example.chevie.Utilities;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.example.chevie.Models.CurrentTimeFrame;
 import com.example.chevie.Models.News;
 import com.example.chevie.Models.NewsInfo;
 import com.example.chevie.Models.PlayerProfile;
@@ -104,5 +105,36 @@ public class OpenJsonUtils {
             Log.e(TAG, "Error parsing the player Json object");
         }
         return playerArray;
+    }
+
+    /**
+     * Getting the info neede to get the current season info
+     * @param json
+     * @return ArrayList of CurrentTimeFrame
+     */
+    public static ArrayList<CurrentTimeFrame> extractCurrentSeason (String json){
+        isEmptyStringJson(json);
+
+        //Createe an empty Arralist for the current time frame
+        ArrayList<CurrentTimeFrame> currentTimeFrame = new ArrayList<>();
+
+        try {
+            JSONArray rootJson = new JSONArray(json);
+
+            for (int i = 0; i<rootJson.length(); i++){
+                JSONObject jsonObject = rootJson.getJSONObject(i);
+
+                String currentSeason = jsonObject.getString("ApiSeason");
+                String currentWeek =jsonObject.getString("ApiWeek");
+
+                currentTimeFrame.add(new CurrentTimeFrame(currentSeason,currentWeek));
+            }
+
+        } catch (JSONException e) {
+            //If there is a problem parsing the Json object print this message
+            Log.e(TAG, "Error parsing the Json object");
+        }
+
+        return currentTimeFrame;
     }
 }

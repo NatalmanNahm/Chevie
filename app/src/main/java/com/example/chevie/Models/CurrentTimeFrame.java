@@ -3,17 +3,17 @@ package com.example.chevie.Models;
 /**
  * Model for the currenTimeFrame
  */
-public class currentTimeFrame {
+public class CurrentTimeFrame {
 
     private String mCurrentSeason;
     private String mCurrentWeek;
 
     /**
-     * Constructor for the currentTimeFrame
+     * Constructor for the CurrentTimeFrame
      * @param currentSeason
      * @param currentWeek
      */
-    public currentTimeFrame(String currentSeason, String currentWeek){
+    public CurrentTimeFrame(String currentSeason, String currentWeek){
         mCurrentSeason = currentSeason;
         mCurrentWeek = currentWeek;
     }
