@@ -33,8 +33,30 @@ public class NetworkUtils {
     private static String NEWS = "News";
     private static String API_KEY = "Key";
     private static String PLAYER = "Player";
+    private static String TIMEFRAME = "Timeframes";
+    private static String CURRENT = "current";
 
     private static String NFL_KEY = BuildConfig.nflSportDataIoApiKey;
+
+    /**
+     * Helper method to simplify the need of trying to build the Url
+     * @param uri
+     */
+    public static URL tryBuildUrl (Uri uri){
+        URL url = null;
+
+        try {
+            url = new URL(uri.toString());
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        Log.v(TAG, "Built URI " + url);
+
+        return url;
+
+    }
 
     /**
      * This is a build Url just to get to the nfl version of the Url
@@ -49,16 +71,7 @@ public class NetworkUtils {
                 .appendPath(JSON)
                 .build();
 
-        URL url = null;
-
-        try {
-            url = new URL(uriBuilder.toString());
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
-        Log.v(TAG, "Built URI " + url);
+        URL url = tryBuildUrl(uriBuilder);
 
         return url;
     }
@@ -73,16 +86,24 @@ public class NetworkUtils {
                 .appendQueryParameter(API_KEY, key)
                 .build();
 
-        URL url = null;
+        URL url = tryBuildUrl(uriBuilder);
 
-        try {
-            url = new URL(uriBuilder.toString());
+        return url;
+    }
 
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+    /**
+     * This is to build the Timeframe Url to fetch json data from sport API
+     * @param key
+     * @return url to be used to fetch data from database
+     */
+    public static URL build_timeframe_url (String key){
+        Uri uriBuilder = Uri.parse(buildUrl_nfl().toString()).buildUpon()
+                .appendPath(TIMEFRAME)
+                .appendPath(CURRENT)
+                .appendQueryParameter(API_KEY, key)
+                .build();
 
-        Log.v(TAG, "Built URI " + url);
+        URL url = tryBuildUrl(uriBuilder);
 
         return url;
     }
@@ -101,16 +122,7 @@ public class NetworkUtils {
                 .appendQueryParameter(API_KEY, key)
                 .build();
 
-        URL url = null;
-
-        try {
-            url = new URL(uriBuilder.toString());
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
-        Log.v(TAG, "Built URI " + url);
+        URL url = tryBuildUrl(uriBuilder);
 
         return url;
     }
