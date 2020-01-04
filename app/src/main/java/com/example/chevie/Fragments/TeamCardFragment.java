@@ -2,110 +2,129 @@ package com.example.chevie.Fragments;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.example.chevie.Models.TeamCard;
 import com.example.chevie.R;
+import com.example.chevie.Utilities.NetworkUtils;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link TeamCardFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link TeamCardFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * A simple {@link Fragment} subclass for teams card
  */
 public class TeamCardFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    //Initialize all the parameters here
+    private static final String ARG_PARAM1 = "teamOneId";
+    private static final String ARG_PARAM2 = "teamTwoId";
+    private String mTeamoneId;
+    private String mTeamTwoId;
+    private ArrayList<TeamCard> mTeamCard = new ArrayList<>();
 
-    private OnFragmentInteractionListener mListener;
+    private ImageView mTeamOneLogo;
+    private ImageView mTeamTwoLogo;
+    private TextView mTeamOneOff;
+    private TextView mTeamTwoOff;
+    private TextView mTeamOneDef;
+    private TextView mTeamTwoDef;
+    private TextView mTeamOneByeWeek;
+    private TextView mTeamTwoByeWeek;
 
-    public TeamCardFragment() {
-        // Required empty public constructor
+    //Empty Constructor
+    public TeamCardFragment(){
+
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TeamCardFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static TeamCardFragment newInstance(String param1, String param2) {
-        TeamCardFragment fragment = new TeamCardFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+    @Nullable
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+
+        if (savedInstanceState != null){
+            mTeamoneId = savedInstanceState.getString(ARG_PARAM1);
+            mTeamTwoId = savedInstanceState.getString(ARG_PARAM2);
         }
+
+        View rootView = inflater.inflate(R.layout.fragment_team_card, container, false);
+
+        //Reference to all the elements
+        mTeamOneLogo = (ImageView) rootView.findViewById(R.id.team_one_logo);
+        mTeamTwoLogo = (ImageView) rootView.findViewById(R.id.team_two_logo);
+
+        mTeamOneOff = (TextView) rootView.findViewById(R.id.offensive1);
+        mTeamTwoOff = (TextView) rootView.findViewById(R.id.offensive2);
+
+        mTeamOneDef = (TextView) rootView.findViewById(R.id.denfense1);
+        mTeamTwoDef = (TextView) rootView.findViewById(R.id.defense2);
+
+        mTeamOneByeWeek = (TextView) rootView.findViewById(R.id.bye_week1);
+        mTeamTwoByeWeek = (TextView) rootView.findViewById(R.id.bye_week2);
+
+        new FetchTeamCardData().execute();
+        return rootView;
+    }
+
+
+    public void setmTeamoneId(String mTeamoneId) {
+        this.mTeamoneId = mTeamoneId;
+    }
+
+    public void setmTeamTwoId(String mTeamTwoId) {
+        this.mTeamTwoId = mTeamTwoId;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_team_card, container, false);
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString(ARG_PARAM1, mTeamoneId);
+        outState.putString(ARG_PARAM2, mTeamTwoId);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+
+    public class FetchTeamCardData extends AsyncTask<String, Void, ArrayList<TeamCard>>{
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
         }
-    }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+        @Override
+        protected ArrayList<TeamCard> doInBackground(String... strings) {
+            mTeamCard = NetworkUtils.fetchTeamCard(mTeamoneId, mTeamTwoId);
+
+            TeamCard teamCard1 = mTeamCard.get(0);
+            TeamCard teamCard2 = mTeamCard.get(1);
+
+            Picasso.get().load(teamCard1.getmTeamLogo()).into(mTeamOneLogo);
+            mTeamOneOff.setText(teamCard1.getmOffensiveSch());
+            mTeamOneDef.setText(teamCard1.getmDeffensiveSch());
+            mTeamOneByeWeek.setText(String.valueOf(teamCard1.getmByeWeek()));
+
+            Picasso.get().load(teamCard2.getmTeamLogo()).into(mTeamTwoLogo);
+            mTeamTwoOff.setText(teamCard2.getmOffensiveSch());
+            mTeamTwoDef.setText(teamCard2.getmDeffensiveSch());
+            mTeamTwoByeWeek.setText(String.valueOf(teamCard2.getmByeWeek()));
+
+            return mTeamCard;
         }
-    }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        @Override
+        protected void onPostExecute(ArrayList<TeamCard> teamCards) {
+            super.onPostExecute(teamCards);
+        }
     }
 }

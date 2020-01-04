@@ -64,10 +64,7 @@ public class OpenJsonUtils {
                 String title = jsonObject.getString("Title");
                 String content = jsonObject.getString("Content");
                 int playerId = jsonObject.getInt("PlayerID");
-
-
                 newsInfoArraylist.add(new NewsInfo(playerId, source, timeAgo, title, content));
-
             }
 
         } catch (JSONException e) {

@@ -7,6 +7,7 @@ import com.example.chevie.BuildConfig;
 import com.example.chevie.Models.News;
 import com.example.chevie.Models.NewsInfo;
 import com.example.chevie.Models.PlayerProfile;
+import com.example.chevie.Models.TeamCard;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -270,6 +271,28 @@ public class NetworkUtils {
         ArrayList<PlayerProfile> playerProfile = OpenJsonUtils.playerProfile(jsonReponse);
 
         return playerProfile;
+    }
+
+    /**
+     * Query data to get Team card info
+     * @param team1
+     * @param team2
+     * @return a team Card data
+     */
+    public static ArrayList<TeamCard> fetchTeamCard (String team1, String team2){
+        URL url = build_team_card_url(NFL_KEY);
+
+        String jsonReponse = null;
+
+        try {
+            jsonReponse = getResponseFromHttpUrl(url);
+        } catch (IOException e) {
+            Log.e(TAG, "Problem making the HTTP request", e);
+        }
+
+        ArrayList<TeamCard> teamCard = OpenJsonUtils.extractTeamCard(jsonReponse, team1, team2);
+
+        return teamCard;
     }
 
 }

@@ -2,7 +2,6 @@
     <string name="app_name">Chevie</string>
 
     <!-- All News String here -->
-    //news Content string example
     <string name="news_content_string">
         Free-agent wide receiver Antonio Brown is working out with the New Orleans Saints this morning,
         per Adam Schefter. The Saints have been without a legitimate number-two receiver next to Michael
@@ -13,6 +12,11 @@
     </string>
     <string name="news_error">No news Available</string>
     <string name="news_label">Headlines</string>
+
+    <!--all Event String here-->
+    <string name="offense">Offensive Scheme</string>
+    <string name="defense">Defensive Scheme</string>
+    <string name="bye_week">Bye Week</string>
 
 
 </resources>
