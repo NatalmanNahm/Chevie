@@ -35,7 +35,9 @@ public class NetworkUtils {
     private static String PLAYER = "Player";
     private static String TIMEFRAME = "Timeframes";
     private static String CURRENT = "current";
+    private static final String TEAMS = "Teams";
 
+    //all Api calls key
     private static String NFL_KEY = BuildConfig.nflSportDataIoApiKey;
 
     /**
@@ -125,6 +127,20 @@ public class NetworkUtils {
         URL url = tryBuildUrl(uriBuilder);
 
         return url;
+    }
+
+    /**
+     * build the Url to query the sport data to get a team detail
+     * @param key
+     * @return
+     */
+    public static URL build_team_card_url (String key){
+        Uri uriBuilder = Uri.parse(buildUrl_nfl().toString()).buildUpon()
+                .appendPath(TEAMS)
+                .appendQueryParameter(API_KEY, key)
+                .build();
+        URL url = tryBuildUrl(uriBuilder);
+        return  url;
     }
 
     /**
