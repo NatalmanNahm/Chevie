@@ -6,14 +6,14 @@ package com.example.chevie.Models;
 public class CurrentTimeFrame {
 
     private String mCurrentSeason;
-    private String mCurrentWeek;
+    private int mCurrentWeek;
 
     /**
      * Constructor for the CurrentTimeFrame
      * @param currentSeason
      * @param currentWeek
      */
-    public CurrentTimeFrame(String currentSeason, String currentWeek){
+    public CurrentTimeFrame(String currentSeason, int currentWeek){
         mCurrentSeason = currentSeason;
         mCurrentWeek = currentWeek;
     }
@@ -22,7 +22,7 @@ public class CurrentTimeFrame {
         return mCurrentSeason;
     }
 
-    public String getmCurrentWeek() {
+    public int getmCurrentWeek() {
         return mCurrentWeek;
     }
 }

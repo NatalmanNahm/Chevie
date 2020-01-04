@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.example.chevie.Models.CurrentTimeFrame;
+import com.example.chevie.Models.EventHome;
 import com.example.chevie.Models.News;
 import com.example.chevie.Models.NewsInfo;
 import com.example.chevie.Models.PlayerProfile;
@@ -126,7 +127,7 @@ public class OpenJsonUtils {
                 JSONObject jsonObject = rootJson.getJSONObject(i);
 
                 String currentSeason = jsonObject.getString("ApiSeason");
-                String currentWeek =jsonObject.getString("ApiWeek");
+                int currentWeek =jsonObject.getInt("Week");
 
                 currentTimeFrame.add(new CurrentTimeFrame(currentSeason,currentWeek));
             }
@@ -194,5 +195,46 @@ public class OpenJsonUtils {
         }
 
         return teamCards;
+    }
+
+    /**
+     * Getting all data needed to build an event
+     * @param json
+     * @param week
+     * @return
+     */
+    public static ArrayList<EventHome> extractEventHome (String json, int week){
+        isEmptyStringJson(json);
+
+        ArrayList<EventHome> eventHomes = new ArrayList<>();
+
+        try {
+            JSONArray rootJson = new JSONArray(json);
+
+            for (int i = 0; i<rootJson.length(); i++){
+                JSONObject jsonObject = rootJson.getJSONObject(i);
+
+                int apiWeek = jsonObject.getInt("Week");
+
+                if (apiWeek == week){
+                    String home = jsonObject.getString("HomeTeam");
+                    String away = jsonObject.getString("AwayTeam");
+                    String date = jsonObject.getString("Date");
+                    String forcast = jsonObject.getString("ForecastDescription");
+                    int high = jsonObject.getInt("ForecastTempHigh");
+                    int low = jsonObject.getInt("ForecastTempLow");
+
+                    JSONObject stadiumoJson = jsonObject.getJSONObject("StadiumDetails");
+                    String stadium = stadiumoJson.getString("Name");
+
+                    eventHomes.add(new EventHome(home, away, date, forcast, high, low, stadium));
+                }
+            }
+        }catch (JSONException e) {
+            //If there is a problem parsing the Json object print this message
+            Log.e(TAG, "Error parsing the Json object");
+        }
+
+        return eventHomes;
     }
 }
