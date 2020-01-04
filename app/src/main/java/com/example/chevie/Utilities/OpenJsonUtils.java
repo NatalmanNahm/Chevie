@@ -146,7 +146,7 @@ public class OpenJsonUtils {
      * @param team2Id
      * @return
      */
-    public static ArrayList<TeamCard> extractTeamCard (String json, int team1Id, int team2Id){
+    public static ArrayList<TeamCard> extractTeamCard (String json, String team1Id, String team2Id){
         isEmptyStringJson(json);
 
         ArrayList<TeamCard> teamCards = new ArrayList<>();
@@ -163,9 +163,9 @@ public class OpenJsonUtils {
             for (int i = 0; i < rootJson.length(); i++){
                 JSONObject jsonObject = rootJson.getJSONObject(i);
 
-                int playerId = jsonObject.getInt("TeamID");
+                String playerId = jsonObject.getString("Key");
 
-                if (playerId == team1Id){
+                if (playerId.equals(team1Id)){
                     offensive = jsonObject.getString("OffensiveScheme");
                     defensive = jsonObject.getString("DefensiveSchemew");
                     primaryColor = jsonObject.getString("PrimaryColor");
@@ -176,7 +176,7 @@ public class OpenJsonUtils {
 
                 }
 
-                else if (playerId == team2Id){
+                else if (playerId.equals(team2Id)){
                     offensive = jsonObject.getString("OffensiveScheme");
                     defensive = jsonObject.getString("DefensiveSchemew");
                     primaryColor = jsonObject.getString("PrimaryColor");
