@@ -27,15 +27,16 @@ public class NetworkUtils {
 
     //Parameter to be used to query data from the sportsDataIo database
     //Will be append onto the base URL
-    private static String NFL = "nfl";
-    private static String SCORES = "scores";
-    private static String JSON = "json";
-    private static String NEWS = "News";
-    private static String API_KEY = "Key";
-    private static String PLAYER = "Player";
-    private static String TIMEFRAME = "Timeframes";
-    private static String CURRENT = "current";
+    private static final String NFL = "nfl";
+    private static final String SCORES = "scores";
+    private static final String JSON = "json";
+    private static final String NEWS = "News";
+    private static final String API_KEY = "Key";
+    private static final String PLAYER = "Player";
+    private static final String TIMEFRAME = "Timeframes";
+    private static final String CURRENT = "current";
     private static final String TEAMS = "Teams";
+    private static final String SCHEDULES = "Schedules";
 
     //all Api calls key
     private static String NFL_KEY = BuildConfig.nflSportDataIoApiKey;
@@ -139,6 +140,23 @@ public class NetworkUtils {
                 .appendPath(TEAMS)
                 .appendQueryParameter(API_KEY, key)
                 .build();
+        URL url = tryBuildUrl(uriBuilder);
+        return  url;
+    }
+
+    /**
+     * build the url to query the sport data to get an even info
+     * @param key
+     * @param season
+     * @return
+     */
+    public static URL build_team_event_home_url (String key, String season){
+        Uri uriBuilder = Uri.parse(buildUrl_nfl().toString()).buildUpon()
+                .appendPath(SCHEDULES)
+                .appendPath(season)
+                .appendQueryParameter(API_KEY, key)
+                .build();
+
         URL url = tryBuildUrl(uriBuilder);
         return  url;
     }
