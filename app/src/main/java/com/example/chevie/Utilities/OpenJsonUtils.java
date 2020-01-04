@@ -7,6 +7,7 @@ import com.example.chevie.Models.CurrentTimeFrame;
 import com.example.chevie.Models.News;
 import com.example.chevie.Models.NewsInfo;
 import com.example.chevie.Models.PlayerProfile;
+import com.example.chevie.Models.TeamCard;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -108,7 +109,7 @@ public class OpenJsonUtils {
     }
 
     /**
-     * Getting the info neede to get the current season info
+     * Getting the info needed to get the current season info
      * @param json
      * @return ArrayList of CurrentTimeFrame
      */
@@ -136,5 +137,62 @@ public class OpenJsonUtils {
         }
 
         return currentTimeFrame;
+    }
+
+    /**
+     * Getting info needed to build a the two team card
+     * @param json
+     * @param team1Id
+     * @param team2Id
+     * @return
+     */
+    public static ArrayList<TeamCard> extractTeamCard (String json, int team1Id, int team2Id){
+        isEmptyStringJson(json);
+
+        ArrayList<TeamCard> teamCards = new ArrayList<>();
+        String offensive;
+        String defensive;
+        String primaryColor;
+        String logo;
+        int byeWeek;
+
+        try {
+
+            JSONArray rootJson = new JSONArray(json);
+
+            for (int i = 0; i < rootJson.length(); i++){
+                JSONObject jsonObject = rootJson.getJSONObject(i);
+
+                int playerId = jsonObject.getInt("TeamID");
+
+                if (playerId == team1Id){
+                    offensive = jsonObject.getString("OffensiveScheme");
+                    defensive = jsonObject.getString("DefensiveSchemew");
+                    primaryColor = jsonObject.getString("PrimaryColor");
+                    logo = jsonObject.getString("WikipediaLogoUrl");
+                    byeWeek = jsonObject.getInt("ByeWeek");
+
+                    teamCards.add(new TeamCard(logo, primaryColor, offensive, defensive, byeWeek));
+
+                }
+
+                else if (playerId == team2Id){
+                    offensive = jsonObject.getString("OffensiveScheme");
+                    defensive = jsonObject.getString("DefensiveSchemew");
+                    primaryColor = jsonObject.getString("PrimaryColor");
+                    logo = jsonObject.getString("WikipediaLogoUrl");
+                    byeWeek = jsonObject.getInt("ByeWeek");
+
+                    teamCards.add(new TeamCard(logo, primaryColor, offensive, defensive, byeWeek));
+                }
+
+            }
+
+        }catch (JSONException e) {
+            //If there is a problem parsing the Json object print this message
+            Log.e(TAG, "Error parsing the Json object");
+        }
+
+        return teamCards;
     }
 }
