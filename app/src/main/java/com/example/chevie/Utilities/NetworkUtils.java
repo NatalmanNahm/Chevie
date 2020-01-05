@@ -4,6 +4,8 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.example.chevie.BuildConfig;
+import com.example.chevie.Models.CurrentTimeFrame;
+import com.example.chevie.Models.EventHome;
 import com.example.chevie.Models.News;
 import com.example.chevie.Models.NewsInfo;
 import com.example.chevie.Models.PlayerProfile;
@@ -293,6 +295,49 @@ public class NetworkUtils {
         ArrayList<TeamCard> teamCard = OpenJsonUtils.extractTeamCard(jsonReponse, team1, team2);
 
         return teamCard;
+    }
+
+    /**
+     * Query data to get the current time Frame
+     * @return ArrayList of CurrentTimeFrame
+     */
+    public static ArrayList<CurrentTimeFrame> fetchTimeFrame (){
+        URL url = build_timeframe_url(NFL_KEY);
+
+        String jsonResponse = null;
+
+        try {
+            jsonResponse = getResponseFromHttpUrl(url);
+        } catch (IOException e) {
+            Log.e(TAG, "Problem making the HTTP request", e);
+        }
+
+        ArrayList<CurrentTimeFrame> currentTimeFrame = OpenJsonUtils.extractCurrentSeason(jsonResponse);
+
+        return currentTimeFrame;
+
+    }
+
+    /**
+     * Query data to get event data
+     * @param season
+     * @return ArrayList of eventHome data
+     */
+    public static  ArrayList<EventHome> fetchEventData(String season){
+        URL url = build_team_event_home_url(NFL_KEY, season);
+
+        String jsonResponse = null;
+
+        try {
+            jsonResponse = getResponseFromHttpUrl(url);
+        } catch (IOException e) {
+            Log.e(TAG, "Problem making the HTTP request", e);
+        }
+
+        ArrayList<EventHome> eventHome = OpenJsonUtils.extractEventHome(jsonResponse);
+
+        return eventHome;
+
     }
 
 }

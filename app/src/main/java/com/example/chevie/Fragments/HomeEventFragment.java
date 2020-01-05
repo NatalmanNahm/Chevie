@@ -2,110 +2,158 @@ package com.example.chevie.Fragments;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.example.chevie.Adapters.EventHomeAdapter;
+import com.example.chevie.Models.CurrentTimeFrame;
+import com.example.chevie.Models.EventHome;
 import com.example.chevie.R;
+import com.example.chevie.Utilities.NetworkUtils;
+
+import java.util.ArrayList;
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link HomeEventFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link HomeEventFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Fragment that link all evenet data to the home page activity
  */
 public class HomeEventFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    //Initializer
+    private View mRootView;
+    private RecyclerView mRecyclerView;
+    private TextView mErrorTextview;
+    private ArrayList<EventHome> mEventHome = new ArrayList<>();
+    private ArrayList<CurrentTimeFrame> mTimeFrame = new ArrayList<>();
+    private EventHomeAdapter mEventAdapter;
+    private LinearLayoutManager mLayoutManager;
+    private String mCurrentSeason;
+    private String mTeamOneName;
+    private String mTeamTwoName;
 
-    private OnFragmentInteractionListener mListener;
 
-    public HomeEventFragment() {
+
+    public HomeEventFragment(){
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeEventFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HomeEventFragment newInstance(String param1, String param2) {
-        HomeEventFragment fragment = new HomeEventFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+    @Nullable
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home_event, container, false);
-    }
+        mRootView = inflater.inflate(R.layout.fragment_home_event, container, false);
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
+        mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.event_recyclerView);
+        mErrorTextview = (TextView) mRootView.findViewById(R.id.event_message);
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
+        mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setHasFixedSize(true);
+        mEventAdapter = new EventHomeAdapter(mEventHome, getContext());
+        mRecyclerView.setAdapter(mEventAdapter);
+        new PagerSnapHelper().attachToRecyclerView(mRecyclerView);
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
+        new FetchTimeFrame().execute();
+
+        new FetchEvent().execute();
+
+        return mRootView;
     }
 
     /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
+     * simple method to show event data on the ui
      */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    private void showEventDataView() {
+        /* First, make sure the error is invisible */
+        mErrorTextview.setVisibility(View.INVISIBLE);
+        /* Then, make sure the Event data is visible */
+        mRecyclerView.setVisibility(View.VISIBLE);
     }
+
+    /**
+     * Simple method to show error when needed.
+     */
+    private void showEventErrorMessage() {
+        /* First, hide the currently visible data */
+        mRecyclerView.setVisibility(View.INVISIBLE);
+        /* Then, show the error */
+        mErrorTextview.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * asyncTask to get data needed to pull a data needed to build the Timeframe
+     */
+    public class FetchTimeFrame extends AsyncTask<String, Void, ArrayList<CurrentTimeFrame>>{
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected ArrayList<CurrentTimeFrame> doInBackground(String... strings) {
+            mTimeFrame = NetworkUtils.fetchTimeFrame();
+            CurrentTimeFrame currentTimeFrame= mTimeFrame.get(0);
+            mCurrentSeason = currentTimeFrame.getmCurrentSeason();
+            return mTimeFrame;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<CurrentTimeFrame> currentTimeFrames) {
+            super.onPostExecute(currentTimeFrames);
+        }
+    }
+
+    public class FetchEvent extends AsyncTask<String, Void, ArrayList<EventHome>>{
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected ArrayList<EventHome> doInBackground(String... strings) {
+            mEventHome = NetworkUtils.fetchEventData(mCurrentSeason);
+
+            for (int i =0; i < mEventHome.size(); i++){
+                EventHome eventHome = mEventHome.get(i);
+                mTeamOneName = eventHome.getmHomeTeam();
+                mTeamTwoName = eventHome.getmAwayTeam();
+
+                //Crreate a new transaction to the TeamCard Fragment
+                TeamCardFragment teamCardFragment = new TeamCardFragment();
+                teamCardFragment.setmTeamoneId(mTeamOneName);
+                teamCardFragment.setmTeamTwoId(mTeamTwoName);
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.team_card, teamCardFragment)
+                        .commit();
+            }
+            return mEventHome;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<EventHome> eventHomes) {
+
+            if (eventHomes != null && !eventHomes.isEmpty()){
+                showEventDataView();
+                mEventAdapter.setmEventHome(eventHomes);
+            } else {
+                showEventErrorMessage();
+            }
+
+            super.onPostExecute(eventHomes);
+        }
+    }
+
 }

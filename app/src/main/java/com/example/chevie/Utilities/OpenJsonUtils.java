@@ -197,10 +197,9 @@ public class OpenJsonUtils {
     /**
      * Getting all data needed to build an event
      * @param json
-     * @param week
      * @return
      */
-    public static ArrayList<EventHome> extractEventHome (String json, int week){
+    public static ArrayList<EventHome> extractEventHome (String json){
         isEmptyStringJson(json);
 
         ArrayList<EventHome> eventHomes = new ArrayList<>();
@@ -211,21 +210,18 @@ public class OpenJsonUtils {
             for (int i = 0; i<rootJson.length(); i++){
                 JSONObject jsonObject = rootJson.getJSONObject(i);
 
-                int apiWeek = jsonObject.getInt("Week");
+                String home = jsonObject.getString("HomeTeam");
+                String away = jsonObject.getString("AwayTeam");
+                String date = jsonObject.getString("Date");
+                String forcast = jsonObject.getString("ForecastDescription");
+                int high = jsonObject.getInt("ForecastTempHigh");
+                int low = jsonObject.getInt("ForecastTempLow");
 
-                if (apiWeek == week){
-                    String home = jsonObject.getString("HomeTeam");
-                    String away = jsonObject.getString("AwayTeam");
-                    String date = jsonObject.getString("Date");
-                    String forcast = jsonObject.getString("ForecastDescription");
-                    int high = jsonObject.getInt("ForecastTempHigh");
-                    int low = jsonObject.getInt("ForecastTempLow");
+                JSONObject stadiumoJson = jsonObject.getJSONObject("StadiumDetails");
+                String stadium = stadiumoJson.getString("Name");
 
-                    JSONObject stadiumoJson = jsonObject.getJSONObject("StadiumDetails");
-                    String stadium = stadiumoJson.getString("Name");
+                eventHomes.add(new EventHome(home, away, date, forcast, high, low, stadium));
 
-                    eventHomes.add(new EventHome(home, away, date, forcast, high, low, stadium));
-                }
             }
         }catch (JSONException e) {
             //If there is a problem parsing the Json object print this message
