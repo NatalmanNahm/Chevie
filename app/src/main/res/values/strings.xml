@@ -13,6 +13,8 @@
     <string name="news_error">No news Available</string>
     <string name="news_label">Headlines</string>
 
+
+
     <!--all Event String here-->
     <string name="offense">Offensive Scheme</string>
     <string name="defense">Defensive Scheme</string>
@@ -22,6 +24,7 @@
     <string name="high_label">High:</string>
     <string name="low_label">Low:</string>
     <string name="stadium_label">Stadium:</string>
+    <string name="event_error_message">There is no event schedule at this time</string>
 
 
 </resources>
