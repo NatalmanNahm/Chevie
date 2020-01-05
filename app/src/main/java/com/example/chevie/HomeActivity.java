@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.chevie.Auth.LoginActivity;
+import com.example.chevie.Fragments.HomeEventFragment;
 import com.example.chevie.Fragments.NewsFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -19,6 +20,7 @@ public class HomeActivity extends AppCompatActivity {
     private Context mContext;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private NewsFragment mNewsFragment;
+    private HomeEventFragment mEventFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,11 @@ public class HomeActivity extends AppCompatActivity {
         mNewsFragment = new NewsFragment();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.news_Fragment, mNewsFragment)
+                .commit();
+
+        mEventFragment = new HomeEventFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.event_fragment, mEventFragment)
                 .commit();
 
         mLogOutBtn = (Button) findViewById(R.id.logOut_btn);
