@@ -17,6 +17,11 @@
     <string name="offense">Offensive Scheme</string>
     <string name="defense">Defensive Scheme</string>
     <string name="bye_week">Bye Week</string>
+    <string name="date_Label">Date:</string>
+    <string name="forcast_label">Forecast:</string>
+    <string name="high_label">High:</string>
+    <string name="low_label">Low:</string>
+    <string name="stadium_label">Stadium:</string>
 
 
 </resources>
