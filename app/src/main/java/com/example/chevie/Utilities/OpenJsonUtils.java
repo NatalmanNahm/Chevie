@@ -149,15 +149,11 @@ public class OpenJsonUtils {
         isEmptyStringJson(json);
 
         ArrayList<TeamCard> teamCards = new ArrayList<>();
-        String offensiveOne = "";
-        String offensiveTwo = "";
-        String defensiveOne = "";
-        String defensiveTwo = "";
-        String primaryColor = "";
-        String logoOne = "";
-        String logoTwo = "";
-        int byeWeekOne = 0;
-        int byeWeekTwo = 0;
+        String offensiveOne;
+        String defensive;
+        String primaryColor;
+        String logo;
+        int byeWeek;
 
         try {
 
@@ -167,26 +163,31 @@ public class OpenJsonUtils {
                 JSONObject jsonObject = rootJson.getJSONObject(i);
 
                 String playerId = jsonObject.getString("Key");
+                Log.d("TEAM1", team1Id);
 
                 if (playerId.equals(team1Id)){
                     offensiveOne = jsonObject.getString("OffensiveScheme");
-                    defensiveOne = jsonObject.getString("DefensiveScheme");
+                    Log.d("OFFENSE", offensiveOne);
+                    defensive = jsonObject.getString("DefensiveScheme");
                     primaryColor = jsonObject.getString("PrimaryColor");
-                    logoOne = jsonObject.getString("WikipediaLogoUrl");
-                    byeWeekOne = jsonObject.getInt("ByeWeek");
+                    logo = jsonObject.getString("WikipediaLogoUrl");
+                    Log.d("LOGO", logo);
+                    byeWeek = jsonObject.getInt("ByeWeek");
+
+                    teamCards.add(new TeamCard(logo, primaryColor, offensiveOne, defensive, byeWeek));
 
                 }
 
                 if (playerId.equals(team2Id)){
-                    offensiveTwo = jsonObject.getString("OffensiveScheme");
-                    defensiveTwo = jsonObject.getString("DefensiveScheme");
-                    logoTwo = jsonObject.getString("WikipediaLogoUrl");
-                    byeWeekTwo = jsonObject.getInt("ByeWeek");
+                    offensiveOne = jsonObject.getString("OffensiveScheme");
+                    defensive = jsonObject.getString("DefensiveScheme");
+                    primaryColor = jsonObject.getString("PrimaryColor");
+                    logo = jsonObject.getString("WikipediaLogoUrl");
+                    byeWeek = jsonObject.getInt("ByeWeek");
 
+                    teamCards.add(new TeamCard(logo, primaryColor, offensiveOne, defensive, byeWeek));
                 }
 
-                teamCards.add(new TeamCard(logoOne, logoTwo, primaryColor, offensiveOne, offensiveTwo,
-                        defensiveOne, defensiveTwo, byeWeekOne, byeWeekTwo));
             }
 
         }catch (JSONException e) {
