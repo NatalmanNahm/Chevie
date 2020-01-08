@@ -1,7 +1,5 @@
 package com.example.chevie.Fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -19,7 +17,6 @@ import com.example.chevie.Models.TeamCard;
 import com.example.chevie.R;
 import com.example.chevie.Utilities.NetworkUtils;
 import com.example.chevie.Utilities.SvgLoaderUtil;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -118,14 +115,14 @@ public class TeamCardFragment extends Fragment {
                 TeamCard teamCard2 = teamCards.get(1);
 
                 SvgLoaderUtil.fetchSvg(getContext(), teamCard1.getmTeamLogo(), mTeamOneLogo);
-                mTeamOneOff.setText(teamCard1.getmOffensiveSch());
+                mTeamOneOff.setText(teamCard1.getmOneOffensiveSch());
                 mTeamOneDef.setText(teamCard1.getmDeffensiveSch());
-                mTeamOneByeWeek.setText(String.valueOf(teamCard1.getmByeWeek()));
+                mTeamOneByeWeek.setText(String.valueOf(teamCard1.getmOneByeWeek()));
 
                 SvgLoaderUtil.fetchSvg(getContext(), teamCard2.getmTeamLogo(), mTeamTwoLogo);
-                mTeamTwoOff.setText(teamCard2.getmOffensiveSch());
+                mTeamTwoOff.setText(teamCard2.getmOneOffensiveSch());
                 mTeamTwoDef.setText(teamCard2.getmDeffensiveSch());
-                mTeamTwoByeWeek.setText(String.valueOf(teamCard2.getmByeWeek()));
+                mTeamTwoByeWeek.setText(String.valueOf(teamCard2.getmOneByeWeek()));
 
             }
 

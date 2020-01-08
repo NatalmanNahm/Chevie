@@ -4,46 +4,77 @@ package com.example.chevie.Models;
  */
 public class TeamCard {
 
-    private String mTeamLogo;
+    private String mTeamOneLogo;
+    private String mTeamTwoLogo;
     private String mPrimaryColor;
-    private String mOffensiveSch;
-    private String mDeffensiveSch;
-    private int mByeWeek;
+    private String mOneOffensiveSch;
+    private String mTwoOffensiveSch;
+    private String mOneDefensiveSch;
+    private String mTwoDefensiveSch;
+    private int mOneByeWeek;
+    private int mTwoByeWeek;
 
 
     /**
      * Constructor for the TeamCard Object
-     * @param teamLogo
+     * @param teamOneLogo
+     * @param teamTwoLogo
      * @param primaryColor
-     * @param offensive
-     * @param defensive
-     * @param byeWeek
+     * @param offensiveOne
+     * @param offensiveTwo
+     * @param defensiveOne
+     * @param defensiveTwo
+     * @param byeWeekOne
+     * @param byeWeekTwo
      */
-    public TeamCard(String teamLogo, String primaryColor, String offensive, String defensive, int byeWeek){
-        mTeamLogo = teamLogo;
+    public TeamCard(String teamOneLogo, String teamTwoLogo, String primaryColor,
+                    String offensiveOne, String offensiveTwo, String defensiveOne,
+                    String defensiveTwo, int byeWeekOne, int byeWeekTwo){
+
+        mTeamOneLogo = teamOneLogo;
+        mTeamTwoLogo = teamTwoLogo;
         mPrimaryColor = primaryColor;
-        mOffensiveSch = offensive;
-        mDeffensiveSch = defensive;
-        mByeWeek = byeWeek;
+        mOneOffensiveSch = offensiveOne;
+        mTwoOffensiveSch = offensiveTwo;
+        mOneDefensiveSch = defensiveOne;
+        mTwoDefensiveSch = defensiveTwo;
+        mOneByeWeek = byeWeekOne;
+        mTwoByeWeek = byeWeekTwo;
     }
 
-    public String getmTeamLogo() {
-        return mTeamLogo;
+    public String getmTeamOneLogo() {
+        return mTeamOneLogo;
+    }
+
+    public String getmTeamTwoLogo() {
+        return mTeamTwoLogo;
     }
 
     public String getmPrimaryColor() {
         return mPrimaryColor;
     }
 
-    public String getmOffensiveSch() {
-        return mOffensiveSch;
+    public String getmOneOffensiveSch() {
+        return mOneOffensiveSch;
     }
 
-    public String getmDeffensiveSch() {
-        return mDeffensiveSch;
+    public String getmTwoOffensiveSch() {
+        return mTwoOffensiveSch;
     }
 
-    public int getmByeWeek() {
-        return mByeWeek;
+    public String getmOneDefensiveSch() {
+        return mOneDefensiveSch;
+    }
+
+    public String getmTwoDefensiveSch() {
+        return mTwoDefensiveSch;
+    }
+
+    public int getmOneByeWeek() {
+        return mOneByeWeek;
+    }
+
+    public int getmTwoByeWeek() {
+        return mTwoByeWeek;
     }
 }
