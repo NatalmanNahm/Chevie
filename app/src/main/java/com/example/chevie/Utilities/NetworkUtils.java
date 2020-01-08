@@ -42,7 +42,7 @@ public class NetworkUtils {
     private static final String SCHEDULES = "Schedules";
 
     //all Api calls key
-    private static String NFL_KEY = BuildConfig.nflSportDataIoApiKey;
+    private static String NFL_KEY = BuildConfig.nfl1SportDataIoApiKey;
 
     /**
      * Helper method to simplify the need of trying to build the Url
@@ -311,6 +311,8 @@ public class NetworkUtils {
         } catch (IOException e) {
             Log.e(TAG, "Problem making the HTTP request", e);
         }
+
+        Log.d("URL", jsonResponse);
 
         ArrayList<CurrentTimeFrame> currentTimeFrame = OpenJsonUtils.extractCurrentSeason(jsonResponse);
 

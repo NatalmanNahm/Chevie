@@ -23,6 +23,7 @@ android {
     }
     buildTypes.each {
         it.buildConfigField 'String', 'nflSportDataIoApiKey', nflSportDataIoApiKey
+        it.buildConfigField 'String', 'nfl1SportDataIoApiKey', nfl1SportDataIoApiKey
     }
 }
 
@@ -54,4 +55,7 @@ dependencies {
     //Implementation of the circle imageView Lib
     implementation files('libs/CircleImageView-master/gradle/wrapper/gradle-wrapper.jar')
     implementation 'de.hdodenhof:circleimageview:3.0.0'
+
+    implementation 'com.squareup.okhttp3:okhttp:3.12.1'
+    implementation 'com.pixplicity.sharp:library:1.1.0'
 }

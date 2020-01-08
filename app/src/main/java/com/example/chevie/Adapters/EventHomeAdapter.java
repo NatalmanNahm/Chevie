@@ -1,14 +1,18 @@
 package com.example.chevie.Adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.chevie.Fragments.TeamCardFragment;
 import com.example.chevie.Models.EventHome;
 import com.example.chevie.R;
 
@@ -83,11 +87,20 @@ public class EventHomeAdapter extends RecyclerView.Adapter<EventHomeAdapter.Even
         public void bindEventHome(EventHome eventHome){
             mTeamOneName.setText(eventHome.getmHomeTeam());
             mTeamTwoName.setText(eventHome.getmAwayTeam());
+            Log.d("HOME1", eventHome.getmHomeTeam());
             mForecast.setText(eventHome.getmForcastDesc());
             mDate.setText(eventHome.getmDate());
-            mHigh.setText(eventHome.getmHigh());
-            mLow.setText(eventHome.getmLow());
+            mHigh.setText(String.valueOf(eventHome.getmHigh()));
+            mLow.setText(String.valueOf(eventHome.getmLow()));
             mStadium.setText(eventHome.getmStadium());
+
+            AppCompatActivity activity = (AppCompatActivity) itemView.getContext();
+            TeamCardFragment teamCardFragment = new TeamCardFragment();
+            teamCardFragment.setmTeamTwoId(eventHome.getmAwayTeam());
+            teamCardFragment.setmTeamoneId(eventHome.getmHomeTeam());
+            activity.getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.team_card, teamCardFragment)
+                    .commit();
         }
     }
 }

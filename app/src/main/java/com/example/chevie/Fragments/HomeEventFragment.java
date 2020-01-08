@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,6 +42,7 @@ public class HomeEventFragment extends Fragment {
     private String mCurrentSeason;
     private String mTeamOneName;
     private String mTeamTwoName;
+    private FragmentManager mFragmentManager;
 
 
 
@@ -131,13 +133,6 @@ public class HomeEventFragment extends Fragment {
                 mTeamOneName = eventHome.getmHomeTeam();
                 mTeamTwoName = eventHome.getmAwayTeam();
 
-                //Crreate a new transaction to the TeamCard Fragment
-                TeamCardFragment teamCardFragment = new TeamCardFragment();
-                teamCardFragment.setmTeamoneId(mTeamOneName);
-                teamCardFragment.setmTeamTwoId(mTeamTwoName);
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.team_card, teamCardFragment)
-                        .commit();
             }
             return mEventHome;
         }

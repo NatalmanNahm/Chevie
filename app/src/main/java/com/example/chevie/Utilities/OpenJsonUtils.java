@@ -124,9 +124,10 @@ public class OpenJsonUtils {
                 JSONObject jsonObject = rootJson.getJSONObject(i);
 
                 String currentSeason = jsonObject.getString("ApiSeason");
+                Log.d("SEASON", currentSeason);
                 int currentWeek =jsonObject.getInt("Week");
 
-                currentTimeFrame.add(new CurrentTimeFrame(currentSeason,currentWeek));
+                currentTimeFrame.add(new CurrentTimeFrame(currentSeason, currentWeek));
             }
 
         } catch (JSONException e) {
@@ -162,21 +163,24 @@ public class OpenJsonUtils {
                 JSONObject jsonObject = rootJson.getJSONObject(i);
 
                 String playerId = jsonObject.getString("Key");
+                Log.d("TEAM1", team1Id);
 
                 if (playerId.equals(team1Id)){
                     offensive = jsonObject.getString("OffensiveScheme");
-                    defensive = jsonObject.getString("DefensiveSchemew");
+                    Log.d("OFFENSE", offensive);
+                    defensive = jsonObject.getString("DefensiveScheme");
                     primaryColor = jsonObject.getString("PrimaryColor");
                     logo = jsonObject.getString("WikipediaLogoUrl");
+                    Log.d("LOGO", logo);
                     byeWeek = jsonObject.getInt("ByeWeek");
 
                     teamCards.add(new TeamCard(logo, primaryColor, offensive, defensive, byeWeek));
 
                 }
 
-                else if (playerId.equals(team2Id)){
+                if (playerId.equals(team2Id)){
                     offensive = jsonObject.getString("OffensiveScheme");
-                    defensive = jsonObject.getString("DefensiveSchemew");
+                    defensive = jsonObject.getString("DefensiveScheme");
                     primaryColor = jsonObject.getString("PrimaryColor");
                     logo = jsonObject.getString("WikipediaLogoUrl");
                     byeWeek = jsonObject.getInt("ByeWeek");

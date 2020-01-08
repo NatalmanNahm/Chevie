@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.example.chevie.Models.TeamCard;
 import com.example.chevie.R;
 import com.example.chevie.Utilities.NetworkUtils;
+import com.example.chevie.Utilities.SvgLoaderUtil;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -106,24 +107,28 @@ public class TeamCardFragment extends Fragment {
         protected ArrayList<TeamCard> doInBackground(String... strings) {
             mTeamCard = NetworkUtils.fetchTeamCard(mTeamoneId, mTeamTwoId);
 
-            TeamCard teamCard1 = mTeamCard.get(0);
-            TeamCard teamCard2 = mTeamCard.get(1);
-
-            Picasso.get().load(teamCard1.getmTeamLogo()).into(mTeamOneLogo);
-            mTeamOneOff.setText(teamCard1.getmOffensiveSch());
-            mTeamOneDef.setText(teamCard1.getmDeffensiveSch());
-            mTeamOneByeWeek.setText(String.valueOf(teamCard1.getmByeWeek()));
-
-            Picasso.get().load(teamCard2.getmTeamLogo()).into(mTeamTwoLogo);
-            mTeamTwoOff.setText(teamCard2.getmOffensiveSch());
-            mTeamTwoDef.setText(teamCard2.getmDeffensiveSch());
-            mTeamTwoByeWeek.setText(String.valueOf(teamCard2.getmByeWeek()));
-
             return mTeamCard;
         }
 
         @Override
         protected void onPostExecute(ArrayList<TeamCard> teamCards) {
+            if (teamCards != null && !teamCards.isEmpty()){
+
+                TeamCard teamCard1 = teamCards.get(0);
+                TeamCard teamCard2 = teamCards.get(1);
+
+                SvgLoaderUtil.fetchSvg(getContext(), teamCard1.getmTeamLogo(), mTeamOneLogo);
+                mTeamOneOff.setText(teamCard1.getmOffensiveSch());
+                mTeamOneDef.setText(teamCard1.getmDeffensiveSch());
+                mTeamOneByeWeek.setText(String.valueOf(teamCard1.getmByeWeek()));
+
+                SvgLoaderUtil.fetchSvg(getContext(), teamCard2.getmTeamLogo(), mTeamTwoLogo);
+                mTeamTwoOff.setText(teamCard2.getmOffensiveSch());
+                mTeamTwoDef.setText(teamCard2.getmDeffensiveSch());
+                mTeamTwoByeWeek.setText(String.valueOf(teamCard2.getmByeWeek()));
+
+            }
+
             super.onPostExecute(teamCards);
         }
     }
