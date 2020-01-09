@@ -1,7 +1,5 @@
 package com.example.chevie.Fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -56,7 +54,7 @@ public class HomeEventFragment extends Fragment {
 
         mRootView = inflater.inflate(R.layout.fragment_home_event, container, false);
 
-        mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.event_recyclerView);
+        mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.event_RecyclerView);
         mErrorTextview = (TextView) mRootView.findViewById(R.id.event_message);
 
         mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);

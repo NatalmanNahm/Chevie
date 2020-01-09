@@ -216,7 +216,7 @@ public class OpenJsonUtils {
 
                 String home = jsonObject.getString("HomeTeam");
                 String away = jsonObject.getString("AwayTeam");
-                String date = jsonObject.getString("Date");
+                String date = jsonObject.getString("DateTime");
                 String forcast = jsonObject.getString("ForecastDescription");
                 int high = jsonObject.getInt("ForecastTempHigh");
                 int low = jsonObject.getInt("ForecastTempLow");
