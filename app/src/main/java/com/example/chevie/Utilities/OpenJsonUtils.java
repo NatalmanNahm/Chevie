@@ -214,17 +214,22 @@ public class OpenJsonUtils {
             for (int i = 0; i<rootJson.length(); i++){
                 JSONObject jsonObject = rootJson.getJSONObject(i);
 
-                String home = jsonObject.getString("HomeTeam");
-                String away = jsonObject.getString("AwayTeam");
-                String date = jsonObject.getString("DateTime");
-                String forcast = jsonObject.getString("ForecastDescription");
-                int high = jsonObject.getInt("ForecastTempHigh");
-                int low = jsonObject.getInt("ForecastTempLow");
+                String dateTime = jsonObject.getString("DateTime");
+                String date = DateTimeUtil.dateString(dateTime);
+                String currentDate = DateTimeUtil.currentDate();
 
-                JSONObject stadiumoJson = jsonObject.getJSONObject("StadiumDetails");
-                String stadium = stadiumoJson.getString("Name");
+                if (date.equals(currentDate)){
+                    String home = jsonObject.getString("HomeTeam");
+                    String away = jsonObject.getString("AwayTeam");
+                    String forcast = jsonObject.getString("ForecastDescription");
+                    int high = jsonObject.getInt("ForecastTempHigh");
+                    int low = jsonObject.getInt("ForecastTempLow");
 
-                eventHomes.add(new EventHome(home, away, date, forcast, high, low, stadium));
+                    JSONObject stadiumoJson = jsonObject.getJSONObject("StadiumDetails");
+                    String stadium = stadiumoJson.getString("Name");
+
+                    eventHomes.add(new EventHome(home, away, date, forcast, high, low, stadium));
+                }
 
             }
         }catch (JSONException e) {

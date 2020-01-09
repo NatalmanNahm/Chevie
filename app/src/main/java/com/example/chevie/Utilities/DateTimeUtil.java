@@ -14,7 +14,7 @@ public class DateTimeUtil {
      * @param DateTime
      * @return
      */
-    public String dateString(String DateTime){
+    static public String dateString(String DateTime){
         String [] separated = DateTime.split("T");
         String date = separated [0];
         return date;
@@ -22,10 +22,9 @@ public class DateTimeUtil {
 
     /**
      * Method to get the current year.
-     * @param date
      * @return
      */
-    public String currentDate(String date){
+    static public String currentDate(){
         String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
         return currentDate;
     }
@@ -35,7 +34,7 @@ public class DateTimeUtil {
      * @param DateTime
      * @return
      */
-    public String timeString(String DateTime){
+    static public String timeString(String DateTime){
         String [] separated = DateTime.split("T");
         String time = separated [1];
 
@@ -49,7 +48,7 @@ public class DateTimeUtil {
      * @param timeString
      * @return
      */
-    public String mathTime(String timeString){
+    static public String mathTime(String timeString){
         String time = timeString(timeString);
 
         // Convert time where time is like: 0100, 0200, 0300....2300...
