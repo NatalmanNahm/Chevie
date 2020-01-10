@@ -1,11 +1,13 @@
 package com.example.chevie.Fragments;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.PagerSnapHelper;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,6 +43,8 @@ public class TeamCardFragment extends Fragment {
     private TextView mTeamOneByeWeek;
     private TextView mTeamTwoByeWeek;
 
+    Context mContext;
+
     //Empty Constructor
     public TeamCardFragment(){
 
@@ -70,6 +74,8 @@ public class TeamCardFragment extends Fragment {
 
         mTeamOneByeWeek = (TextView) rootView.findViewById(R.id.bye_week1);
         mTeamTwoByeWeek = (TextView) rootView.findViewById(R.id.bye_week2);
+
+        mContext = rootView.getContext();
 
         new FetchTeamCardData().execute();
         return rootView;
@@ -114,12 +120,12 @@ public class TeamCardFragment extends Fragment {
                 TeamCard teamCard1 = teamCards.get(0);
                 TeamCard teamCard2 = teamCards.get(1);
 
-                SvgLoaderUtil.fetchSvg(getContext(), teamCard1.getmTeamLogo(), mTeamOneLogo);
+                SvgLoaderUtil.fetchSvg(mContext, teamCard1.getmTeamLogo(), mTeamOneLogo);
                 mTeamOneOff.setText(teamCard1.getmOneOffensiveSch());
                 mTeamOneDef.setText(teamCard1.getmDeffensiveSch());
                 mTeamOneByeWeek.setText(String.valueOf(teamCard1.getmOneByeWeek()));
 
-                SvgLoaderUtil.fetchSvg(getContext(), teamCard2.getmTeamLogo(), mTeamTwoLogo);
+                SvgLoaderUtil.fetchSvg(mContext, teamCard2.getmTeamLogo(), mTeamTwoLogo);
                 mTeamTwoOff.setText(teamCard2.getmOneOffensiveSch());
                 mTeamTwoDef.setText(teamCard2.getmDeffensiveSch());
                 mTeamTwoByeWeek.setText(String.valueOf(teamCard2.getmOneByeWeek()));
