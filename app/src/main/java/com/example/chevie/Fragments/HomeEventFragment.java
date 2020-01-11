@@ -6,7 +6,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,9 +15,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.chevie.Adapters.EventHomeAdapter;
+import com.example.chevie.Adapters.ScheduleAdapter;
 import com.example.chevie.Models.CurrentTimeFrame;
 import com.example.chevie.Models.EventHome;
+import com.example.chevie.Models.Schedule;
+import com.example.chevie.Models.TeamCard;
 import com.example.chevie.R;
 import com.example.chevie.Utilities.NetworkUtils;
 
@@ -35,12 +36,18 @@ public class HomeEventFragment extends Fragment {
     private TextView mErrorTextview;
     private ArrayList<EventHome> mEventHome = new ArrayList<>();
     private ArrayList<CurrentTimeFrame> mTimeFrame = new ArrayList<>();
-    private EventHomeAdapter mEventAdapter;
+    private ArrayList<Schedule> mSchedule = new ArrayList<>();
+    private ArrayList<TeamCard> mTeamCard = new ArrayList<>();
+    private ScheduleAdapter mEventAdapter;
     private LinearLayoutManager mLayoutManager;
     private String mCurrentSeason;
-    private String mTeamOneName;
-    private String mTeamTwoName;
-    private FragmentManager mFragmentManager;
+    private String mTeamOneName, mTeamTwoName;
+    private String mTeamOneLogo, mTeamTwoLogo;
+    private String mDate, mStadium, mForecastDesc;
+    private int mLow, mHigh;
+    private String mOffOne, mOffTwo;
+    private String mDefOne, mDefTwo;
+    private int mByeWeekOne, mByeWeekTwo;
 
 
 
@@ -60,7 +67,7 @@ public class HomeEventFragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setHasFixedSize(true);
-        mEventAdapter = new EventHomeAdapter(mEventHome, getContext());
+        mEventAdapter = new ScheduleAdapter(mSchedule, getContext());
         mRecyclerView.setAdapter(mEventAdapter);
         new PagerSnapHelper().attachToRecyclerView(mRecyclerView);
 
@@ -115,7 +122,7 @@ public class HomeEventFragment extends Fragment {
         }
     }
 
-    public class FetchEvent extends AsyncTask<String, Void, ArrayList<EventHome>>{
+    public class FetchEvent extends AsyncTask<String, Void, ArrayList<Schedule>>{
 
         @Override
         protected void onPreExecute() {
@@ -123,29 +130,55 @@ public class HomeEventFragment extends Fragment {
         }
 
         @Override
-        protected ArrayList<EventHome> doInBackground(String... strings) {
+        protected ArrayList<Schedule> doInBackground(String... strings) {
             mEventHome = NetworkUtils.fetchEventData(mCurrentSeason);
 
+            //Going through the arraylist to get team name Then use that
+            //To fetch team card for each event
             for (int i =0; i < mEventHome.size(); i++){
                 EventHome eventHome = mEventHome.get(i);
                 mTeamOneName = eventHome.getmHomeTeam();
                 mTeamTwoName = eventHome.getmAwayTeam();
+                mLow = eventHome.getmLow();
+                mHigh = eventHome.getmHigh();
+                mStadium = eventHome.getmStadium();
+                mDate = eventHome.getmDate();
+                mForecastDesc = eventHome.getmForcastDesc();
+
+                mTeamCard = NetworkUtils.fetchTeamCard(mTeamOneName, mTeamTwoName);
+                //Get all data for the home Team
+                TeamCard team1 = mTeamCard.get(0);
+                mTeamOneLogo = team1.getmTeamLogo();
+                mOffOne = team1.getmOneOffensiveSch();
+                mDefOne = team1.getmDeffensiveSch();
+                mByeWeekOne = team1.getmOneByeWeek();
+
+                //Get all data for away Team
+                TeamCard team2 = mTeamCard.get(1);
+                mTeamTwoLogo = team2.getmTeamLogo();
+                mOffTwo = team2.getmOneOffensiveSch();
+                mDefTwo = team2.getmDeffensiveSch();
+                mByeWeekTwo = team2.getmOneByeWeek();
+
+                mSchedule.add(new Schedule(mTeamOneName, mTeamTwoName, mDate, mForecastDesc,
+                        mHigh, mLow, mStadium, mTeamOneLogo, mOffOne, mDefOne, mByeWeekOne,
+                        mTeamTwoLogo, mOffTwo, mDefTwo, mByeWeekTwo));
 
             }
-            return mEventHome;
+            return mSchedule;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<EventHome> eventHomes) {
+        protected void onPostExecute(ArrayList<Schedule> schedules) {
 
-            if (eventHomes != null && !eventHomes.isEmpty()){
+            if (schedules != null && !schedules.isEmpty()){
                 showEventDataView();
-                mEventAdapter.setmEventHome(eventHomes);
+                mEventAdapter.setmSchedule(schedules);
             } else {
                 showEventErrorMessage();
             }
 
-            super.onPostExecute(eventHomes);
+            super.onPostExecute(schedules);
         }
     }
 

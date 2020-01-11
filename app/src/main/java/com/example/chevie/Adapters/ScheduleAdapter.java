@@ -8,11 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.chevie.Fragments.TeamCardFragment;
-import com.example.chevie.Models.EventHome;
 import com.example.chevie.Models.Schedule;
 import com.example.chevie.R;
 import com.example.chevie.Utilities.SvgLoaderUtil;
@@ -25,7 +22,7 @@ import butterknife.ButterKnife;
 /**
  * adapter for the Event home that will hold event for a team match
  */
-public class EventHomeAdapter extends RecyclerView.Adapter<EventHomeAdapter.EventHomeHolder> {
+public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.EventHomeHolder> {
 
     //Initializers
     ArrayList<Schedule> mSchedule = new ArrayList<>();
@@ -36,25 +33,25 @@ public class EventHomeAdapter extends RecyclerView.Adapter<EventHomeAdapter.Even
      * @param eventHome
      * @param context
      */
-    public EventHomeAdapter(ArrayList<Schedule> eventHome, Context context){
+    public ScheduleAdapter(ArrayList<Schedule> eventHome, Context context){
         mSchedule = eventHome;
         mContext = context;
     }
 
     @NonNull
     @Override
-    public EventHomeAdapter.EventHomeHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ScheduleAdapter.EventHomeHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         int layoutListItem = R.layout.event_list_item;
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         boolean shouldAttachToParentImmediately = false;
 
         View view = layoutInflater.inflate(layoutListItem, parent, shouldAttachToParentImmediately);
-        return new EventHomeAdapter.EventHomeHolder(view);
+        return new ScheduleAdapter.EventHomeHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull EventHomeAdapter.EventHomeHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ScheduleAdapter.EventHomeHolder holder, int position) {
         holder.bindEventHome(mSchedule.get(position));
     }
 
@@ -107,8 +104,8 @@ public class EventHomeAdapter extends RecyclerView.Adapter<EventHomeAdapter.Even
             mOffTwo.setText(schedule.getmTwoOffensiveSch());
             mDefOne.setText(schedule.getmOneDefensiveSch());
             mDefTwo.setText(schedule.getmTwoDefensiveSch());
-            mByeWeekOne.setText(schedule.getmOneByeWeek());
-            mByeWeekTwo.setText(schedule.getmTwoByeWeek());
+            mByeWeekOne.setText(String.valueOf(schedule.getmOneByeWeek()));
+            mByeWeekTwo.setText(String.valueOf(schedule.getmTwoByeWeek()));
 
         }
     }
