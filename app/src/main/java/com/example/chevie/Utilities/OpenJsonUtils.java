@@ -163,29 +163,24 @@ public class OpenJsonUtils {
                 JSONObject jsonObject = rootJson.getJSONObject(i);
 
                 String playerId = jsonObject.getString("Key");
-                Log.d("TEAM1", team1Id);
 
                 if (playerId.equals(team1Id)){
                     offensiveOne = jsonObject.getString("OffensiveScheme");
-                    Log.d("OFFENSE", offensiveOne);
                     defensive = jsonObject.getString("DefensiveScheme");
-                    primaryColor = jsonObject.getString("PrimaryColor");
                     logo = jsonObject.getString("WikipediaLogoUrl");
-                    Log.d("LOGO", logo);
                     byeWeek = jsonObject.getInt("ByeWeek");
 
-                    teamCards.add(new TeamCard(logo, primaryColor, offensiveOne, defensive, byeWeek));
+                    teamCards.add(new TeamCard(logo, offensiveOne, defensive, byeWeek));
 
                 }
 
                 if (playerId.equals(team2Id)){
                     offensiveOne = jsonObject.getString("OffensiveScheme");
                     defensive = jsonObject.getString("DefensiveScheme");
-                    primaryColor = jsonObject.getString("PrimaryColor");
                     logo = jsonObject.getString("WikipediaLogoUrl");
                     byeWeek = jsonObject.getInt("ByeWeek");
 
-                    teamCards.add(new TeamCard(logo, primaryColor, offensiveOne, defensive, byeWeek));
+                    teamCards.add(new TeamCard(logo, offensiveOne, defensive, byeWeek));
                 }
 
             }
