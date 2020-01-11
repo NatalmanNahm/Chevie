@@ -29,5 +29,6 @@
     <!--All TeamHome Strings here-->
     <string name="head_coach">Head Coach</string>
     <string name="Scheme_label">Scheme</string>
+    <string name="team_label">Teams</string>
 
 </resources>

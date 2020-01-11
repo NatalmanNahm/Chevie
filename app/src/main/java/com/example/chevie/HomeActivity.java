@@ -11,6 +11,7 @@ import android.widget.Button;
 import com.example.chevie.Auth.LoginActivity;
 import com.example.chevie.Fragments.ScheduleFragment;
 import com.example.chevie.Fragments.NewsFragment;
+import com.example.chevie.Fragments.TeamHomeFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class HomeActivity extends AppCompatActivity {
@@ -21,6 +22,7 @@ public class HomeActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private NewsFragment mNewsFragment;
     private ScheduleFragment mEventFragment;
+    private TeamHomeFragment mTeamHomeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +36,16 @@ public class HomeActivity extends AppCompatActivity {
                 .replace(R.id.news_Fragment, mNewsFragment)
                 .commit();
 
+        //Beginning the Transaction of the Schedule Fragment
         mEventFragment = new ScheduleFragment();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.event_fragment, mEventFragment)
+                .commit();
+
+        //Beginning the transaction of the Team fragment
+        mTeamHomeFragment = new TeamHomeFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.team_home_Fragment, mTeamHomeFragment)
                 .commit();
 
         mLogOutBtn = (Button) findViewById(R.id.logOut_btn);
