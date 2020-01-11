@@ -270,10 +270,7 @@ public class OpenJsonUtils {
                 if (teamId.equals(randomTeam) && !teamId.isEmpty()){
                     String city = jsonObject.getString("City");
                     String name = jsonObject.getString("Name");
-                    String conference = jsonObject.getString("Conference");
-                    String division = jsonObject.getString("Division");
                     String headCoach = jsonObject.getString("HeadCoach");
-                    int byeWeek = jsonObject.getInt("ByeWeek");
                     String offensive = jsonObject.getString("OffensiveScheme");
                     String defensive = jsonObject.getString("DefensiveScheme");
                     String primaryColor = jsonObject.getString("PrimaryColor");
@@ -282,8 +279,8 @@ public class OpenJsonUtils {
                     JSONObject stadiumJson = jsonObject.getJSONObject("StadiumDetails");
                     String stadium = stadiumJson.getString("Name");
 
-                    teamHome.add(new TeamHome(teamId, city,name, conference, division,
-                            headCoach, byeWeek, offensive, defensive, primaryColor, logo, stadium));
+                    teamHome.add(new TeamHome(teamId, city,name,
+                            headCoach, offensive, defensive, primaryColor, logo, stadium));
                 }
             }
 

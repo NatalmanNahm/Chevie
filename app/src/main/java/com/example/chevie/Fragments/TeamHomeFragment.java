@@ -1,6 +1,7 @@
 package com.example.chevie.Fragments;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,8 +39,6 @@ public class TeamHomeFragment extends Fragment {
     TextView mCoach, mCity;
     TextView mDefense, mOffense;
     TextView mStadium;
-
-
 
     public TeamHomeFragment() {
         // Required empty public constructor
@@ -97,6 +97,8 @@ public class TeamHomeFragment extends Fragment {
             mOffense.setText(teamHome.getmOffensive());
             mStadium.setText(teamHome.getmStadium());
             SvgLoaderUtil.fetchSvg(mContext, teamHome.getmLogo(), mLogo);
+            String color = "#" + teamHome.getmPrimaryColor();
+            mRootView.setBackgroundColor(Color.parseColor(color));
 
         }
     }

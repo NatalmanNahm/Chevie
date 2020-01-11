@@ -7,10 +7,7 @@ public class TeamHome {
     private String mTeamShort;
     private String mCity;
     private String mName;
-    private String mConference;
-    private String mDivision;
     private String mHeadCoach;
-    private int mByeWeek;
     private String mOffensive;
     private String mDefensive;
     private String mPrimaryColor;
@@ -22,26 +19,20 @@ public class TeamHome {
      * @param mTeamShort
      * @param mCity
      * @param mName
-     * @param mConference
-     * @param mDivision
      * @param mHeadCoach
-     * @param mByeWeek
      * @param mOffensive
      * @param mDefensive
      * @param mPrimaryColor
      * @param mLogo
      * @param mStadium
      */
-    public TeamHome(String mTeamShort, String mCity, String mName, String mConference,
-                    String mDivision, String mHeadCoach, int mByeWeek, String mOffensive,
+    public TeamHome(String mTeamShort, String mCity, String mName,
+                    String mHeadCoach, String mOffensive,
                     String mDefensive, String mPrimaryColor, String mLogo, String mStadium) {
         this.mTeamShort = mTeamShort;
         this.mCity = mCity;
         this.mName = mName;
-        this.mConference = mConference;
-        this.mDivision = mDivision;
         this.mHeadCoach = mHeadCoach;
-        this.mByeWeek = mByeWeek;
         this.mOffensive = mOffensive;
         this.mDefensive = mDefensive;
         this.mPrimaryColor = mPrimaryColor;
@@ -64,21 +55,10 @@ public class TeamHome {
         return mName;
     }
 
-    public String getmConference() {
-        return mConference;
-    }
-
-    public String getmDivision() {
-        return mDivision;
-    }
-
     public String getmHeadCoach() {
         return mHeadCoach;
     }
 
-    public int getmByeWeek() {
-        return mByeWeek;
-    }
 
     public String getmOffensive() {
         return mOffensive;
