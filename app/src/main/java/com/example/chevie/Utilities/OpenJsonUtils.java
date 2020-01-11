@@ -9,12 +9,14 @@ import com.example.chevie.Models.News;
 import com.example.chevie.Models.NewsInfo;
 import com.example.chevie.Models.PlayerProfile;
 import com.example.chevie.Models.TeamCard;
+import com.example.chevie.Models.TeamHome;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class OpenJsonUtils {
 
@@ -233,5 +235,63 @@ public class OpenJsonUtils {
         }
 
         return eventHomes;
+    }
+
+    /**
+     * Getting needed for just one team to be displayed on the home screen.
+     * @param json
+     * @return
+     */
+    public static ArrayList<TeamHome> extractTeamHome (String json){
+        isEmptyStringJson(json);
+
+        ArrayList<TeamHome> teamHome = new ArrayList<>();
+
+        try {
+            JSONArray rootJson = new JSONArray(json);
+
+            //Create an array that contains just teams key
+            //Then use that and only pull one random Team
+            String team[] = new String[rootJson.length()];
+            for (int i = 0; i <rootJson.length(); i++){
+                JSONObject  jsonObject = rootJson.getJSONObject(i);
+                team[i] = jsonObject.getString("Key");
+            }
+
+            //pulling one random Team key from the array
+            Random random = new Random();
+            String randomTeam = team[random.nextInt(team.length)];
+
+            //Now we can get all data of that only one random team
+            for (int e = 0; e <rootJson.length(); e++){
+                JSONObject  jsonObject = rootJson.getJSONObject(e);
+                String teamId = jsonObject.getString("key");
+
+                if (teamId.equals(randomTeam) && !teamId.isEmpty()){
+                    String city = jsonObject.getString("City");
+                    String name = jsonObject.getString("Name");
+                    String conference = jsonObject.getString("Conference");
+                    String division = jsonObject.getString("Division");
+                    String headCoach = jsonObject.getString("HeadCoach");
+                    int byeWeek = jsonObject.getInt("ByeWeek");
+                    String offensive = jsonObject.getString("OffensiveScheme");
+                    String defensive = jsonObject.getString("DefensiveScheme");
+                    String primaryColor = jsonObject.getString("PrimaryColor");
+                    String logo = jsonObject.getString("WikipediaLogoUrl");
+
+                    JSONObject stadiumJson = jsonObject.getJSONObject("StadiumDetails");
+                    String stadium = stadiumJson.getString("Name");
+
+                    teamHome.add(new TeamHome(teamId, city,name, conference, division,
+                            headCoach, byeWeek, offensive, defensive, primaryColor, logo, stadium));
+                }
+            }
+
+        }catch (JSONException e) {
+            //If there is a problem parsing the Json object print this message
+            Log.e(TAG, "Error parsing the Json object");
+        }
+
+        return teamHome;
     }
 }

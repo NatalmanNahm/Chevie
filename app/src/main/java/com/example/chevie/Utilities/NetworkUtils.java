@@ -10,6 +10,7 @@ import com.example.chevie.Models.News;
 import com.example.chevie.Models.NewsInfo;
 import com.example.chevie.Models.PlayerProfile;
 import com.example.chevie.Models.TeamCard;
+import com.example.chevie.Models.TeamHome;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -340,6 +341,26 @@ public class NetworkUtils {
 
         return eventHome;
 
+    }
+
+    /**
+     * Query Api database to get a random team detail
+     * @return
+     */
+    public static ArrayList<TeamHome> fetchTeamHome(){
+        URL url = build_team_card_url(NFL_KEY);
+
+        String jsonResponse = null;
+
+        try {
+            jsonResponse = getResponseFromHttpUrl(url);
+        } catch (IOException e) {
+            Log.e(TAG, "Problem making the HTTP request", e);
+        }
+
+        ArrayList<TeamHome> teamHomes = OpenJsonUtils.extractTeamHome(jsonResponse);
+
+        return  teamHomes;
     }
 
 }
