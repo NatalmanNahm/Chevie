@@ -24,7 +24,7 @@
     <string name="high_label">High:</string>
     <string name="low_label">Low:</string>
     <string name="stadium_label">Stadium:</string>
-    <string name="event_error_message">There is no event schedule at this time</string>
+    <string name="event_error_message">No event scheduled for Today</string>
     <string name="event_label">Schedules</string>
 
 
