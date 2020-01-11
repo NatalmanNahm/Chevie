@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
@@ -33,7 +34,7 @@ public class ScheduleFragment extends Fragment {
     //Initializer
     private View mRootView;
     private RecyclerView mRecyclerView;
-    private TextView mErrorTextview;
+    private ConstraintLayout mErrorLayout;
     private ArrayList<EventHome> mEventHome = new ArrayList<>();
     private ArrayList<CurrentTimeFrame> mTimeFrame = new ArrayList<>();
     private ArrayList<Schedule> mSchedule = new ArrayList<>();
@@ -62,7 +63,7 @@ public class ScheduleFragment extends Fragment {
         mRootView = inflater.inflate(R.layout.fragment_schedule, container, false);
 
         mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.event_RecyclerView);
-        mErrorTextview = (TextView) mRootView.findViewById(R.id.event_message);
+        mErrorLayout = (ConstraintLayout) mRootView.findViewById(R.id.Schedule_error_layout);
 
         mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -83,7 +84,7 @@ public class ScheduleFragment extends Fragment {
      */
     private void showEventDataView() {
         /* First, make sure the error is invisible */
-        mErrorTextview.setVisibility(View.INVISIBLE);
+        mErrorLayout.setVisibility(View.INVISIBLE);
         /* Then, make sure the Event data is visible */
         mRecyclerView.setVisibility(View.VISIBLE);
     }
@@ -95,7 +96,7 @@ public class ScheduleFragment extends Fragment {
         /* First, hide the currently visible data */
         mRecyclerView.setVisibility(View.INVISIBLE);
         /* Then, show the error */
-        mErrorTextview.setVisibility(View.VISIBLE);
+        mErrorLayout.setVisibility(View.VISIBLE);
     }
 
     /**
