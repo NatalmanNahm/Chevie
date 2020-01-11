@@ -14,7 +14,6 @@
     <string name="news_label">Headlines</string>
 
 
-
     <!--all Event String here-->
     <string name="offense">Offensive Scheme</string>
     <string name="defense">Defensive Scheme</string>
@@ -27,5 +26,8 @@
     <string name="event_error_message">No event scheduled for Today</string>
     <string name="event_label">Schedules</string>
 
+    <!--All TeamHome Strings here-->
+    <string name="head_coach">Head Coach</string>
+    <string name="Scheme_label">Scheme</string>
 
 </resources>
