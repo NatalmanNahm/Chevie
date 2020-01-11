@@ -1,20 +1,21 @@
 package com.example.chevie.Adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.chevie.Fragments.TeamCardFragment;
 import com.example.chevie.Models.EventHome;
+import com.example.chevie.Models.Schedule;
 import com.example.chevie.R;
+import com.example.chevie.Utilities.SvgLoaderUtil;
 
 import java.util.ArrayList;
 
@@ -27,7 +28,7 @@ import butterknife.ButterKnife;
 public class EventHomeAdapter extends RecyclerView.Adapter<EventHomeAdapter.EventHomeHolder> {
 
     //Initializers
-    ArrayList<EventHome> mEventHome = new ArrayList<>();
+    ArrayList<Schedule> mSchedule = new ArrayList<>();
     Context mContext;
 
     /**
@@ -35,8 +36,8 @@ public class EventHomeAdapter extends RecyclerView.Adapter<EventHomeAdapter.Even
      * @param eventHome
      * @param context
      */
-    public EventHomeAdapter(ArrayList<EventHome> eventHome, Context context){
-        mEventHome = eventHome;
+    public EventHomeAdapter(ArrayList<Schedule> eventHome, Context context){
+        mSchedule = eventHome;
         mContext = context;
     }
 
@@ -54,17 +55,17 @@ public class EventHomeAdapter extends RecyclerView.Adapter<EventHomeAdapter.Even
 
     @Override
     public void onBindViewHolder(@NonNull EventHomeAdapter.EventHomeHolder holder, int position) {
-        holder.bindEventHome(mEventHome.get(position));
+        holder.bindEventHome(mSchedule.get(position));
     }
 
     @Override
     public int getItemCount() {
-        if (mEventHome == null) return 0;
-        return mEventHome.size();
+        if (mSchedule == null) return 0;
+        return mSchedule.size();
     }
 
-    public void setmEventHome(ArrayList<EventHome> mEventHome) {
-        this.mEventHome = mEventHome;
+    public void setmSchedule(ArrayList<Schedule> mSchedule) {
+        this.mSchedule = mSchedule;
         notifyDataSetChanged();
     }
 
@@ -77,6 +78,14 @@ public class EventHomeAdapter extends RecyclerView.Adapter<EventHomeAdapter.Even
         @Bind(R.id.high) TextView mHigh;
         @Bind(R.id.low) TextView mLow;
         @Bind(R.id.stadium) TextView mStadium;
+        @Bind(R.id.team_one_logo) ImageView mLogoOne;
+        @Bind(R.id.team_two_logo) ImageView mLogoTwo;
+        @Bind(R.id.offensive1) TextView mOffOne;
+        @Bind(R.id.offensive2) TextView mOffTwo;
+        @Bind(R.id.denfense1) TextView mDefOne;
+        @Bind(R.id.defense2) TextView mDefTwo;
+        @Bind(R.id.bye_week1) TextView mByeWeekOne;
+        @Bind(R.id.bye_week2) TextView mByeWeekTwo;
 
         public EventHomeHolder(@NonNull View itemView) {
             super(itemView);
@@ -84,23 +93,23 @@ public class EventHomeAdapter extends RecyclerView.Adapter<EventHomeAdapter.Even
             ButterKnife.bind(this, itemView);
         }
 
-        public void bindEventHome(EventHome eventHome){
-            mTeamOneName.setText(eventHome.getmHomeTeam());
-            mTeamTwoName.setText(eventHome.getmAwayTeam());
-            Log.d("HOME1", eventHome.getmHomeTeam());
-            mForecast.setText(eventHome.getmForcastDesc());
-            mDate.setText(eventHome.getmDate());
-            mHigh.setText(String.valueOf(eventHome.getmHigh()));
-            mLow.setText(String.valueOf(eventHome.getmLow()));
-            mStadium.setText(eventHome.getmStadium());
+        public void bindEventHome(Schedule schedule){
+            mTeamOneName.setText(schedule.getmHomeTeam());
+            mTeamTwoName.setText(schedule.getmAwayTeam());
+            mForecast.setText(schedule.getmForcastDesc());
+            mDate.setText(schedule.getmDate());
+            mHigh.setText(String.valueOf(schedule.getmHigh()));
+            mLow.setText(String.valueOf(schedule.getmLow()));
+            mStadium.setText(schedule.getmStadium());
+            SvgLoaderUtil.fetchSvg(mContext, schedule.getmTeamOneLogo(), mLogoOne);
+            SvgLoaderUtil.fetchSvg(mContext, schedule.getmTeamTwoLogo(), mLogoTwo);
+            mOffOne.setText(schedule.getmOneOffensiveSch());
+            mOffTwo.setText(schedule.getmTwoOffensiveSch());
+            mDefOne.setText(schedule.getmOneDefensiveSch());
+            mDefTwo.setText(schedule.getmTwoDefensiveSch());
+            mByeWeekOne.setText(schedule.getmOneByeWeek());
+            mByeWeekTwo.setText(schedule.getmTwoByeWeek());
 
-            AppCompatActivity activity = (AppCompatActivity) itemView.getContext();
-            TeamCardFragment teamCardFragment = new TeamCardFragment();
-            teamCardFragment.setmTeamTwoId(eventHome.getmAwayTeam());
-            teamCardFragment.setmTeamoneId(eventHome.getmHomeTeam());
-            activity.getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.team_card, teamCardFragment)
-                    .commit();
         }
     }
 }
