@@ -28,7 +28,7 @@ import java.util.ArrayList;
 /**
  * Fragment that link all evenet data to the home page activity
  */
-public class HomeEventFragment extends Fragment {
+public class ScheduleFragment extends Fragment {
 
     //Initializer
     private View mRootView;
@@ -51,7 +51,7 @@ public class HomeEventFragment extends Fragment {
 
 
 
-    public HomeEventFragment(){
+    public ScheduleFragment(){
         // Required empty public constructor
     }
 
@@ -59,7 +59,7 @@ public class HomeEventFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        mRootView = inflater.inflate(R.layout.fragment_home_event, container, false);
+        mRootView = inflater.inflate(R.layout.fragment_schedule, container, false);
 
         mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.event_RecyclerView);
         mErrorTextview = (TextView) mRootView.findViewById(R.id.event_message);
