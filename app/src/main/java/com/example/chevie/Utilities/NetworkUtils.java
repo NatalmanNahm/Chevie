@@ -344,7 +344,7 @@ public class NetworkUtils {
     }
 
     /**
-     * Query Api database to get a random team detail
+     * Query Api database to get team home data
      * @return
      */
     public static ArrayList<TeamHome> fetchTeamHome(){

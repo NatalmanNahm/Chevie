@@ -250,43 +250,29 @@ public class OpenJsonUtils {
         try {
             JSONArray rootJson = new JSONArray(json);
 
-            //Create an array that contains just teams key
-            //Then use that and only pull one random Team
-            String team[] = new String[rootJson.length()];
             for (int i = 0; i <rootJson.length(); i++){
-                JSONObject  jsonObject = rootJson.getJSONObject(i);
-                team[i] = jsonObject.getString("Key");
+                JSONObject jsonObject = rootJson.getJSONObject(i);
+                String teamId = jsonObject.getString("Key");
+                Log.d("KEYTEAM", teamId);
+                String city = jsonObject.getString("City");
+                String name = jsonObject.getString("Name");
+                String headCoach = jsonObject.getString("HeadCoach");
+                String offensive = jsonObject.getString("OffensiveScheme");
+                String defensive = jsonObject.getString("DefensiveScheme");
+                String primaryColor = jsonObject.getString("PrimaryColor");
+                String logo = jsonObject.getString("WikipediaLogoUrl");
+
+                JSONObject stadiumJson = jsonObject.getJSONObject("StadiumDetails");
+                String stadium = stadiumJson.getString("Name");
+
+                teamHome.add(new TeamHome(teamId, city,name, headCoach, offensive, defensive,
+                        primaryColor, logo, stadium));
             }
 
-            //pulling one random Team key from the array
-            Random random = new Random();
-            String randomTeam = team[random.nextInt(team.length)];
-
-            //Now we can get all data of that only one random team
-            for (int e = 0; e <rootJson.length(); e++){
-                JSONObject  jsonObject = rootJson.getJSONObject(e);
-                String teamId = jsonObject.getString("key");
-
-                if (teamId.equals(randomTeam) && !teamId.isEmpty()){
-                    String city = jsonObject.getString("City");
-                    String name = jsonObject.getString("Name");
-                    String headCoach = jsonObject.getString("HeadCoach");
-                    String offensive = jsonObject.getString("OffensiveScheme");
-                    String defensive = jsonObject.getString("DefensiveScheme");
-                    String primaryColor = jsonObject.getString("PrimaryColor");
-                    String logo = jsonObject.getString("WikipediaLogoUrl");
-
-                    JSONObject stadiumJson = jsonObject.getJSONObject("StadiumDetails");
-                    String stadium = stadiumJson.getString("Name");
-
-                    teamHome.add(new TeamHome(teamId, city,name,
-                            headCoach, offensive, defensive, primaryColor, logo, stadium));
-                }
-            }
 
         }catch (JSONException e) {
             //If there is a problem parsing the Json object print this message
-            Log.e(TAG, "Error parsing the Json object");
+            Log.e(TAG, "Error parsing the Json object Team Home");
         }
 
         return teamHome;

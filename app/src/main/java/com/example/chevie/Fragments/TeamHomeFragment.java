@@ -22,6 +22,7 @@ import com.example.chevie.Utilities.NetworkUtils;
 import com.example.chevie.Utilities.SvgLoaderUtil;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -85,9 +86,14 @@ public class TeamHomeFragment extends Fragment {
         protected void onPostExecute(ArrayList<TeamHome> teamHomes) {
             super.onPostExecute(teamHomes);
 
+            //Getting a random index that will help us
+            //get only on item from the arrayList
+            Random random = new Random();
+            int randomIndex = random.nextInt(teamHomes.size());
+
             //Getting every single element of the arraylist
             //bind it to a view inside the xml.
-            TeamHome teamHome = teamHomes.get(0);
+            TeamHome teamHome = teamHomes.get(randomIndex);
 
             mTeamId.setText(teamHome.getmTeamShort());
             mName.setText(teamHome.getmName());
@@ -97,8 +103,8 @@ public class TeamHomeFragment extends Fragment {
             mOffense.setText(teamHome.getmOffensive());
             mStadium.setText(teamHome.getmStadium());
             SvgLoaderUtil.fetchSvg(mContext, teamHome.getmLogo(), mLogo);
-            String color = "#" + teamHome.getmPrimaryColor();
-            mRootView.setBackgroundColor(Color.parseColor(color));
+//            String color = "#" + teamHome.getmPrimaryColor();
+//            mRootView.setBackgroundColor(Color.parseColor(color));
 
         }
     }

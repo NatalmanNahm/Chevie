@@ -59,7 +59,6 @@ public class TeamHome {
         return mHeadCoach;
     }
 
-
     public String getmOffensive() {
         return mOffensive;
     }
