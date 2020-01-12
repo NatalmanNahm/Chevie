@@ -41,9 +41,10 @@ public class NetworkUtils {
     private static final String CURRENT = "current";
     private static final String TEAMS = "Teams";
     private static final String SCHEDULES = "Schedules";
+    private static final String SCORE_BY_SEASON = "Scores";
 
     //all Api calls key
-    private static String NFL_KEY = BuildConfig.nfl1SportDataIoApiKey;
+    private static String NFL_KEY = BuildConfig.nfl2SportDataIoApiKey;
 
     /**
      * Helper method to simplify the need of trying to build the Url
@@ -126,6 +127,24 @@ public class NetworkUtils {
         Uri uriBuilder = Uri.parse(buildUrl_nfl().toString()).buildUpon()
                 .appendPath(PLAYER)
                 .appendPath(String.valueOf(playerId))
+                .appendQueryParameter(API_KEY, key)
+                .build();
+
+        URL url = tryBuildUrl(uriBuilder);
+
+        return url;
+    }
+
+    /**
+     * BUild the url to query the database and get all score by the current season
+     * @param season
+     * @param key
+     * @return Url to be used to fetch data from the database
+     */
+    public static URL build_score_url(String season, String key){
+        Uri uriBuilder = Uri.parse(buildUrl_nfl().toString()).buildUpon()
+                .appendPath(SCORE_BY_SEASON)
+                .appendPath(season)
                 .appendQueryParameter(API_KEY, key)
                 .build();
 

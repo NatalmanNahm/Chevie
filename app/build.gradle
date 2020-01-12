@@ -24,6 +24,7 @@ android {
     buildTypes.each {
         it.buildConfigField 'String', 'nflSportDataIoApiKey', nflSportDataIoApiKey
         it.buildConfigField 'String', 'nfl1SportDataIoApiKey', nfl1SportDataIoApiKey
+        it.buildConfigField 'String', 'nfl2SportDataIoApiKey', nfl2SportDataIoApiKey
     }
 }
 
