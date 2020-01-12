@@ -8,12 +8,9 @@ public class ScoreHome {
     //Initializers
     private String mGameKey;
     private int mWeek;
-    private boolean mIsOver;
     private String mDate;
     private String mHomeTeam;
-    private String mHomeLogo;
     private String mAwayTeam;
-    private String mAwayLogo;
     private int mHomeScore;
     private int mHomeQtr1;
     private int mHomeQtr2;
@@ -30,12 +27,9 @@ public class ScoreHome {
      * Constructor for the ScoreHome;
      * @param mGameKey
      * @param mWeek
-     * @param mIsOver
      * @param mDate
      * @param mHomeTeam
-     * @param mHomeLogo
      * @param mAwayTeam
-     * @param mAwayLogo
      * @param mHomeScore
      * @param mHomeQtr1
      * @param mHomeQtr2
@@ -47,18 +41,14 @@ public class ScoreHome {
      * @param mAwayQtr3
      * @param mAwayQtr4
      */
-    public ScoreHome(String mGameKey, int mWeek, boolean mIsOver, String mDate, String mHomeTeam,
-                     String mHomeLogo, String mAwayTeam, String mAwayLogo, int mHomeScore,
-                     int mHomeQtr1, int mHomeQtr2, int mHomeQtr3, int mHomeQtr4, int mAwayScore,
-                     int mAwayQtr1, int mAwayQtr2, int mAwayQtr3, int mAwayQtr4) {
+    public ScoreHome(String mGameKey, int mWeek, String mDate, String mHomeTeam, String mAwayTeam,
+                     int mHomeScore, int mHomeQtr1, int mHomeQtr2, int mHomeQtr3, int mHomeQtr4,
+                     int mAwayScore, int mAwayQtr1, int mAwayQtr2, int mAwayQtr3, int mAwayQtr4) {
         this.mGameKey = mGameKey;
         this.mWeek = mWeek;
-        this.mIsOver = mIsOver;
         this.mDate = mDate;
         this.mHomeTeam = mHomeTeam;
-        this.mHomeLogo = mHomeLogo;
         this.mAwayTeam = mAwayTeam;
-        this.mAwayLogo = mAwayLogo;
         this.mHomeScore = mHomeScore;
         this.mHomeQtr1 = mHomeQtr1;
         this.mHomeQtr2 = mHomeQtr2;
@@ -81,10 +71,6 @@ public class ScoreHome {
         return mWeek;
     }
 
-    public boolean ismIsOver() {
-        return mIsOver;
-    }
-
     public String getmDate() {
         return mDate;
     }
@@ -93,16 +79,8 @@ public class ScoreHome {
         return mHomeTeam;
     }
 
-    public String getmHomeLogo() {
-        return mHomeLogo;
-    }
-
     public String getmAwayTeam() {
         return mAwayTeam;
-    }
-
-    public String getmAwayLogo() {
-        return mAwayLogo;
     }
 
     public int getmHomeScore() {

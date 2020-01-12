@@ -8,6 +8,7 @@ import com.example.chevie.Models.EventHome;
 import com.example.chevie.Models.News;
 import com.example.chevie.Models.NewsInfo;
 import com.example.chevie.Models.PlayerProfile;
+import com.example.chevie.Models.ScoreHome;
 import com.example.chevie.Models.TeamCard;
 import com.example.chevie.Models.TeamHome;
 
@@ -153,7 +154,6 @@ public class OpenJsonUtils {
         ArrayList<TeamCard> teamCards = new ArrayList<>();
         String offensiveOne;
         String defensive;
-        String primaryColor;
         String logo;
         int byeWeek;
 
@@ -276,5 +276,57 @@ public class OpenJsonUtils {
         }
 
         return teamHome;
+    }
+
+    /**
+     * Getting data needed from the json to fill out our arraylist of ScoreHome
+     * @param json
+     * @return
+     */
+    public static ArrayList<ScoreHome> extractScoreHome (String json){
+        isEmptyStringJson(json);
+
+        ArrayList<ScoreHome> score = new ArrayList<>();
+
+        try {
+            JSONArray rootJson = new JSONArray(json);
+
+            for (int i = 0; i < rootJson.length(); i++){
+
+                JSONObject jsonObject = rootJson.getJSONObject(i);
+
+                //Only get score if the game has already ended
+                boolean isOver = jsonObject.getBoolean("IsOver");
+                if (isOver){
+                    String gameKey = jsonObject.getString("GameKey");
+                    int week = jsonObject.getInt("Week");
+                    String dateTime = jsonObject.getString("Date");
+                    String date = DateTimeUtil.dateString(dateTime);
+                    String homeTeam = jsonObject.getString("HomeTeam");
+                    String awayTeam = jsonObject.getString("AwayTeam");
+                    int homeScore = jsonObject.getInt("HomeScore");
+                    int homeQtr1 = jsonObject.getInt("HomeScoreQuarter1");
+                    int homeQtr2 = jsonObject.getInt("HomeScoreQuarter2");
+                    int homeQtr3 = jsonObject.getInt("HomeScoreQuarter3");
+                    int homeQtr4 = jsonObject.getInt("HomeScoreQuarter4");
+                    int awayScore = jsonObject.getInt("AwayScore");
+                    int awayQtr1 = jsonObject.getInt("AwayScoreQuarter1");
+                    int awayQtr2 = jsonObject.getInt("AwayScoreQuarter2");
+                    int awayQtr3 = jsonObject.getInt("AwayScoreQuarter3");
+                    int awayQtr4 = jsonObject.getInt("AwayScoreQuarter4");
+
+                    score.add(new ScoreHome(gameKey, week, date, homeTeam, awayTeam, homeScore,
+                            homeQtr1, homeQtr2, homeQtr3, homeQtr4, awayScore, awayQtr1, awayQtr2,
+                            awayQtr3, awayQtr4));
+                }
+
+            }
+
+        }catch (JSONException e) {
+            //If there is a problem parsing the Json object print this message
+            Log.e(TAG, "Error parsing the Json object");
+        }
+
+        return score;
     }
 }
