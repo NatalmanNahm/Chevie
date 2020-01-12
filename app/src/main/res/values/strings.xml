@@ -31,6 +31,13 @@
     <string name="Scheme_label">Scheme</string>
     <string name="team_label">Teams</string>
 
+    <!--All Home Score Strings Here-->
 
+    <string name="score_label">Final Score</string>
+    <string name="qtr_one_score">1st Quarter</string>
+    <string name="qtr_two_score">2nd Quarter</string>
+    <string name="qtr_three_score">3rd Quarter</string>
+    <string name="qtr_four_score">4th Quarter</string>
+    <string name="week_label">Week</string>
 
 </resources>

@@ -9,6 +9,7 @@ import com.example.chevie.Models.EventHome;
 import com.example.chevie.Models.News;
 import com.example.chevie.Models.NewsInfo;
 import com.example.chevie.Models.PlayerProfile;
+import com.example.chevie.Models.ScoreHome;
 import com.example.chevie.Models.TeamCard;
 import com.example.chevie.Models.TeamHome;
 
@@ -379,7 +380,28 @@ public class NetworkUtils {
 
         ArrayList<TeamHome> teamHomes = OpenJsonUtils.extractTeamHome(jsonResponse);
 
-        return  teamHomes;
+        return teamHomes;
     }
+
+    /**
+     * Query data to get all score for a season
+     * @param season
+     * @return
+     */
+    public static ArrayList<ScoreHome> fetchScoreHome(String season){
+        URL url = build_score_url(season, NFL_KEY);
+
+        String jsonResponse = null;
+
+        try {
+            jsonResponse = getResponseFromHttpUrl(url);
+        } catch (IOException e) {
+            Log.e(TAG, "Problem making the HTTP request", e);
+        }
+        ArrayList<ScoreHome> score = OpenJsonUtils.extractScoreHome(jsonResponse);
+
+        return score;
+    }
+
 
 }
