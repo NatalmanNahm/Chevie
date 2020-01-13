@@ -121,6 +121,9 @@ public class ScoreHomeFragment extends Fragment {
         @Override
         protected ArrayList<ScoreHome> doInBackground(String... strings) {
             mScore = NetworkUtils.fetchScoreHome(mCurrentSeason);
+            ScoreHome randomScore = mScore.get(0);
+            mHomeKey = randomScore.getmHomeTeam();
+            mAwayKey = randomScore.getmAwayTeam();
             return mScore;
         }
 
@@ -128,15 +131,10 @@ public class ScoreHomeFragment extends Fragment {
         protected void onPostExecute(ArrayList<ScoreHome> scoreHomes) {
             super.onPostExecute(scoreHomes);
 
-            //Getting random index of the mScore ArrayList
-            Random random = new Random();
-            int randIndex = random.nextInt(scoreHomes.size());
-
-            //Then use that to pull a random itemm out of the list
-            ScoreHome randomScore = scoreHomes.get(randIndex);
+            //Pull a random item out of the list
+            ScoreHome randomScore = scoreHomes.get(0);
 
             //Then bind views to the randon data pulled
-            mHomeKey = randomScore.getmHomeTeam();
             mHomeName.setText(mHomeKey);
             mHomeScore.setText(String.valueOf(randomScore.getmHomeScore()));
             mHomeQtr1.setText(String.valueOf(randomScore.getmHomeQtr1()));
@@ -170,7 +168,6 @@ public class ScoreHomeFragment extends Fragment {
 
         @Override
         protected ArrayList<TeamCard> doInBackground(String... strings) {
-            Log.d("HOMETEAM", mHomeKey);
             mTeamCard = NetworkUtils.fetchTeamCard(mHomeKey, mAwayKey);
             return mTeamCard;
         }

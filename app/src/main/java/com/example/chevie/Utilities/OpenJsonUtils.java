@@ -280,6 +280,7 @@ public class OpenJsonUtils {
 
     /**
      * Getting data needed from the json to fill out our arraylist of ScoreHome
+     * with a random macth score details
      * @param json
      * @return
      */
@@ -291,32 +292,48 @@ public class OpenJsonUtils {
         try {
             JSONArray rootJson = new JSONArray(json);
 
+            String game[] = new String[rootJson.length()];
+
+            for (int e = 0; e<rootJson.length(); e++){
+                JSONObject jsonObject = rootJson.getJSONObject(e);
+                game[e] = jsonObject.getString("GameKey");
+            }
+            //Get a random gameKey then use it to get a random match
+            Random random = new Random();
+            String gameKey = game[random.nextInt(game.length)];
+
+
             for (int i = 0; i < rootJson.length(); i++){
 
                 JSONObject jsonObject = rootJson.getJSONObject(i);
 
                 //Only get score if the game has already ended
-                boolean isOver = jsonObject.getBoolean("IsOver");
-                if (isOver){
-                    int week = jsonObject.getInt("Week");
-                    String dateTime = jsonObject.getString("Date");
-                    String date = DateTimeUtil.dateString(dateTime);
-                    String homeTeam = jsonObject.getString("HomeTeam");
-                    String awayTeam = jsonObject.getString("AwayTeam");
-                    int homeScore = jsonObject.getInt("HomeScore");
-                    int homeQtr1 = jsonObject.getInt("HomeScoreQuarter1");
-                    int homeQtr2 = jsonObject.getInt("HomeScoreQuarter2");
-                    int homeQtr3 = jsonObject.getInt("HomeScoreQuarter3");
-                    int homeQtr4 = jsonObject.getInt("HomeScoreQuarter4");
-                    int awayScore = jsonObject.getInt("AwayScore");
-                    int awayQtr1 = jsonObject.getInt("AwayScoreQuarter1");
-                    int awayQtr2 = jsonObject.getInt("AwayScoreQuarter2");
-                    int awayQtr3 = jsonObject.getInt("AwayScoreQuarter3");
-                    int awayQtr4 = jsonObject.getInt("AwayScoreQuarter4");
+                String key = jsonObject.getString("GameKey");
 
-                    score.add(new ScoreHome(week, date, homeTeam, awayTeam, homeScore,
-                            homeQtr1, homeQtr2, homeQtr3, homeQtr4, awayScore, awayQtr1, awayQtr2,
-                            awayQtr3, awayQtr4));
+                //Just getting a random match score
+                if (key.equals(gameKey)){
+                    boolean isOver = jsonObject.getBoolean("IsOver");
+                    if (isOver){
+                        int week = jsonObject.getInt("Week");
+                        String dateTime = jsonObject.getString("Date");
+                        String date = DateTimeUtil.dateString(dateTime);
+                        String homeTeam = jsonObject.getString("HomeTeam");
+                        String awayTeam = jsonObject.getString("AwayTeam");
+                        int homeScore = jsonObject.getInt("HomeScore");
+                        int homeQtr1 = jsonObject.getInt("HomeScoreQuarter1");
+                        int homeQtr2 = jsonObject.getInt("HomeScoreQuarter2");
+                        int homeQtr3 = jsonObject.getInt("HomeScoreQuarter3");
+                        int homeQtr4 = jsonObject.getInt("HomeScoreQuarter4");
+                        int awayScore = jsonObject.getInt("AwayScore");
+                        int awayQtr1 = jsonObject.getInt("AwayScoreQuarter1");
+                        int awayQtr2 = jsonObject.getInt("AwayScoreQuarter2");
+                        int awayQtr3 = jsonObject.getInt("AwayScoreQuarter3");
+                        int awayQtr4 = jsonObject.getInt("AwayScoreQuarter4");
+
+                        score.add(new ScoreHome(week, date, homeTeam, awayTeam, homeScore,
+                                homeQtr1, homeQtr2, homeQtr3, homeQtr4, awayScore, awayQtr1, awayQtr2,
+                                awayQtr3, awayQtr4));
+                    }
                 }
 
             }
