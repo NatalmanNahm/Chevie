@@ -11,6 +11,7 @@ import android.widget.Button;
 import com.example.chevie.Auth.LoginActivity;
 import com.example.chevie.Fragments.ScheduleFragment;
 import com.example.chevie.Fragments.NewsFragment;
+import com.example.chevie.Fragments.ScoreHomeFragment;
 import com.example.chevie.Fragments.TeamHomeFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -23,6 +24,7 @@ public class HomeActivity extends AppCompatActivity {
     private NewsFragment mNewsFragment;
     private ScheduleFragment mEventFragment;
     private TeamHomeFragment mTeamHomeFragment;
+    private ScoreHomeFragment mScoreHomeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,12 @@ public class HomeActivity extends AppCompatActivity {
         mTeamHomeFragment = new TeamHomeFragment();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.team_home_Fragment, mTeamHomeFragment)
+                .commit();
+
+        //Beginning the transaction of the Score Fragemnt
+        mScoreHomeFragment = new ScoreHomeFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.score_home_Fragment, mScoreHomeFragment)
                 .commit();
 
         mLogOutBtn = (Button) findViewById(R.id.logOut_btn);

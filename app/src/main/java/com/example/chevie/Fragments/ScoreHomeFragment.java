@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -152,7 +153,7 @@ public class ScoreHomeFragment extends Fragment {
             mAwayQtr4.setText(String.valueOf(randomScore.getmAwayQtr4()));
 
             mDate.setText(randomScore.getmDate());
-            mWeek.setText(randomScore.getmWeek());
+            mWeek.setText(String.valueOf(randomScore.getmWeek()));
 
         }
     }
@@ -169,6 +170,7 @@ public class ScoreHomeFragment extends Fragment {
 
         @Override
         protected ArrayList<TeamCard> doInBackground(String... strings) {
+            Log.d("HOMETEAM", mHomeKey);
             mTeamCard = NetworkUtils.fetchTeamCard(mHomeKey, mAwayKey);
             return mTeamCard;
         }
