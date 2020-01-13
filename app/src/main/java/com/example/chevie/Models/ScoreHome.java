@@ -6,7 +6,6 @@ package com.example.chevie.Models;
 public class ScoreHome {
 
     //Initializers
-    private String mGameKey;
     private int mWeek;
     private String mDate;
     private String mHomeTeam;
@@ -25,7 +24,6 @@ public class ScoreHome {
 
     /**
      * Constructor for the ScoreHome;
-     * @param mGameKey
      * @param mWeek
      * @param mDate
      * @param mHomeTeam
@@ -41,10 +39,9 @@ public class ScoreHome {
      * @param mAwayQtr3
      * @param mAwayQtr4
      */
-    public ScoreHome(String mGameKey, int mWeek, String mDate, String mHomeTeam, String mAwayTeam,
+    public ScoreHome(int mWeek, String mDate, String mHomeTeam, String mAwayTeam,
                      int mHomeScore, int mHomeQtr1, int mHomeQtr2, int mHomeQtr3, int mHomeQtr4,
                      int mAwayScore, int mAwayQtr1, int mAwayQtr2, int mAwayQtr3, int mAwayQtr4) {
-        this.mGameKey = mGameKey;
         this.mWeek = mWeek;
         this.mDate = mDate;
         this.mHomeTeam = mHomeTeam;
@@ -62,11 +59,6 @@ public class ScoreHome {
     }
 
     //Getters
-
-    public String getmGameKey() {
-        return mGameKey;
-    }
-
     public int getmWeek() {
         return mWeek;
     }

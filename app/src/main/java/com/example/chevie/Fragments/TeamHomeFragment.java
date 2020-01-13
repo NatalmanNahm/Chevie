@@ -103,8 +103,6 @@ public class TeamHomeFragment extends Fragment {
             mOffense.setText(teamHome.getmOffensive());
             mStadium.setText(teamHome.getmStadium());
             SvgLoaderUtil.fetchSvg(mContext, teamHome.getmLogo(), mLogo);
-//            String color = "#" + teamHome.getmPrimaryColor();
-//            mRootView.setBackgroundColor(Color.parseColor(color));
 
         }
     }

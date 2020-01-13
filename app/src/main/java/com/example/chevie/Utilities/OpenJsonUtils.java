@@ -117,7 +117,7 @@ public class OpenJsonUtils {
     public static ArrayList<CurrentTimeFrame> extractCurrentSeason (String json){
         isEmptyStringJson(json);
 
-        //Createe an empty Arralist for the current time frame
+        //Created an empty Arralist for the current time frame
         ArrayList<CurrentTimeFrame> currentTimeFrame = new ArrayList<>();
 
         try {
@@ -298,7 +298,6 @@ public class OpenJsonUtils {
                 //Only get score if the game has already ended
                 boolean isOver = jsonObject.getBoolean("IsOver");
                 if (isOver){
-                    String gameKey = jsonObject.getString("GameKey");
                     int week = jsonObject.getInt("Week");
                     String dateTime = jsonObject.getString("Date");
                     String date = DateTimeUtil.dateString(dateTime);
@@ -315,7 +314,7 @@ public class OpenJsonUtils {
                     int awayQtr3 = jsonObject.getInt("AwayScoreQuarter3");
                     int awayQtr4 = jsonObject.getInt("AwayScoreQuarter4");
 
-                    score.add(new ScoreHome(gameKey, week, date, homeTeam, awayTeam, homeScore,
+                    score.add(new ScoreHome(week, date, homeTeam, awayTeam, homeScore,
                             homeQtr1, homeQtr2, homeQtr3, homeQtr4, awayScore, awayQtr1, awayQtr2,
                             awayQtr3, awayQtr4));
                 }
