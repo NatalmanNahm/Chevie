@@ -30,14 +30,26 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewholder
     ArrayList<News> mNews = new ArrayList<>();
     Context mContext;
 
+    //Create an onClickHandler to make it easier for the
+    // activity to interact with the recycleView
+    private final NewsAdapterOnClickHandler mClickHandler;
+
+    /**
+     * The interface that receives onClick messages.
+     */
+    public interface NewsAdapterOnClickHandler{
+        void onClick(String title, String time, String source, String name, String pic);
+    }
+
     /**
      * Constructor for the adapter
      * @param context
      * @param news
      */
-    public NewsAdapter(Context context, ArrayList<News> news){
+    public NewsAdapter(Context context, ArrayList<News> news, NewsAdapterOnClickHandler clickHandler){
         mContext = context;
         mNews = news;
+        mClickHandler = clickHandler;
     }
 
 
@@ -73,7 +85,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewholder
     /**
      * Cache of the children views for a news list Item
      */
-    public class NewsViewholder extends RecyclerView.ViewHolder {
+    public class NewsViewholder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         @Bind(R.id.news_title) TextView mNewsTitle;
         @Bind(R.id.news_time_shared) TextView mTime;
@@ -98,6 +110,22 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewholder
 
             Picasso.get().load(news.getmPlayerPic()).into(mPlayerImg);
 
+        }
+
+
+        //Parsing teh current news Object on click
+        @Override
+        public void onClick(View v) {
+            int adapterPosition = getAdapterPosition();
+            News news = mNews.get(adapterPosition);
+
+            String title = news.getmTitle();
+            String time  = news.getmTimeShared();
+            String source = news.getmSource();
+            String playerName = news.getmPlayerShortName();
+            String pic = news.getmPlayerPic();
+
+            mClickHandler.onClick(title, time, source, playerName, pic);
         }
     }
 }

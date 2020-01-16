@@ -26,7 +26,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NewsFragment extends Fragment {
+public class NewsFragment extends Fragment implements NewsAdapter.NewsAdapterOnClickHandler{
 
     // the fragment initialization parameters
     private View rootView;
@@ -67,7 +67,7 @@ public class NewsFragment extends Fragment {
 
         mNewsRecyclerView.setLayoutManager(mNewsLLManager);
         mNewsRecyclerView.setHasFixedSize(true);
-        mNewsAdapter = new NewsAdapter(getContext(), mNewsArrayList);
+        mNewsAdapter = new NewsAdapter(getContext(), mNewsArrayList, this);
         mNewsRecyclerView.setAdapter(mNewsAdapter);
         new PagerSnapHelper().attachToRecyclerView(mNewsRecyclerView);
 
@@ -94,6 +94,11 @@ public class NewsFragment extends Fragment {
         mNewsRecyclerView.setVisibility(View.INVISIBLE);
         /* Then, show the error */
         mNewserrorMessage.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onClick(String title, String time, String source, String name, String pic) {
+        
     }
 
     /**

@@ -20,8 +20,8 @@ import java.util.ArrayList;
 public class NewsDetailPagerAdapter extends FragmentStatePagerAdapter {
 
     //Initializer
-    ArrayList<News> mNewsDetail;
-    Bundle mNewsBundle;
+    private ArrayList<News> mNewsDetail;
+    private Bundle mNewsBundle;
 
 
     public NewsDetailPagerAdapter(@NonNull FragmentManager fm, ArrayList<News> newsDetail) {
