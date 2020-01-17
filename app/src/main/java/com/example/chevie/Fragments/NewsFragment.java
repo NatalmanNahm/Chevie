@@ -1,5 +1,7 @@
 package com.example.chevie.Fragments;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -18,6 +20,7 @@ import com.example.chevie.Adapters.NewsAdapter;
 import com.example.chevie.Models.News;
 import com.example.chevie.Models.NewsInfo;
 import com.example.chevie.Models.PlayerProfile;
+import com.example.chevie.NewsDetailActivity;
 import com.example.chevie.R;
 import com.example.chevie.Utilities.NetworkUtils;
 
@@ -30,6 +33,7 @@ public class NewsFragment extends Fragment implements NewsAdapter.NewsAdapterOnC
 
     // the fragment initialization parameters
     private View rootView;
+    private Context mContext;
     private RecyclerView mNewsRecyclerView;
     private TextView mNewserrorMessage;
     private LinearLayoutManager mNewsLLManager;
@@ -61,6 +65,7 @@ public class NewsFragment extends Fragment implements NewsAdapter.NewsAdapterOnC
         mNewsArrayList = new ArrayList<>();
         mNewsRecyclerView = (RecyclerView) rootView.findViewById(R.id.news_recyclerView);
         mNewserrorMessage = (TextView) rootView.findViewById(R.id.error_message);
+        mContext = rootView.getContext();
 
         //Creating a Linear Layout manager
         mNewsLLManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -96,9 +101,27 @@ public class NewsFragment extends Fragment implements NewsAdapter.NewsAdapterOnC
         mNewserrorMessage.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * This is to handle onClick so when user click on
+     * a news it takes them to the detail of the News.
+     * @param title
+     * @param time
+     * @param source
+     * @param name
+     * @param pic
+     */
     @Override
     public void onClick(String title, String time, String source, String name, String pic) {
-        
+        Class destinationClass = NewsDetailActivity.class;
+
+        //Creating intent and opening NewsDetailActivity
+        Intent intent = new Intent(mContext, destinationClass);
+        intent.putExtra("title", title);
+        intent.putExtra("time", time);
+        intent.putExtra("source", source);
+        intent.putExtra("name", name);
+        intent.putExtra("pic", pic);
+
     }
 
     /**
