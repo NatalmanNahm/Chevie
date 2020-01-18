@@ -42,4 +42,13 @@
     <string name="most_rec_lab">Recent</string>
     <string name="score_home_label">Scores</string>
 
+    <!--All strings for scores list-->
+    <string name="label_1st">1st</string>
+    <string name="label_2nd">2nd</string>
+    <string name="label_3rd">3rd</string>
+    <string name="label_4th">4th</string>
+    <string name="label_final">Fin</string>
+    <string name="date_match">Date:</string>
+    <string name="week_match">Week:</string>
+
 </resources>
