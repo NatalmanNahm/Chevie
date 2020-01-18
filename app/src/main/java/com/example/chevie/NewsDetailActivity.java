@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.example.chevie.Adapters.NewsDetailPagerAdapter;
 import com.example.chevie.Models.News;
+import com.example.chevie.Utilities.ZoomOutPageTransformer;
 
 import java.util.ArrayList;
 
@@ -43,6 +44,7 @@ public class NewsDetailActivity extends AppCompatActivity {
         mDetailPager = new NewsDetailPagerAdapter(getSupportFragmentManager(), mNews);
         mDetailViewPager = (ViewPager) findViewById(R.id.News_Pager);
         mDetailViewPager.setAdapter(mDetailPager);
+        mDetailViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
         mDetailViewPager.setCurrentItem(mPostion);
 
 

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.example.chevie.Models.News;
 import com.example.chevie.R;
 import com.example.chevie.Utilities.SvgLoaderUtil;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -86,7 +87,7 @@ public class NewsDetailFragment extends Fragment {
         mTimeShared.setText(time);
         mNewsSource.setText(source);
         mContent.setText(content);
-        SvgLoaderUtil.fetchSvg(mContext, playerPic, mPlayerPic);
+        Picasso.get().load(playerPic).into(mPlayerPic);
 
 
         return mRootView;

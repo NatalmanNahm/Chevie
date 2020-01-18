@@ -45,7 +45,7 @@ public class NetworkUtils {
     private static final String SCORE_BY_SEASON = "Scores";
 
     //all Api calls key
-    private static String NFL_KEY = BuildConfig.nfl2SportDataIoApiKey;
+    private static String NFL_KEY = BuildConfig.nfl3SportDataIoApiKey;
 
     /**
      * Helper method to simplify the need of trying to build the Url
