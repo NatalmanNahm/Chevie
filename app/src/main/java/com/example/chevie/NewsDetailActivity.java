@@ -5,6 +5,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.chevie.Adapters.NewsDetailPagerAdapter;
 import com.example.chevie.Models.News;

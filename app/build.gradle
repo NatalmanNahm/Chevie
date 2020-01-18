@@ -25,6 +25,7 @@ android {
         it.buildConfigField 'String', 'nflSportDataIoApiKey', nflSportDataIoApiKey
         it.buildConfigField 'String', 'nfl1SportDataIoApiKey', nfl1SportDataIoApiKey
         it.buildConfigField 'String', 'nfl2SportDataIoApiKey', nfl2SportDataIoApiKey
+        it.buildConfigField 'String', 'nfl3SportDataIoApiKey', nfl3SportDataIoApiKey
     }
 }
 

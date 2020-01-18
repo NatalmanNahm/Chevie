@@ -94,11 +94,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewholder
         @Bind(R.id.player_Pic) ImageView mPlayerImg;
         Context mContext;
 
-
         public NewsViewholder(@NonNull View itemView) {
             super(itemView);
             mContext = itemView.getContext();
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(this);
         }
 
         //This is to populate texts and image for the news UI

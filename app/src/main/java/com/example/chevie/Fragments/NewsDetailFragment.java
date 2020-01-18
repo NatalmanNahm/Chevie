@@ -61,6 +61,7 @@ public class NewsDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mRootView = inflater.inflate(R.layout.fragment_news_detail, container, false);
+        mContext = mRootView.getContext();
 
         //bind Views
         mTitle = (TextView) mRootView.findViewById(R.id.news_detail_title);
@@ -69,7 +70,6 @@ public class NewsDetailFragment extends Fragment {
         mTimeShared = (TextView) mRootView.findViewById(R.id.news_detail_time);
         mNewsSource = (TextView) mRootView.findViewById(R.id.news_detail_source);
         mContent = (TextView) mRootView.findViewById(R.id.news_detail_content);
-        mContext = mRootView.getContext();
 
         //Getting current data
         News news = mNews.get(mPosition);

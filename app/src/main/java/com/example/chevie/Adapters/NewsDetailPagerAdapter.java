@@ -2,6 +2,8 @@ package com.example.chevie.Adapters;
 
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -21,7 +23,6 @@ public class NewsDetailPagerAdapter extends FragmentStatePagerAdapter {
 
     //Initializer
     private ArrayList<News> mNewsDetail;
-    private Bundle mNewsBundle;
 
 
     public NewsDetailPagerAdapter(@NonNull FragmentManager fm, ArrayList<News> newsDetail) {
@@ -33,12 +34,20 @@ public class NewsDetailPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         NewsDetailFragment newsDetailFragment = new NewsDetailFragment();
-        mNewsBundle.putParcelableArrayList("news", mNewsDetail);
+        Bundle mNewsBundle = new Bundle();
         mNewsBundle.putInt("page", position);
+        Log.d("POSITION1", String.valueOf(position));
+        mNewsBundle.putParcelableArrayList("news", mNewsDetail);
         mNewsBundle.putBoolean("isLastPage", position == getCount()-1);
         newsDetailFragment.setArguments(mNewsBundle);
 
         return newsDetailFragment;
+    }
+
+    @NonNull
+    @Override
+    public Object instantiateItem(@NonNull ViewGroup container, int position) {
+        return super.instantiateItem(container, position);
     }
 
     @Override

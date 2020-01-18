@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -108,12 +109,11 @@ public class NewsFragment extends Fragment implements NewsAdapter.NewsAdapterOnC
      * @param news
      */
     @Override
-    public void onClick(int position,
-                        ArrayList<News> news) {
+    public void onClick(int position, ArrayList<News> news) {
         Class destinationClass = NewsDetailActivity.class;
 
         //Creating intent and opening NewsDetailActivity
-        Intent intent = new Intent(mContext, destinationClass);
+        Intent intent = new Intent(getActivity(), destinationClass);
         intent.putExtra("position", position);
         intent.putParcelableArrayListExtra("newsArray", news);
         startActivity(intent);
