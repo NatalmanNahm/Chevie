@@ -34,7 +34,7 @@ public class NewsDetailPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         NewsDetailFragment newsDetailFragment = new NewsDetailFragment();
         mNewsBundle.putParcelableArrayList("news", mNewsDetail);
-        mNewsBundle.putInt("page", position+1);
+        mNewsBundle.putInt("page", position);
         mNewsBundle.putBoolean("isLastPage", position == getCount()-1);
         newsDetailFragment.setArguments(mNewsBundle);
 

@@ -38,7 +38,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewholder
      * The interface that receives onClick messages.
      */
     public interface NewsAdapterOnClickHandler{
-        void onClick(String title, String time, String source, String name, String pic);
+        void onClick(int position, ArrayList<News> news);
     }
 
     /**
@@ -116,16 +116,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewholder
         //Parsing teh current news Object on click
         @Override
         public void onClick(View v) {
-            int adapterPosition = getAdapterPosition();
-            News news = mNews.get(adapterPosition);
+            int position = getAdapterPosition();
 
-            String title = news.getmTitle();
-            String time  = news.getmTimeShared();
-            String source = news.getmSource();
-            String playerName = news.getmPlayerShortName();
-            String pic = news.getmPlayerPic();
-
-            mClickHandler.onClick(title, time, source, playerName, pic);
+            mClickHandler.onClick(position, mNews);
         }
     }
 }

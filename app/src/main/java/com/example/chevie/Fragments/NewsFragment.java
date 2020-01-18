@@ -104,23 +104,19 @@ public class NewsFragment extends Fragment implements NewsAdapter.NewsAdapterOnC
     /**
      * This is to handle onClick so when user click on
      * a news it takes them to the detail of the News.
-     * @param title
-     * @param time
-     * @param source
-     * @param name
-     * @param pic
+     * @param position
+     * @param news
      */
     @Override
-    public void onClick(String title, String time, String source, String name, String pic) {
+    public void onClick(int position,
+                        ArrayList<News> news) {
         Class destinationClass = NewsDetailActivity.class;
 
         //Creating intent and opening NewsDetailActivity
         Intent intent = new Intent(mContext, destinationClass);
-        intent.putExtra("title", title);
-        intent.putExtra("time", time);
-        intent.putExtra("source", source);
-        intent.putExtra("name", name);
-        intent.putExtra("pic", pic);
+        intent.putExtra("position", position);
+        intent.putParcelableArrayListExtra("newsArray", news);
+        startActivity(intent);
 
     }
 
