@@ -39,6 +39,7 @@
     <string name="qtr_three_score">3rd Quarter</string>
     <string name="qtr_four_score">4th Quarter</string>
     <string name="week_label">Week</string>
+    <string name="most_rec_lab">Recent</string>
     <string name="score_home_label">Scores</string>
 
 </resources>

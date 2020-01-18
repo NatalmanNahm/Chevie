@@ -108,7 +108,7 @@ public class ScoreHomeFragment extends Fragment {
     }
 
     /**
-     * This asynsTask class is to get a random match score data
+     * This asynsTask class is to get the most recent match score data
      * and display it on the home page
      */
     public class FetchScore extends AsyncTask<String, Void, ArrayList<ScoreHome>>{
@@ -121,7 +121,7 @@ public class ScoreHomeFragment extends Fragment {
         @Override
         protected ArrayList<ScoreHome> doInBackground(String... strings) {
             mScore = NetworkUtils.fetchScoreHome(mCurrentSeason);
-            ScoreHome randomScore = mScore.get(0);
+            ScoreHome randomScore = mScore.get(mScore.size() - 1);
             mHomeKey = randomScore.getmHomeTeam();
             mAwayKey = randomScore.getmAwayTeam();
             return mScore;
@@ -131,10 +131,10 @@ public class ScoreHomeFragment extends Fragment {
         protected void onPostExecute(ArrayList<ScoreHome> scoreHomes) {
             super.onPostExecute(scoreHomes);
 
-            //Pull a random item out of the list
-            ScoreHome randomScore = scoreHomes.get(0);
+            //Pull the most recent score
+            ScoreHome randomScore = scoreHomes.get(scoreHomes.size() - 1);
 
-            //Then bind views to the randon data pulled
+            //Then bind views to the most recent data pulled
             mHomeName.setText(mHomeKey);
             mHomeScore.setText(String.valueOf(randomScore.getmHomeScore()));
             mHomeQtr1.setText(String.valueOf(randomScore.getmHomeQtr1()));

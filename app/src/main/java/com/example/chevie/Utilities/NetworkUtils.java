@@ -384,7 +384,7 @@ public class NetworkUtils {
     }
 
     /**
-     * Query data to get a random score for a season
+     * Query data to get the most recent score for a season
      * @param season
      * @return
      */
