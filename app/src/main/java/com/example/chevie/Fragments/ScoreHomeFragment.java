@@ -1,6 +1,7 @@
 package com.example.chevie.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.chevie.AllScoreActivity;
 import com.example.chevie.Models.CurrentTimeFrame;
 import com.example.chevie.Models.ScoreHome;
 import com.example.chevie.Models.TeamCard;
@@ -51,7 +53,7 @@ public class ScoreHomeFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mRootView = inflater.inflate(R.layout.fragment_score_home, container, false);
@@ -78,6 +80,17 @@ public class ScoreHomeFragment extends Fragment {
         new FetchCurrentSeason().execute();
         new FetchScore().execute();
         new FetchTeamLogo().execute();
+
+        mRootView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //create an intent and parse data to the allScoreActivity
+                Intent intent = new Intent(getActivity(), AllScoreActivity.class);
+                intent.putParcelableArrayListExtra("scoreArray", mScore);
+                startActivity(intent);
+
+            }
+        });
 
         return mRootView;
     }
