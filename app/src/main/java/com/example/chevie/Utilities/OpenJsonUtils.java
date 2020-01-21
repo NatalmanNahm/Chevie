@@ -11,6 +11,7 @@ import com.example.chevie.Models.PlayerProfile;
 import com.example.chevie.Models.ScoreHome;
 import com.example.chevie.Models.TeamCard;
 import com.example.chevie.Models.TeamHome;
+import com.example.chevie.Models.Teams;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -333,5 +334,37 @@ public class OpenJsonUtils {
         }
 
         return score;
+    }
+
+    /**
+     * Getting Teams data needed from the json we got from the API Calls
+     * @param json
+     * @return
+     */
+    public static ArrayList<Teams> extractTeams (String json){
+        isEmptyStringJson(json);
+        ArrayList<Teams> teams = new ArrayList<>();
+
+        try {
+            JSONArray rootJson = new JSONArray(json);
+
+            for (int i = 0; i<rootJson.length(); i++){
+                JSONObject jsonObject = rootJson.getJSONObject(i);
+                String name = jsonObject.getString("Key");
+                String offensive = jsonObject.getString("OffensiveScheme");
+                String defensive = jsonObject.getString("DefensiveScheme");
+                String logo = jsonObject.getString("WikipediaLogoUrl");
+
+                teams.add(new Teams(name, logo, defensive, offensive));
+
+            }
+
+
+        }catch (JSONException e) {
+            //If there is a problem parsing the Json object print this message
+            Log.e(TAG, "Error parsing the Json object");
+        }
+
+        return teams;
     }
 }

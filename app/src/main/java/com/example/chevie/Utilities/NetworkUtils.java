@@ -12,6 +12,7 @@ import com.example.chevie.Models.PlayerProfile;
 import com.example.chevie.Models.ScoreHome;
 import com.example.chevie.Models.TeamCard;
 import com.example.chevie.Models.TeamHome;
+import com.example.chevie.Models.Teams;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -401,6 +402,23 @@ public class NetworkUtils {
         ArrayList<ScoreHome> score = OpenJsonUtils.extractScoreHome(jsonResponse);
 
         return score;
+    }
+
+    /**
+     * Query data and get all teams
+     * @return
+     */
+    public static ArrayList<Teams> fetchTeams(){
+        URL url = build_team_card_url(NFL_KEY);
+
+        String jsonResponse = null;
+        try {
+            jsonResponse = getResponseFromHttpUrl(url);
+        } catch (IOException e) {
+            Log.e(TAG, "Problem making the HTTP request", e);
+        }
+        ArrayList<Teams> teams = OpenJsonUtils.extractTeams(jsonResponse);
+        return teams;
     }
 
 
