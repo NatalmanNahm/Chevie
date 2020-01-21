@@ -155,7 +155,6 @@ public class ScoreHomeFragment extends Fragment {
             mHomeQtr3.setText(String.valueOf(randomScore.getmHomeQtr3()));
             mHomeQtr4.setText(String.valueOf(randomScore.getmHomeQtr4()));
 
-            mAwayKey = randomScore.getmAwayTeam();
             mAwayName.setText(mAwayKey);
             mAwayScore.setText(String.valueOf(randomScore.getmAwayScore()));
             mAwayQtr1.setText(String.valueOf(randomScore.getmAwayQtr1()));;
