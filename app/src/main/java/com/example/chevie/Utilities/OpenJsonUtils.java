@@ -153,9 +153,10 @@ public class OpenJsonUtils {
 
         ArrayList<TeamCard> teamCards = new ArrayList<>();
         String offensiveOne;
-        String defensive;
-        String logo;
-        int byeWeek;
+        String defensiveOne;
+        String logoOne;
+        int byeWeekOne;
+
 
         try {
 
@@ -168,21 +169,28 @@ public class OpenJsonUtils {
 
                 if (playerId.equals(team1Id)){
                     offensiveOne = jsonObject.getString("OffensiveScheme");
-                    defensive = jsonObject.getString("DefensiveScheme");
-                    logo = jsonObject.getString("WikipediaLogoUrl");
-                    byeWeek = jsonObject.getInt("ByeWeek");
+                    defensiveOne = jsonObject.getString("DefensiveScheme");
+                    logoOne = jsonObject.getString("WikipediaLogoUrl");
+                    byeWeekOne = jsonObject.getInt("ByeWeek");
 
-                    teamCards.add(new TeamCard(logo, offensiveOne, defensive, byeWeek));
+                    teamCards.add(new TeamCard(logoOne, offensiveOne, defensiveOne, byeWeekOne));
 
                 }
 
-                if (playerId.equals(team2Id)){
-                    offensiveOne = jsonObject.getString("OffensiveScheme");
-                    defensive = jsonObject.getString("DefensiveScheme");
-                    logo = jsonObject.getString("WikipediaLogoUrl");
-                    byeWeek = jsonObject.getInt("ByeWeek");
+            }
 
-                    teamCards.add(new TeamCard(logo, offensiveOne, defensive, byeWeek));
+            for (int e = 0; e <rootJson.length(); e++){
+                JSONObject jsonObject = rootJson.getJSONObject(e);
+
+                String id = jsonObject.getString("Key");
+
+                if (id.equals(team2Id)){
+                    offensiveOne = jsonObject.getString("OffensiveScheme");
+                    defensiveOne = jsonObject.getString("DefensiveScheme");
+                    logoOne = jsonObject.getString("WikipediaLogoUrl");
+                    byeWeekOne = jsonObject.getInt("ByeWeek");
+
+                    teamCards.add(new TeamCard(logoOne, offensiveOne, defensiveOne, byeWeekOne));
                 }
 
             }

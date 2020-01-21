@@ -157,7 +157,7 @@ public class ScoreHomeFragment extends Fragment {
 
             mAwayName.setText(mAwayKey);
             mAwayScore.setText(String.valueOf(randomScore.getmAwayScore()));
-            mAwayQtr1.setText(String.valueOf(randomScore.getmAwayQtr1()));;
+            mAwayQtr1.setText(String.valueOf(randomScore.getmAwayQtr1()));
             mAwayQtr2.setText(String.valueOf(randomScore.getmAwayQtr2()));
             mAwayQtr3.setText(String.valueOf(randomScore.getmAwayQtr3()));
             mAwayQtr4.setText(String.valueOf(randomScore.getmAwayQtr4()));
@@ -190,9 +190,9 @@ public class ScoreHomeFragment extends Fragment {
 
             //Get the data need to display Team logo
             TeamCard team1 = teamCards.get(0);
-            SvgLoaderUtil.fetchSvg(mContext, team1.getmTeamLogo(), mHomeLogo);
+            SvgLoaderUtil.fetchSvg(getContext(), team1.getmTeamLogo(), mHomeLogo);
             TeamCard team2 = teamCards.get(1);
-            SvgLoaderUtil.fetchSvg(mContext,team2.getmTeamLogo(), mAwayLogo);
+            SvgLoaderUtil.fetchSvg(getContext(),team2.getmTeamLogo(), mAwayLogo);
         }
     }
 
