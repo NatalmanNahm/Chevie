@@ -350,12 +350,35 @@ public class OpenJsonUtils {
 
             for (int i = 0; i<rootJson.length(); i++){
                 JSONObject jsonObject = rootJson.getJSONObject(i);
-                String name = jsonObject.getString("Key");
+                String key = jsonObject.getString("Key");
                 String offensive = jsonObject.getString("OffensiveScheme");
                 String defensive = jsonObject.getString("DefensiveScheme");
                 String logo = jsonObject.getString("WikipediaLogoUrl");
+                String primaryColor = jsonObject.getString("PrimaryColor");
+                String city = jsonObject.getString("City");
+                String name = jsonObject.getString("Name");
+                String conference = jsonObject.getString("Conference");
+                String division = jsonObject.getString("Division");
+                String fullName = jsonObject.getString("FullName");
+                int byeWeek = jsonObject.getInt("ByeWeek");
+                String headCoach = jsonObject.getString("HeadCoach");
+                String offCoordCoach = jsonObject.getString("OffensiveCoordinator");
+                String defCoordCoach = jsonObject.getString("DefensiveCoordinator");
+                String speTeamCach = jsonObject.getString("SpecialTeamsCoach");
 
-                teams.add(new Teams(name, logo, defensive, offensive));
+                JSONObject stadiumJson = jsonObject.getJSONObject("StadiumDetails");
+                String stadiumName = stadiumJson.getString("Name");
+                String stadiumCity = stadiumJson.getString("City");
+                String stadiumState = stadiumJson.getString("State");
+                int stadiumCapacity = stadiumJson.getInt("Capacity");
+                String stadiumSurface = stadiumJson.getString("PlayingSurface");
+                int geolat = stadiumJson.getInt("GeoLat");
+                int geoLong = stadiumJson.getInt("GeoLong");
+
+                teams.add(new Teams(name, logo, primaryColor, fullName, city, byeWeek, conference,
+                        division, defensive, offensive, key, headCoach, offCoordCoach,
+                        defCoordCoach, speTeamCach, stadiumName, stadiumCity, stadiumState,
+                        stadiumCapacity, stadiumSurface, geolat, geoLong));
 
             }
 
