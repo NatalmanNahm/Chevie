@@ -1,6 +1,7 @@
 package com.example.chevie.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -15,6 +16,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.chevie.AllTeamActivity;
 import com.example.chevie.Models.TeamCard;
 import com.example.chevie.Models.TeamHome;
 import com.example.chevie.R;
@@ -63,6 +65,15 @@ public class TeamHomeFragment extends Fragment {
         mLogo = (ImageView) mRootView.findViewById(R.id.team_home_logo);
 
         new FetchTeamHome().execute();
+
+        //OnClick open the all Team Activity
+        mRootView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AllTeamActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return mRootView;
     }

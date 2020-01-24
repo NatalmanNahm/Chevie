@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AllScoreActivity"></activity>
+        <activity android:name=".AllTeamActivity"></activity>
+        <activity android:name=".AllScoreActivity" />
         <activity android:name=".NewsDetailActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".Auth.RegisterActivity" />
