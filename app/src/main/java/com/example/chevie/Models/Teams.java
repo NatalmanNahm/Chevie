@@ -1,9 +1,12 @@
 package com.example.chevie.Models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Model for Teams
  */
-public class Teams {
+public class Teams implements Parcelable {
 
     //initializer
     private String mTeamName;
@@ -83,6 +86,43 @@ public class Teams {
         this.mLong = mLong;
     }
 
+
+    protected Teams(Parcel in) {
+        mTeamName = in.readString();
+        mTeamLogo = in.readString();
+        mPrimaryColor = in.readString();
+        mTeamCity = in.readString();
+        mTeamFullName = in.readString();
+        mByeWeek = in.readInt();
+        mConference = in.readString();
+        mDivision = in.readString();
+        mDefensive = in.readString();
+        mOffensive = in.readString();
+        mTeamKey = in.readString();
+        mHeadCoach = in.readString();
+        mOffensiveCoord = in.readString();
+        mDefensiveCoord = in.readString();
+        mSpecTeamCoach = in.readString();
+        mStadiumName = in.readString();
+        mStadiumCity = in.readString();
+        mStadiumState = in.readString();
+        mStadiumCapacity = in.readInt();
+        mStadiumSurface = in.readString();
+        mLat = in.readInt();
+        mLong = in.readInt();
+    }
+
+    public static final Creator<Teams> CREATOR = new Creator<Teams>() {
+        @Override
+        public Teams createFromParcel(Parcel in) {
+            return new Teams(in);
+        }
+
+        @Override
+        public Teams[] newArray(int size) {
+            return new Teams[size];
+        }
+    };
 
     //Getters
     public String getmTeamName() {
@@ -171,5 +211,36 @@ public class Teams {
 
     public int getmLong() {
         return mLong;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mTeamName);
+        dest.writeString(mTeamLogo);
+        dest.writeString(mPrimaryColor);
+        dest.writeString(mTeamCity);
+        dest.writeString(mTeamFullName);
+        dest.writeInt(mByeWeek);
+        dest.writeString(mConference);
+        dest.writeString(mDivision);
+        dest.writeString(mDefensive);
+        dest.writeString(mOffensive);
+        dest.writeString(mTeamKey);
+        dest.writeString(mHeadCoach);
+        dest.writeString(mOffensiveCoord);
+        dest.writeString(mDefensiveCoord);
+        dest.writeString(mSpecTeamCoach);
+        dest.writeString(mStadiumName);
+        dest.writeString(mStadiumCity);
+        dest.writeString(mStadiumState);
+        dest.writeInt(mStadiumCapacity);
+        dest.writeString(mStadiumSurface);
+        dest.writeInt(mLat);
+        dest.writeInt(mLong);
     }
 }

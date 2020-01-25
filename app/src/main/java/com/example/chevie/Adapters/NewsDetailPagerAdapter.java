@@ -38,16 +38,9 @@ public class NewsDetailPagerAdapter extends FragmentStatePagerAdapter {
         mNewsBundle.putInt("page", position);
         Log.d("POSITION1", String.valueOf(position));
         mNewsBundle.putParcelableArrayList("news", mNewsDetail);
-        mNewsBundle.putBoolean("isLastPage", position == getCount()-1);
         newsDetailFragment.setArguments(mNewsBundle);
 
         return newsDetailFragment;
-    }
-
-    @NonNull
-    @Override
-    public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        return super.instantiateItem(container, position);
     }
 
     @Override
