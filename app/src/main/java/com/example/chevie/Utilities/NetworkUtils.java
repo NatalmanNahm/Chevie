@@ -4,9 +4,8 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.example.chevie.BuildConfig;
-import com.example.chevie.Models.CurrentTimeFrame;
+import com.example.chevie.Models.TimeFrame;
 import com.example.chevie.Models.EventHome;
-import com.example.chevie.Models.News;
 import com.example.chevie.Models.NewsInfo;
 import com.example.chevie.Models.PlayerProfile;
 import com.example.chevie.Models.ScoreHome;
@@ -44,9 +43,10 @@ public class NetworkUtils {
     private static final String TEAMS = "Teams";
     private static final String SCHEDULES = "Schedules";
     private static final String SCORE_BY_SEASON = "Scores";
+    private static final String PREVIOUS = "completed";
 
     //all Api calls key
-    private static String NFL_KEY = BuildConfig.nfl3SportDataIoApiKey;
+    private static String NFL_KEY = BuildConfig.nflSportDataIoApiKey;
 
     /**
      * Helper method to simplify the need of trying to build the Url
@@ -102,14 +102,31 @@ public class NetworkUtils {
     }
 
     /**
-     * This is to build the Timeframe Url to fetch json data from sport API
+     * This is to build the current Timeframe Url to fetch json data from sport API
      * @param key
      * @return url to be used to fetch data from database
      */
-    public static URL build_timeframe_url (String key){
+    public static URL build_current_timeframe_url(String key){
         Uri uriBuilder = Uri.parse(buildUrl_nfl().toString()).buildUpon()
                 .appendPath(TIMEFRAME)
                 .appendPath(CURRENT)
+                .appendQueryParameter(API_KEY, key)
+                .build();
+
+        URL url = tryBuildUrl(uriBuilder);
+
+        return url;
+    }
+
+    /**
+     * This is to build the Previous Timeframe Url to fetch json data from sport API
+     * @param key
+     * @return url to be used to fetch data from database
+     */
+    public static URL build_previous_timeframe_url(String key){
+        Uri uriBuilder = Uri.parse(buildUrl_nfl().toString()).buildUpon()
+                .appendPath(TIMEFRAME)
+                .appendPath(PREVIOUS)
                 .appendQueryParameter(API_KEY, key)
                 .build();
 
@@ -321,10 +338,10 @@ public class NetworkUtils {
 
     /**
      * Query data to get the current time Frame
-     * @return ArrayList of CurrentTimeFrame
+     * @return ArrayList of TimeFrame
      */
-    public static ArrayList<CurrentTimeFrame> fetchTimeFrame (){
-        URL url = build_timeframe_url(NFL_KEY);
+    public static ArrayList<TimeFrame> fetchCurrentTimeFrame(){
+        URL url = build_current_timeframe_url(NFL_KEY);
 
         String jsonResponse = null;
 
@@ -336,11 +353,33 @@ public class NetworkUtils {
 
         Log.d("URL", jsonResponse);
 
-        ArrayList<CurrentTimeFrame> currentTimeFrame = OpenJsonUtils.extractCurrentSeason(jsonResponse);
+        ArrayList<TimeFrame> timeFrame = OpenJsonUtils.extractSeason(jsonResponse);
 
-        return currentTimeFrame;
-
+        return timeFrame;
     }
+
+    /**
+     * Query data to get the Previous timeFrame
+     * @return ArrayList of TimeFrame
+     */
+    public static ArrayList<TimeFrame> fetchPreviousTimeFrame(){
+        URL url = build_previous_timeframe_url(NFL_KEY);
+
+        String jsonResponse = null;
+
+        try {
+            jsonResponse = getResponseFromHttpUrl(url);
+        } catch (IOException e) {
+            Log.e(TAG, "Problem making the HTTP request", e);
+        }
+
+        Log.d("URL", jsonResponse);
+
+        ArrayList<TimeFrame> timeFrame = OpenJsonUtils.extractSeason(jsonResponse);
+
+        return timeFrame;
+    }
+
 
     /**
      * Query data to get event data

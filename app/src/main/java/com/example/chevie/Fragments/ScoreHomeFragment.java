@@ -7,7 +7,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.chevie.AllScoreActivity;
-import com.example.chevie.Models.CurrentTimeFrame;
+import com.example.chevie.Models.TimeFrame;
 import com.example.chevie.Models.ScoreHome;
 import com.example.chevie.Models.TeamCard;
 import com.example.chevie.R;
@@ -23,7 +22,6 @@ import com.example.chevie.Utilities.NetworkUtils;
 import com.example.chevie.Utilities.SvgLoaderUtil;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,7 +34,8 @@ public class ScoreHomeFragment extends Fragment {
     Context mContext;
     ArrayList<ScoreHome> mScore = new ArrayList<>();
     ArrayList<TeamCard> mTeamCard = new ArrayList<>();
-    ArrayList<CurrentTimeFrame> mCurrent = new ArrayList<>();
+    ArrayList<TimeFrame> mCurrent = new ArrayList<>();
+    ArrayList<TimeFrame> mPrevious = new ArrayList<>();
     TextView mHomeName, mAwayName;
     ImageView mHomeLogo, mAwayLogo;
     TextView mHomeScore, mAwayScore;
@@ -45,7 +44,7 @@ public class ScoreHomeFragment extends Fragment {
     TextView mHomeQtr3, mAwayQtr3;
     TextView mHomeQtr4, mAwayQtr4;
     TextView mDate, mWeek;
-    String mCurrentSeason;
+    String mCurrentSeason, mPreviousSeason;
     String mHomeKey, mAwayKey;
 
     public ScoreHomeFragment() {
@@ -98,7 +97,7 @@ public class ScoreHomeFragment extends Fragment {
     /**
      * This asyncTask class is to get the current time frame then get our current season.
      */
-    public class FetchCurrentSeason extends AsyncTask<String, Void, ArrayList<CurrentTimeFrame>>{
+    public class FetchCurrentSeason extends AsyncTask<String, Void, ArrayList<TimeFrame>>{
 
         @Override
         protected void onPreExecute() {
@@ -106,17 +105,17 @@ public class ScoreHomeFragment extends Fragment {
         }
 
         @Override
-        protected ArrayList<CurrentTimeFrame> doInBackground(String... strings) {
-            mCurrent = NetworkUtils.fetchTimeFrame();
-            CurrentTimeFrame currentTimeFrame = mCurrent.get(0);
-            mCurrentSeason = currentTimeFrame.getmCurrentSeason();
+        protected ArrayList<TimeFrame> doInBackground(String... strings) {
+            mCurrent = NetworkUtils.fetchCurrentTimeFrame();
+            TimeFrame timeFrame = mCurrent.get(0);
+            mCurrentSeason = timeFrame.getmCurrentSeason();
 
             return mCurrent;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<CurrentTimeFrame> currentTimeFrames) {
-            super.onPostExecute(currentTimeFrames);
+        protected void onPostExecute(ArrayList<TimeFrame> timeFrames) {
+            super.onPostExecute(timeFrames);
         }
     }
 
@@ -134,9 +133,24 @@ public class ScoreHomeFragment extends Fragment {
         @Override
         protected ArrayList<ScoreHome> doInBackground(String... strings) {
             mScore = NetworkUtils.fetchScoreHome(mCurrentSeason);
-            ScoreHome randomScore = mScore.get(mScore.size() - 1);
-            mHomeKey = randomScore.getmHomeTeam();
-            mAwayKey = randomScore.getmAwayTeam();
+
+            //if the Current season hasn't started yet
+            //then use Data from previous season
+            if (mScore.size() == 0){
+                mPrevious = NetworkUtils.fetchPreviousTimeFrame();
+                TimeFrame timeFrame = mPrevious.get(0);
+                mPreviousSeason = timeFrame.getmCurrentSeason();
+                mScore = NetworkUtils.fetchScoreHome(mPreviousSeason);
+
+                ScoreHome randomScore = mScore.get(mScore.size() - 1);
+                mHomeKey = randomScore.getmHomeTeam();
+                mAwayKey = randomScore.getmAwayTeam();
+
+            }else {
+                ScoreHome randomScore = mScore.get(mScore.size() - 1);
+                mHomeKey = randomScore.getmHomeTeam();
+                mAwayKey = randomScore.getmAwayTeam();
+            }
             return mScore;
         }
 

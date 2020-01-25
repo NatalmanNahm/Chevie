@@ -14,10 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.chevie.Adapters.ScheduleAdapter;
-import com.example.chevie.Models.CurrentTimeFrame;
+import com.example.chevie.Models.TimeFrame;
 import com.example.chevie.Models.EventHome;
 import com.example.chevie.Models.Schedule;
 import com.example.chevie.Models.TeamCard;
@@ -36,7 +35,7 @@ public class ScheduleFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private ConstraintLayout mErrorLayout;
     private ArrayList<EventHome> mEventHome = new ArrayList<>();
-    private ArrayList<CurrentTimeFrame> mTimeFrame = new ArrayList<>();
+    private ArrayList<TimeFrame> mTimeFrame = new ArrayList<>();
     private ArrayList<Schedule> mSchedule = new ArrayList<>();
     private ArrayList<TeamCard> mTeamCard = new ArrayList<>();
     private ScheduleAdapter mEventAdapter;
@@ -102,7 +101,7 @@ public class ScheduleFragment extends Fragment {
     /**
      * asyncTask to get data needed to pull a data needed to build the Timeframe
      */
-    public class FetchTimeFrame extends AsyncTask<String, Void, ArrayList<CurrentTimeFrame>>{
+    public class FetchTimeFrame extends AsyncTask<String, Void, ArrayList<TimeFrame>>{
 
         @Override
         protected void onPreExecute() {
@@ -110,16 +109,16 @@ public class ScheduleFragment extends Fragment {
         }
 
         @Override
-        protected ArrayList<CurrentTimeFrame> doInBackground(String... strings) {
-            mTimeFrame = NetworkUtils.fetchTimeFrame();
-            CurrentTimeFrame currentTimeFrame= mTimeFrame.get(0);
-            mCurrentSeason = currentTimeFrame.getmCurrentSeason();
+        protected ArrayList<TimeFrame> doInBackground(String... strings) {
+            mTimeFrame = NetworkUtils.fetchCurrentTimeFrame();
+            TimeFrame timeFrame = mTimeFrame.get(0);
+            mCurrentSeason = timeFrame.getmCurrentSeason();
             return mTimeFrame;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<CurrentTimeFrame> currentTimeFrames) {
-            super.onPostExecute(currentTimeFrames);
+        protected void onPostExecute(ArrayList<TimeFrame> timeFrames) {
+            super.onPostExecute(timeFrames);
         }
     }
 

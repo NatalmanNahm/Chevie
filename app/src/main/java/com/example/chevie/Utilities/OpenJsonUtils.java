@@ -3,9 +3,8 @@ package com.example.chevie.Utilities;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.example.chevie.Models.CurrentTimeFrame;
+import com.example.chevie.Models.TimeFrame;
 import com.example.chevie.Models.EventHome;
-import com.example.chevie.Models.News;
 import com.example.chevie.Models.NewsInfo;
 import com.example.chevie.Models.PlayerProfile;
 import com.example.chevie.Models.ScoreHome;
@@ -18,7 +17,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class OpenJsonUtils {
 
@@ -113,13 +111,13 @@ public class OpenJsonUtils {
     /**
      * Getting the info needed to get the current season info
      * @param json
-     * @return ArrayList of CurrentTimeFrame
+     * @return ArrayList of TimeFrame
      */
-    public static ArrayList<CurrentTimeFrame> extractCurrentSeason (String json){
+    public static ArrayList<TimeFrame> extractSeason(String json){
         isEmptyStringJson(json);
 
         //Created an empty Arralist for the current time frame
-        ArrayList<CurrentTimeFrame> currentTimeFrame = new ArrayList<>();
+        ArrayList<TimeFrame> timeFrame = new ArrayList<>();
 
         try {
             JSONArray rootJson = new JSONArray(json);
@@ -131,7 +129,7 @@ public class OpenJsonUtils {
                 Log.d("SEASON", currentSeason);
                 int currentWeek =jsonObject.getInt("Week");
 
-                currentTimeFrame.add(new CurrentTimeFrame(currentSeason, currentWeek));
+                timeFrame.add(new TimeFrame(currentSeason, currentWeek));
             }
 
         } catch (JSONException e) {
@@ -139,7 +137,7 @@ public class OpenJsonUtils {
             Log.e(TAG, "Error parsing the Json object");
         }
 
-        return currentTimeFrame;
+        return timeFrame;
     }
 
     /**
