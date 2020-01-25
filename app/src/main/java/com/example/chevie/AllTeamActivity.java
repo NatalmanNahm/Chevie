@@ -82,8 +82,8 @@ public class AllTeamActivity extends AppCompatActivity implements AllTeamsAdapte
         float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
         int scalingFactor = 200;
         int noOfColumns = (int) (dpWidth / scalingFactor);
-        if(noOfColumns < 3)
-            noOfColumns = 3;
+        if(noOfColumns < 4)
+            noOfColumns = 4;
         return noOfColumns;
     }
 
