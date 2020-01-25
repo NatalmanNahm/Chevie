@@ -51,7 +51,20 @@
     <string name="date_match">Date:</string>
     <string name="week_match">Week:</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- All Teams detail Strings -->
+    <string name="team_name_label">Name:</string>
+    <string name="team_initial_label">Initial:</string>
+    <string name="team_conference_label">Conference:</string>
+    <string name="team_division_label">Division:</string>
+    <string name="bye_week_label">Bye Week:</string>
+    <string name="defense_label">Defense:</string>
+    <string name="offense_label">Offensive:</string>
+    <string name="head_coach_label">Head Coach</string>
+    <string name="offensive_coord_label">Offensive Coordinator</string>
+    <string name="defensive_coord_label">Defensive Coordinator</string>
+    <string name="special_coach_label">Special Coach</string>
+    <string name="stadium_name_label">Stadium Name:</string>
+    <string name="stadium_capacity_label">Capacity:</string>
+    <string name="stadium_surface_label">Surface:</string>
 
 </resources>
