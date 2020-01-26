@@ -88,7 +88,7 @@ public class AllTeamActivity extends AppCompatActivity implements AllTeamsAdapte
     }
 
     @Override
-    public void onClick(Teams teams) {
+    public void onClick(ArrayList<Teams> teams, int position) {
 
     }
 }

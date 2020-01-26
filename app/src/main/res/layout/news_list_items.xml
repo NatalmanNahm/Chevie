@@ -17,9 +17,10 @@
 
         <ImageView
             android:id="@+id/player_Pic"
-            android:layout_width="80dp"
+            android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_margin="4dp"
+            android:elevation="4dp"
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="141dp"
             tools:srcCompat="@tools:sample/avatars[2]" />

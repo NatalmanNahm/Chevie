@@ -1,6 +1,8 @@
 package com.example.chevie.Adapters;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -107,7 +109,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewholder
             mTime.setText(news.getmTimeShared());
             mSource.setText(news.getmSource());
             mPlayerShortName.setText(news.getmPlayerShortName());
-
             Picasso.get().load(news.getmPlayerPic()).into(mPlayerImg);
 
         }

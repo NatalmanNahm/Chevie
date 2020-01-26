@@ -36,7 +36,7 @@ public class AllTeamsAdapter extends RecyclerView.Adapter<AllTeamsAdapter.AllTea
      * Interface that handle an Item Click
      */
     public interface TeamsOnClickHandler{
-        void onClick(Teams teams);
+        void onClick(ArrayList<Teams> teams, int position);
     }
 
     /**
@@ -107,8 +107,7 @@ public class AllTeamsAdapter extends RecyclerView.Adapter<AllTeamsAdapter.AllTea
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
-            Teams teams = mTeams.get(position);
-            mClickHandler.onClick(teams);
+            mClickHandler.onClick(mTeams, position);
         }
     }
 }
