@@ -1,6 +1,8 @@
 package com.example.chevie.Adapters;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,6 +95,8 @@ public class AllTeamsAdapter extends RecyclerView.Adapter<AllTeamsAdapter.AllTea
             SvgLoaderUtil.fetchSvg(mContext, teams.getmTeamLogo(), mTeamLogo);
             mTeamName.setText(teams.getmTeamKey());
             mDefensive.setText(teams.getmDefensive());
+            GradientDrawable drawable = (GradientDrawable) mTeamLogo.getBackground();
+            drawable.setColor(Color.parseColor("#" + teams.getmPrimaryColor()));
         }
 
 

@@ -66,5 +66,6 @@
     <string name="stadium_name_label">Stadium Name:</string>
     <string name="stadium_capacity_label">Capacity:</string>
     <string name="stadium_surface_label">Surface:</string>
+    <string name="position_label">Position:</string>
 
 </resources>
