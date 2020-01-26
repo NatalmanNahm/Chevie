@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -90,5 +91,10 @@ public class AllTeamActivity extends AppCompatActivity implements AllTeamsAdapte
     @Override
     public void onClick(ArrayList<Teams> teams, int position) {
 
+        //Creating a new intent to parse data from this activity to the teamDetailActivity
+        Intent intent = new Intent(this, TeamDetailActivity.class);
+        intent.putExtra("position", position);
+        intent.putParcelableArrayListExtra("TeamsArray", teams);
+        startActivity(intent);
     }
 }

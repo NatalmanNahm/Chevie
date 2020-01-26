@@ -96,9 +96,11 @@ public class OpenJsonUtils {
             JSONObject playerJson = new JSONObject(json);
 
             String playerPic = playerJson.getString("PhotoUrl");
-            String playerNane = playerJson.getString("ShortName");
+            String playerName = playerJson.getString("ShortName");
+            int age = playerJson.getInt("Age");
+            String position = playerJson.getString("Position");
 
-            playerArray.add(new PlayerProfile(playerPic, playerNane));
+            playerArray.add(new PlayerProfile(playerPic, playerName, age, position));
 
 
         } catch (JSONException e) {

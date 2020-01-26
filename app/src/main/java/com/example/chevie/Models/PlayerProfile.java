@@ -8,15 +8,21 @@ public class PlayerProfile {
     //Initializer
     private String mPlayerImg;
     private String mShortName;
+    private int mAge;
+    private String mPosition;
 
     /**
      * Constructor for the player Profile object
-     * @param image
-     * @param shortName
+     * @param mPlayerImg
+     * @param mShortName
+     * @param mAge
+     * @param mPosition
      */
-    public PlayerProfile(String image, String shortName){
-        mPlayerImg = image;
-        mShortName = shortName;
+    public PlayerProfile(String mPlayerImg, String mShortName, int mAge, String mPosition) {
+        this.mPlayerImg = mPlayerImg;
+        this.mShortName = mShortName;
+        this.mAge = mAge;
+        this.mPosition = mPosition;
     }
 
     public String getmPlayerImg() {
@@ -25,5 +31,13 @@ public class PlayerProfile {
 
     public String getmShortName() {
         return mShortName;
+    }
+
+    public int getmAge() {
+        return mAge;
+    }
+
+    public String getmPosition() {
+        return mPosition;
     }
 }
