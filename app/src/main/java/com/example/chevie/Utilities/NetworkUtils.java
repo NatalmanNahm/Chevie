@@ -154,6 +154,23 @@ public class NetworkUtils {
         return url;
     }
 
+
+    /**
+     * Build the Url to query the sport data to get all player by team
+     * @param teamKey
+     * @param key
+     * @return
+     */
+    public static URL build_palyer_by_team_url(String teamKey, String key){
+        Uri uriBuilder = Uri.parse(buildUrl_nfl().toString()).buildUpon()
+                .appendPath(PLAYER)
+                .appendPath(teamKey)
+                .appendQueryParameter(API_KEY, key)
+                .build();
+        URL url = tryBuildUrl(uriBuilder);
+        return url;
+    }
+
     /**
      * BUild the url to query the database and get all score by the current season
      * @param season
@@ -311,6 +328,26 @@ public class NetworkUtils {
 
         ArrayList<PlayerProfile> playerProfile = OpenJsonUtils.playerProfile(jsonReponse);
 
+        return playerProfile;
+    }
+
+    /**
+     * Query data to get player info by team
+     * @param teamKey
+     * @return
+     */
+    public static ArrayList<PlayerProfile> fetchPlayerByTeam(String teamKey){
+        URL playerUrl = build_palyer_by_team_url(teamKey, NFL_KEY);
+
+        String jsonReponse = null;
+
+        try {
+            jsonReponse = getResponseFromHttpUrl(playerUrl);
+        } catch (IOException e) {
+            Log.e(TAG, "Problem making the HTTP request", e);
+        }
+
+        ArrayList<PlayerProfile> playerProfile = OpenJsonUtils.playerProfile(jsonReponse);
         return playerProfile;
     }
 
