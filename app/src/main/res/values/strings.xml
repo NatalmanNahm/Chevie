@@ -25,6 +25,9 @@
     <string name="stadium_label">Stadium:</string>
     <string name="event_error_message">No event scheduled for Today</string>
     <string name="event_label">Schedules</string>
+    <string name="event_time">Time:</string>
+    <string name="def">Def</string>
+    <string name="off">Off</string>
 
     <!--All TeamHome Strings here-->
     <string name="head_coach">Head Coach:</string>
