@@ -26,6 +26,7 @@ import com.example.chevie.Models.PlayerProfile;
 import com.example.chevie.Models.Teams;
 import com.example.chevie.R;
 import com.example.chevie.Utilities.NetworkUtils;
+import com.example.chevie.Utilities.SvgLoaderUtil;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -118,10 +119,8 @@ public class TeamDetailFragment extends Fragment {
         Teams team = mTeams.get(mPosition);
         mTeamKey = team.getmTeamKey();
 
-        GradientDrawable drawable = (GradientDrawable) mLogoLayout.getBackground();
-        drawable.setColor(Color.parseColor("#" + team.getmPrimaryColor()));
-
-        Picasso.get().load(team.getmTeamLogo()).into(mTeamLogo);
+        SvgLoaderUtil.fetchSvg(mContext, team.getmTeamLogo(), mTeamLogo);
+        mLogoLayout.setBackgroundColor(Color.parseColor("#" + team.getmPrimaryColor()));
         mTeamName.setText(team.getmTeamName());
         mTeamInitial.setText(team.getmTeamKey());
         mTeamLocation.setText((team.getmTeamCity() + ", " + team.getmStadiumState()));

@@ -30,7 +30,7 @@ public class AllTeamsAdapter extends RecyclerView.Adapter<AllTeamsAdapter.AllTea
     //Initializer
     ArrayList<Teams> mTeams = new ArrayList<>();
     Context mContext;
-    private TeamsOnClickHandler mClickHandler;
+    private final TeamsOnClickHandler mClickHandler;
 
     /**
      * Interface that handle an Item Click
@@ -79,7 +79,7 @@ public class AllTeamsAdapter extends RecyclerView.Adapter<AllTeamsAdapter.AllTea
         notifyDataSetChanged();
     }
 
-    public class AllTeamsHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class AllTeamsHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @Bind(R.id.team_logo) ImageView mTeamLogo;
         @Bind(R.id.team_name) TextView mTeamName;
@@ -88,6 +88,7 @@ public class AllTeamsAdapter extends RecyclerView.Adapter<AllTeamsAdapter.AllTea
         public AllTeamsHolder(@NonNull View itemView) {
             super(itemView);
             mContext = itemView.getContext();
+            itemView.setOnClickListener(this);
             ButterKnife.bind(this, itemView);
         }
 

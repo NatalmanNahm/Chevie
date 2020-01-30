@@ -136,7 +136,7 @@ public class NewsFragment extends Fragment implements NewsAdapter.NewsAdapterOnC
 
             //Iterating through the arraylist of news info
             //Then create a news Arraylist
-            for (int i = 0; i < mInfoArray.size(); i++){
+            for (int i = 0; i < 5; i++){
                 NewsInfo newsInfo = mInfoArray.get(i);
                 mPlayerId = newsInfo.getmNewsPlayerId();
                 mSource = newsInfo.getmSource();

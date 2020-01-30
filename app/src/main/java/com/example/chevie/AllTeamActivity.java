@@ -24,10 +24,10 @@ import java.util.ArrayList;
 public class AllTeamActivity extends AppCompatActivity implements AllTeamsAdapter.TeamsOnClickHandler{
 
     //Initializer
-    RecyclerView mRecyclerView;
-    AllTeamsAdapter mAdapter;
-    ArrayList<Teams> mTeams = new ArrayList<>();
-    GridLayoutManager mGridLayoutManager;
+    private RecyclerView mRecyclerView;
+    private AllTeamsAdapter mAdapter;
+    private ArrayList<Teams> mTeams = new ArrayList<>();
+    private GridLayoutManager mGridLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

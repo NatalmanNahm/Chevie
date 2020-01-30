@@ -15,6 +15,7 @@
             android:id="@+id/logo_const"
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:background="#B388FF"
             android:layout_marginBottom="4dp">
 
             <ImageView
@@ -252,12 +253,12 @@
                 android:id="@+id/std_name_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="100dp"
-                android:layout_marginLeft="100dp"
+                android:layout_marginStart="80dp"
+                android:layout_marginLeft="80dp"
                 android:layout_marginTop="16dp"
+                android:text="@string/stadium_label"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textStyle="bold"
-                android:text="@string/stadium_label"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
