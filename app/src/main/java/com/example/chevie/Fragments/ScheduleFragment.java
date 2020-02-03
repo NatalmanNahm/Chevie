@@ -1,5 +1,6 @@
 package com.example.chevie.Fragments;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -21,6 +22,7 @@ import com.example.chevie.Models.EventHome;
 import com.example.chevie.Models.Schedule;
 import com.example.chevie.Models.TeamCard;
 import com.example.chevie.R;
+import com.example.chevie.ScheduleDetailActivity;
 import com.example.chevie.Utilities.NetworkUtils;
 
 import java.util.ArrayList;
@@ -74,6 +76,15 @@ public class ScheduleFragment extends Fragment {
         new FetchTimeFrame().execute();
 
         new FetchEvent().execute();
+
+        //OnClick open the all Team Activity
+        mRootView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ScheduleDetailActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return mRootView;
     }

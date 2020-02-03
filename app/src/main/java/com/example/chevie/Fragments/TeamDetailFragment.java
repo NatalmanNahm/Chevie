@@ -104,16 +104,6 @@ public class TeamDetailFragment extends Fragment {
         mCdrDef = (TextView) mRootView.findViewById(R.id.def_coord);
         mCdrOff = (TextView) mRootView.findViewById(R.id.off_coord);
 
-        mPlayerRecyclerView = (RecyclerView) mRootView.findViewById(R.id.players_recycler);
-        mGridLayoutManager = new GridLayoutManager(mContext, calculateNoOfColumns(mContext),
-                GridLayoutManager.VERTICAL, false);
-        mPlayerRecyclerView.setLayoutManager(mGridLayoutManager);
-        mPlayerRecyclerView.setHasFixedSize(true);
-        mPlayerAdapter = new PlayerAdapter(mPlayerprofile, mContext);
-        mPlayerRecyclerView.setAdapter(mPlayerAdapter);
-
-        new FetchPlayerByTeam().execute();
-
 
         //Get the current Item
         Teams team = mTeams.get(mPosition);
@@ -137,6 +127,16 @@ public class TeamDetailFragment extends Fragment {
         mSpecialCoach.setText(team.getmSpecTeamCoach());
         mCdrDef.setText(team.getmDefensiveCoord());
         mCdrOff.setText(team.getmOffensiveCoord());
+
+        mPlayerRecyclerView = (RecyclerView) mRootView.findViewById(R.id.players_recycler);
+        mGridLayoutManager = new GridLayoutManager(mContext, calculateNoOfColumns(mContext),
+                GridLayoutManager.VERTICAL, false);
+        mPlayerRecyclerView.setLayoutManager(mGridLayoutManager);
+        mPlayerRecyclerView.setHasFixedSize(true);
+        mPlayerAdapter = new PlayerAdapter(mPlayerprofile, mContext);
+        mPlayerRecyclerView.setAdapter(mPlayerAdapter);
+
+        new FetchPlayerByTeam().execute();
 
         return mRootView;
     }

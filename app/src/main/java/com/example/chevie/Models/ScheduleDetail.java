@@ -9,7 +9,6 @@ public class ScheduleDetail {
     private String mAwayTeam;
     private String mDate;
     private String mTime;
-    private String mForcastDesc;
     private String mStadium;
     private String mTeamOneLogo;
     private String mOneOffensiveSch;
@@ -27,7 +26,6 @@ public class ScheduleDetail {
      * @param mAwayTeam
      * @param mDate
      * @param mTime
-     * @param mForcastDesc
      * @param mStadium
      * @param mTeamOneLogo
      * @param mOneOffensiveSch
@@ -39,7 +37,7 @@ public class ScheduleDetail {
      * @param mTwoByeWeek
      */
     public ScheduleDetail(String mHomeTeam, String mAwayTeam, String mDate, String mTime,
-                          String mForcastDesc, String mStadium, String mTeamOneLogo,
+                          String mStadium, String mTeamOneLogo,
                           String mOneOffensiveSch, String mOneDefensiveSch, int mOneByeWeek,
                           String mTeamTwoLogo, String mTwoOffensiveSch, String mTwoDefensiveSch,
                           int mTwoByeWeek) {
@@ -47,7 +45,6 @@ public class ScheduleDetail {
         this.mAwayTeam = mAwayTeam;
         this.mDate = mDate;
         this.mTime = mTime;
-        this.mForcastDesc = mForcastDesc;
         this.mStadium = mStadium;
         this.mTeamOneLogo = mTeamOneLogo;
         this.mOneOffensiveSch = mOneOffensiveSch;
@@ -75,10 +72,6 @@ public class ScheduleDetail {
 
     public String getmTime() {
         return mTime;
-    }
-
-    public String getmForcastDesc() {
-        return mForcastDesc;
     }
 
     public String getmStadium() {
