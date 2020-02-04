@@ -13,6 +13,7 @@ public class EventHome {
     private int mHigh;
     private int mLow;
     private String mStadium;
+    private String mTime;
 
 
     /**
@@ -26,7 +27,7 @@ public class EventHome {
      * @param stadium
      */
     public EventHome (String homeTeam, String awayTeam, String date, String forcastDesc, int high,
-                      int low, String stadium){
+                      int low, String stadium, String time){
         mHomeTeam = homeTeam;
         mAwayTeam = awayTeam;
         mDate = date;
@@ -34,6 +35,7 @@ public class EventHome {
         mHigh = high;
         mLow = low;
         mStadium = stadium;
+        mTime = time;
     }
 
     public String getmHomeTeam() {
@@ -62,5 +64,9 @@ public class EventHome {
 
     public String getmStadium() {
         return mStadium;
+    }
+
+    public String getmTime() {
+        return mTime;
     }
 }

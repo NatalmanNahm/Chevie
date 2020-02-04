@@ -49,7 +49,7 @@ public class ScheduleDetailAdapter extends RecyclerView.Adapter<ScheduleDetailAd
         boolean shouldAttachToParentImmediately = false;
 
         View view = layoutInflater.inflate(layoutListItem, parent, shouldAttachToParentImmediately);
-        return new ScheduleDetailAdapter.ScheduleHolder(view);
+        return new ScheduleHolder(view);
     }
 
     @Override
@@ -65,6 +65,7 @@ public class ScheduleDetailAdapter extends RecyclerView.Adapter<ScheduleDetailAd
 
     public void setmScheduleDetail(ArrayList<ScheduleDetail> mScheduleDetail) {
         this.mScheduleDetail = mScheduleDetail;
+        notifyDataSetChanged();
     }
 
     public class ScheduleHolder extends RecyclerView.ViewHolder {
@@ -101,8 +102,10 @@ public class ScheduleDetailAdapter extends RecyclerView.Adapter<ScheduleDetailAd
             mAwayDef.setText(scheduleDetail.getmTwoDefensiveSch());
             mHomeOff.setText(scheduleDetail.getmOneOffensiveSch());
             mAwayOff.setText(scheduleDetail.getmTwoOffensiveSch());
-            mHomeByeWeek.setText( R.string.week_label +  String.valueOf(scheduleDetail.getmOneByeWeek()));
-            mAwayByeWeek.setText(R.string.week_label + String.valueOf(scheduleDetail.getmTwoByeWeek()));
+            mHomeByeWeek.setText(itemView.getContext().getResources().
+                    getString(R.string.week_sch, scheduleDetail.getmOneByeWeek()));
+            mAwayByeWeek.setText(itemView.getContext().getResources().
+                    getString(R.string.week_sch, scheduleDetail.getmTwoByeWeek()));
             mStadiumName.setText(scheduleDetail.getmStadium());
 
         }

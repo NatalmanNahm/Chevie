@@ -133,6 +133,10 @@ public class ScheduleFragment extends Fragment {
         }
     }
 
+
+    /**
+     * AsyncTask to fetch Schedule data
+     */
     public class FetchEvent extends AsyncTask<String, Void, ArrayList<Schedule>>{
 
         @Override

@@ -28,6 +28,7 @@
     <string name="event_time">Time:</string>
     <string name="def">Def</string>
     <string name="off">Off</string>
+    <string name="week_sch">Week %1$d</string>
 
     <!--All TeamHome Strings here-->
     <string name="head_coach">Head Coach:</string>

@@ -223,6 +223,7 @@ public class OpenJsonUtils {
                 String dateTime = jsonObject.getString("DateTime");
                 String date = DateTimeUtil.dateString(dateTime);
                 String currentDate = DateTimeUtil.currentDate();
+                String time = DateTimeUtil.mathTime(dateTime);
 
                 if (date.equals(currentDate)){
                     String home = jsonObject.getString("HomeTeam");
@@ -234,8 +235,48 @@ public class OpenJsonUtils {
                     JSONObject stadiumoJson = jsonObject.getJSONObject("StadiumDetails");
                     String stadium = stadiumoJson.getString("Name");
 
-                    eventHomes.add(new EventHome(home, away, date, forcast, high, low, stadium));
+                    eventHomes.add(new EventHome(home, away, date, forcast, high, low, stadium, time));
                 }
+
+            }
+        }catch (JSONException e) {
+            //If there is a problem parsing the Json object print this message
+            Log.e(TAG, "Error parsing the Json object");
+        }
+
+        return eventHomes;
+    }
+
+    /**
+     * Getting all data needed to build an event
+     * @param json
+     * @return
+     */
+    public static ArrayList<EventHome> extractAllEventHome (String json){
+        isEmptyStringJson(json);
+
+        ArrayList<EventHome> eventHomes = new ArrayList<>();
+
+        try {
+            JSONArray rootJson = new JSONArray(json);
+
+            for (int i = 0; i<rootJson.length(); i++){
+                JSONObject jsonObject = rootJson.getJSONObject(i);
+
+                String dateTime = jsonObject.getString("DateTime");
+                String date = DateTimeUtil.dateString(dateTime);
+                String currentDate = DateTimeUtil.currentDate();
+                String time = DateTimeUtil.mathTime(dateTime);
+                String home = jsonObject.getString("HomeTeam");
+                String away = jsonObject.getString("AwayTeam");
+                String forcast = jsonObject.getString("ForecastDescription");
+                int high = jsonObject.getInt("ForecastTempHigh");
+                int low = jsonObject.getInt("ForecastTempLow");
+
+                JSONObject stadiumoJson = jsonObject.getJSONObject("StadiumDetails");
+                String stadium = stadiumoJson.getString("Name");
+
+                eventHomes.add(new EventHome(home, away, date, forcast, high, low, stadium, time));
 
             }
         }catch (JSONException e) {

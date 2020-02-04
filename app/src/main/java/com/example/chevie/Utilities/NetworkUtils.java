@@ -441,6 +441,28 @@ public class NetworkUtils {
     }
 
     /**
+     * Query data to get all event data
+     * @param season
+     * @return ArrayList of eventHome data
+     */
+    public static  ArrayList<EventHome> fetchAllEventData(String season){
+        URL url = build_team_event_home_url(NFL_KEY, season);
+
+        String jsonResponse = null;
+
+        try {
+            jsonResponse = getResponseFromHttpUrl(url);
+        } catch (IOException e) {
+            Log.e(TAG, "Problem making the HTTP request", e);
+        }
+
+        ArrayList<EventHome> eventHome = OpenJsonUtils.extractAllEventHome(jsonResponse);
+        return eventHome;
+
+    }
+
+
+    /**
      * Query Api database to get team home data
      * @return
      */
