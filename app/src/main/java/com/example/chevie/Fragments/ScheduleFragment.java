@@ -17,12 +17,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.chevie.Adapters.ScheduleAdapter;
+import com.example.chevie.MainActivity;
 import com.example.chevie.Models.TimeFrame;
 import com.example.chevie.Models.EventHome;
 import com.example.chevie.Models.Schedule;
 import com.example.chevie.Models.TeamCard;
 import com.example.chevie.R;
-import com.example.chevie.ScheduleDetailActivity;
 import com.example.chevie.Utilities.NetworkUtils;
 
 import java.util.ArrayList;
@@ -81,7 +81,8 @@ public class ScheduleFragment extends Fragment {
         mRootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ScheduleDetailActivity.class);
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.putExtra("OpenSchedule", true);
                 startActivity(intent);
             }
         });

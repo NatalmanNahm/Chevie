@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.example.chevie.Adapters.NewsDetailPagerAdapter;
+import com.example.chevie.Fragments.ScheduleDetailFragment;
 import com.example.chevie.Models.News;
 import com.example.chevie.Utilities.ZoomOutPageTransformer;
 import com.google.android.material.navigation.NavigationView;
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private NewsDetailPagerAdapter mNewsDetailPagerAdapter;
 
 
+    //For Schedule
+    private ScheduleDetailFragment mSchDetailFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,15 +62,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if (intent.hasExtra("positionNews")){
                 mNewsPostion = intent.getIntExtra("positionNews", 0);
                 mNews = intent.getParcelableArrayListExtra("newsArray");
+                navigationView.setCheckedItem(R.id.news);
+                setNewsViewPager();
+            }
 
-                //get rid of the frameLayout View
-                mFrameLayout.setVisibility(View.GONE);
-
-                //Open the NewsPager with its Fragment
-                mNewsDetailPagerAdapter = new NewsDetailPagerAdapter(getSupportFragmentManager(), mNews);
-                mViewPager.setAdapter(mNewsDetailPagerAdapter);
-                mViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
-                mViewPager.setCurrentItem(mNewsPostion);
+            //Open Schedule detail Fragment
+            if (intent.hasExtra("OpenSchedule")){
+                navigationView.setCheckedItem(R.id.schedule);
+                openScheduleFragment();
             }
         }
 
@@ -92,15 +94,55 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    /**
+     * helper method to get the mainActivity inflate the viewPager
+     * with news detail pager.
+     */
+    private void setNewsViewPager(){
+        //get rid of the frameLayout View
+        mFrameLayout.setVisibility(View.GONE);
+        //Show ViewPager
+        mViewPager.setVisibility(View.VISIBLE);
+
+        //Open the NewsPager with its Fragment
+        mNewsDetailPagerAdapter = new NewsDetailPagerAdapter(getSupportFragmentManager(), mNews);
+        mViewPager.setAdapter(mNewsDetailPagerAdapter);
+        mViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
+        mViewPager.setCurrentItem(mNewsPostion);
+    }
+
+    /**
+     * Helper Method to open Schedule Detail Fragment
+     */
+    private void openScheduleFragment(){
+        //get rid of the ViewPager
+        mViewPager.setVisibility(View.GONE);
+
+        //Show Fragment
+        mFrameLayout.setVisibility(View.VISIBLE);
+
+        //Open fragment
+        mSchDetailFragment = new ScheduleDetailFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_all, mSchDetailFragment)
+                .commit();
+    }
+
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
         switch (menuItem.getItemId()){
             case R.id.news:
+                setNewsViewPager();
+                break;
+            case R.id.schedule:
+                openScheduleFragment();
+                break;
 
         }
 
+        mDrawer.closeDrawer(GravityCompat.START);
         return true;
     }
 }

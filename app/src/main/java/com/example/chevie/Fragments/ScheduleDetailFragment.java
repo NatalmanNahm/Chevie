@@ -1,29 +1,32 @@
-package com.example.chevie;
+package com.example.chevie.Fragments;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
 
-import com.example.chevie.Adapters.ScheduleAdapter;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
 import com.example.chevie.Adapters.ScheduleDetailAdapter;
 import com.example.chevie.Models.EventHome;
-import com.example.chevie.Models.Schedule;
 import com.example.chevie.Models.ScheduleDetail;
 import com.example.chevie.Models.TeamCard;
 import com.example.chevie.Models.TimeFrame;
+import com.example.chevie.R;
 import com.example.chevie.Utilities.NetworkUtils;
 
 import java.util.ArrayList;
 
-
 /**
- * Activity for all schedules
+ * A simple {@link Fragment} subclass.
+ * Fragment detail for schedule.
  */
-public class ScheduleDetailActivity extends AppCompatActivity {
-
+public class ScheduleDetailFragment extends Fragment {
     //Iniializer
     private RecyclerView mRecycler;
     private LinearLayoutManager mLayoutManager;
@@ -33,23 +36,34 @@ public class ScheduleDetailActivity extends AppCompatActivity {
     private ArrayList<EventHome> mEventHome = new ArrayList<>();
     private ArrayList<TeamCard> mTeamCard = new ArrayList<>();
     private String mCurrentSeason;
+    private View mRootView;
+
+
+    public ScheduleDetailFragment() {
+        // Required empty public constructor
+    }
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_schedule_detail);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        mRootView = inflater.inflate(R.layout.fragment_schedule_detail, container, false);
 
-        mRecycler = (RecyclerView) findViewById(R.id.sch_detail_recycler);
-        mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        mRecycler = (RecyclerView) mRootView.findViewById(R.id.sch_detail_recycler);
+        mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mRecycler.setLayoutManager(mLayoutManager);
         mRecycler.setHasFixedSize(true);
 
-        mAdapter = new ScheduleDetailAdapter(mScheduleDetail, getApplicationContext());
+        mAdapter = new ScheduleDetailAdapter(mScheduleDetail, getContext());
         mRecycler.setAdapter(mAdapter);
 
         new FetchTimeFrame().execute();
         new FetchScheduleDetail().execute();
+
+        return mRootView;
     }
+
 
     /**
      * asyncTask to get data needed to pull a data needed to build the Timeframe
@@ -131,4 +145,5 @@ public class ScheduleDetailActivity extends AppCompatActivity {
         }
 
     }
+
 }

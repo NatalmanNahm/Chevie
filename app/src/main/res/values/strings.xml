@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Chevie</string>
     <string name="profile">Profile</string>
-    
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
@@ -75,5 +75,8 @@
     <string name="stadium_capacity_label">Capacity:</string>
     <string name="stadium_surface_label">Surface:</string>
     <string name="position_label">Position:</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
