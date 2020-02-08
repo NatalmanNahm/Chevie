@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Chevie</string>
     <string name="profile">Profile</string>
+    
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <!-- All News String here -->
     <string name="news_content_string">
