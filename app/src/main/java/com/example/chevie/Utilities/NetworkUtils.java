@@ -46,7 +46,7 @@ public class NetworkUtils {
     private static final String PREVIOUS = "completed";
 
     //all Api calls key
-    private static String NFL_KEY = BuildConfig.nflApi;
+    private static String NFL_KEY = BuildConfig.nflSportDataIoApiKey;
 
     /**
      * Helper method to simplify the need of trying to build the Url

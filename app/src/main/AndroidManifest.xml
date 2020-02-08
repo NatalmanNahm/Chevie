@@ -12,14 +12,31 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ScheduleDetailActivity"></activity>
-        <activity android:name=".TeamDetailActivity" />
-        <activity android:name=".AllTeamActivity" />
-        <activity android:name=".AllScoreActivity" />
-        <activity android:name=".NewsDetailActivity" />
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".Auth.RegisterActivity" />
-        <activity android:name=".Auth.LoginActivity">
+        <activity
+            android:name=".ScheduleDetailActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".TeamDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AllTeamActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AllScoreActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".NewsDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".HomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Auth.RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Auth.LoginActivity"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
