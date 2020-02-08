@@ -28,9 +28,6 @@
             android:name=".AllScoreActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".NewsDetailActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".HomeActivity"
             android:screenOrientation="portrait" />
         <activity

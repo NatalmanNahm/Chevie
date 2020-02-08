@@ -7,21 +7,19 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.chevie.Adapters.NewsAdapter;
+import com.example.chevie.MainActivity;
 import com.example.chevie.Models.News;
 import com.example.chevie.Models.NewsInfo;
 import com.example.chevie.Models.PlayerProfile;
-import com.example.chevie.NewsDetailActivity;
 import com.example.chevie.R;
 import com.example.chevie.Utilities.NetworkUtils;
 
@@ -110,11 +108,11 @@ public class NewsFragment extends Fragment implements NewsAdapter.NewsAdapterOnC
      */
     @Override
     public void onClick(int position, ArrayList<News> news) {
-        Class destinationClass = NewsDetailActivity.class;
+        Class destinationClass = MainActivity.class;
 
         //Creating intent and opening NewsDetailActivity
         Intent intent = new Intent(getActivity(), destinationClass);
-        intent.putExtra("position", position);
+        intent.putExtra("positionNews", position);
         intent.putParcelableArrayListExtra("newsArray", news);
         startActivity(intent);
 

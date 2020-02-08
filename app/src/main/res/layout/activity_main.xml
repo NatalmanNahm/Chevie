@@ -28,6 +28,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp" />
+
     </LinearLayout>
 
 

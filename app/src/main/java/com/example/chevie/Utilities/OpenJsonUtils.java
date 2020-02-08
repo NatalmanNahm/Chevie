@@ -65,7 +65,7 @@ public class OpenJsonUtils {
                 String timeAgo = jsonObject.getString("TimeAgo");
                 String title = jsonObject.getString("Title");
                 String content = jsonObject.getString("Content");
-                int playerId = jsonObject.getInt("PlayerID");
+                int playerId = jsonObject.optInt("PlayerID",6);
                 newsInfoArraylist.add(new NewsInfo(playerId, source, timeAgo, title, content));
             }
 
@@ -97,7 +97,7 @@ public class OpenJsonUtils {
 
             String playerPic = playerJson.getString("PhotoUrl");
             String playerName = playerJson.getString("ShortName");
-            int age = playerJson.getInt("Age");
+            int age = playerJson.optInt("Age", 0);
             String position = playerJson.getString("Position");
 
             playerArray.add(new PlayerProfile(playerPic, playerName, age, position));
