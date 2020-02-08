@@ -2,8 +2,6 @@ package com.example.chevie.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -12,12 +10,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.chevie.AllTeamActivity;
-import com.example.chevie.Models.TeamCard;
+import com.example.chevie.MainActivity;
 import com.example.chevie.Models.TeamHome;
 import com.example.chevie.R;
 import com.example.chevie.Utilities.NetworkUtils;
@@ -70,7 +66,8 @@ public class TeamHomeFragment extends Fragment {
         mRootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AllTeamActivity.class);
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.putExtra("OpenTeams", true);
                 startActivity(intent);
             }
         });

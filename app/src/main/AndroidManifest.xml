@@ -19,9 +19,6 @@
             android:name=".TeamDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AllTeamActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".AllScoreActivity"
             android:screenOrientation="portrait" />
         <activity

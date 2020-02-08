@@ -1,57 +1,71 @@
-package com.example.chevie;
+package com.example.chevie.Fragments;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.example.chevie.Adapters.AllTeamsAdapter;
 import com.example.chevie.Models.Teams;
+import com.example.chevie.R;
+import com.example.chevie.TeamDetailActivity;
 import com.example.chevie.Utilities.NetworkUtils;
 
 import java.util.ArrayList;
 
 /**
- * All teams Activity
- * Show all teams in the league
+ * A simple {@link Fragment} subclass.
  */
-
-public class AllTeamActivity extends AppCompatActivity implements AllTeamsAdapter.TeamsOnClickHandler{
+public class TeamAllFragment extends Fragment implements AllTeamsAdapter.TeamsOnClickHandler{
 
     //Initializer
     private RecyclerView mRecyclerView;
     private AllTeamsAdapter mAdapter;
     private ArrayList<Teams> mTeams = new ArrayList<>();
     private GridLayoutManager mGridLayoutManager;
+    private View mRootview;
+
+
+    public TeamAllFragment() {
+        // Required empty public constructor
+    }
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_all_team);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        mRootview = inflater.inflate(R.layout.fragment_team_all, container, false);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.teams_recyclerView);
-        mGridLayoutManager = new GridLayoutManager(this, calculateNoOfColumns(this),
+        mRecyclerView = (RecyclerView) mRootview.findViewById(R.id.teams_recyclerView);
+        mGridLayoutManager = new GridLayoutManager(getContext(), calculateNoOfColumns(mRootview.getContext()),
                 GridLayoutManager.VERTICAL, false);
 
         mRecyclerView.setLayoutManager(mGridLayoutManager);
         mRecyclerView.setHasFixedSize(true);
 
-        mAdapter = new AllTeamsAdapter(mTeams, getApplicationContext(), this);
+        mAdapter = new AllTeamsAdapter(mTeams, getContext(), this);
         mRecyclerView.setAdapter(mAdapter);
 
         new FetchAllTeams().execute();
 
+        return mRootview;
     }
 
     /**
      * AsyncTask to get all teams from the Api call
      */
-    public class FetchAllTeams extends AsyncTask<String, Void, ArrayList<Teams>>{
+    public class FetchAllTeams extends AsyncTask<String, Void, ArrayList<Teams>> {
 
         @Override
         protected void onPreExecute() {
@@ -92,9 +106,10 @@ public class AllTeamActivity extends AppCompatActivity implements AllTeamsAdapte
     public void onClick(ArrayList<Teams> teams, int position) {
 
         //Creating a new intent to parse data from this activity to the teamDetailActivity
-        Intent intent = new Intent(this, TeamDetailActivity.class);
+        Intent intent = new Intent(getContext(), TeamDetailActivity.class);
         intent.putExtra("position", position);
         intent.putParcelableArrayListExtra("TeamsArray", teams);
         startActivity(intent);
     }
+
 }

@@ -16,6 +16,7 @@ import android.widget.FrameLayout;
 
 import com.example.chevie.Adapters.NewsDetailPagerAdapter;
 import com.example.chevie.Fragments.ScheduleDetailFragment;
+import com.example.chevie.Fragments.TeamAllFragment;
 import com.example.chevie.Models.News;
 import com.example.chevie.Utilities.ZoomOutPageTransformer;
 import com.google.android.material.navigation.NavigationView;
@@ -37,6 +38,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     //For Schedule
     private ScheduleDetailFragment mSchDetailFragment;
+
+    //For Teams
+    private TeamAllFragment mTeamAllFragmant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +74,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if (intent.hasExtra("OpenSchedule")){
                 navigationView.setCheckedItem(R.id.schedule);
                 openScheduleFragment();
+            }
+
+            //Open All Team Fragment
+            if (intent.hasExtra("OpenTeams")){
+                navigationView.setCheckedItem(R.id.teams);
+                openTeamFragment();
             }
         }
 
@@ -129,6 +139,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
+    /**
+     * Helper method to open all Team Fragment
+     */
+    private void openTeamFragment(){
+        //get rid of the ViewPager
+        mViewPager.setVisibility(View.GONE);
+
+        //Show Fragment
+        mFrameLayout.setVisibility(View.VISIBLE);
+
+        //Open Fragment
+        mTeamAllFragmant = new TeamAllFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_all, mTeamAllFragmant)
+                .commit();
+    }
+
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
@@ -138,6 +166,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.schedule:
                 openScheduleFragment();
+                break;
+            case R.id.teams:
+                openTeamFragment();
                 break;
 
         }
