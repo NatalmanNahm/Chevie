@@ -15,19 +15,22 @@ import android.widget.Toast;
 
 import com.example.chevie.Auth.LoginActivity;
 import com.example.chevie.HomeActivity;
+import com.example.chevie.Models.User;
 import com.example.chevie.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
 
     //Initializing the variables
-    private EditText mEmail, mPassword, mConfPassword;
+    private EditText mEmail, mPassword, mConfPassword, mName;
     private Button mRegisterBtn;
     private TextView mBtSignUp;
     private Context mContext;
+    private User mUser;
     FirebaseAuth mFirebaseAuth;
 
     @Override
@@ -38,6 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
         //Referencing each variables to their appropriate field.
         mFirebaseAuth = FirebaseAuth.getInstance();
         mContext = this;
+        mName = (EditText) findViewById(R.id.name_user);
         mEmail = (EditText) findViewById(R.id.email_register);
         mPassword = (EditText) findViewById(R.id.password_register);
         mConfPassword = (EditText) findViewById(R.id.password_register_conf);
@@ -47,11 +51,17 @@ public class RegisterActivity extends AppCompatActivity {
         mRegisterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = mEmail.getText().toString().trim();
+                final String name = mName.getText().toString().trim();
+                final String email = mEmail.getText().toString().trim();
                 String pwd = mPassword.getText().toString().trim();
                 String pwdConf = mConfPassword.getText().toString().trim();
 
-                if (email.isEmpty()) {
+                if (name.isEmpty()){
+                    mName.setError("Please enter Your Name");
+                    mName.requestFocus();
+                }
+
+                else if (email.isEmpty()) {
                     mEmail.setError("Please enter a Valid Email");
                     mEmail.requestFocus();
                 }
@@ -66,17 +76,17 @@ public class RegisterActivity extends AppCompatActivity {
                     mConfPassword.requestFocus();
                 }
 
-                else if (email.isEmpty() && pwd.isEmpty() && pwdConf.isEmpty()){
+                else if (name.isEmpty() && email.isEmpty() && pwd.isEmpty() && pwdConf.isEmpty()){
                     Toast.makeText(mContext, "Fields are Empty! Please Enter Info!", Toast.LENGTH_SHORT).show();
-                    mEmail.requestFocus();
+                    mName.requestFocus();
                 }
 
                 else if (!pwd.equals(pwdConf)){
-                    mConfPassword.setError("password don't match");
+                    mConfPassword.setError("Passwords don't match");
                     mConfPassword.requestFocus();
                 }
 
-                else if (!(email.isEmpty() && pwd.isEmpty() && pwdConf.isEmpty())){
+                else if (!(name.isEmpty() && email.isEmpty() && pwd.isEmpty() && pwdConf.isEmpty())){
                     mFirebaseAuth.createUserWithEmailAndPassword(email, pwd)
                             .addOnCompleteListener((Activity) mContext, new OnCompleteListener<AuthResult>() {
                                 @Override
@@ -88,6 +98,27 @@ public class RegisterActivity extends AppCompatActivity {
                                     }
 
                                     else {
+
+                                        //Addind user to the firebase database
+                                        mUser = new User(name,email);
+                                        FirebaseDatabase.getInstance().getReference("Users")
+                                                .child(FirebaseAuth.getInstance().getCurrentUser()
+                                                .getUid()).setValue(mUser).addOnCompleteListener(
+                                                new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        if (task.isSuccessful()){
+                                                            Toast.makeText(RegisterActivity.this,
+                                                                    "User registration Complition",
+                                                                    Toast.LENGTH_LONG).show();
+                                                        } else {
+                                                            Toast.makeText(RegisterActivity.this,
+                                                                    "User registration failed",
+                                                                    Toast.LENGTH_LONG).show();
+                                                        }
+                                                    }
+                                                }
+                                        );
                                         startActivity(new Intent(mContext, HomeActivity.class));
                                     }
                                 }
