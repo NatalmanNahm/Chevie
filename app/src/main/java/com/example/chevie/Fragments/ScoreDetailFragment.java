@@ -1,29 +1,35 @@
-package com.example.chevie;
+package com.example.chevie.Fragments;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.widget.ImageView;
-import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.example.chevie.Adapters.AllScoreAdapter;
 import com.example.chevie.Models.AllScore;
 import com.example.chevie.Models.ScoreHome;
 import com.example.chevie.Models.TeamCard;
+import com.example.chevie.R;
 import com.example.chevie.Utilities.NetworkUtils;
 
 import java.util.ArrayList;
 
 /**
- * Activity that shows all score
+ * A simple {@link Fragment} subclass.
  */
-public class AllScoreActivity extends AppCompatActivity {
+public class ScoreDetailFragment extends Fragment {
 
     //Initializer
+    private static final String ARG_PARAM1 = "param1";
     private ArrayList<ScoreHome> mScore = new ArrayList<>();
     private ArrayList<AllScore> mAllScore = new ArrayList<>();
     private ArrayList<TeamCard> mTeamCard = new ArrayList<>();
@@ -40,35 +46,40 @@ public class AllScoreActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private AllScoreAdapter mAllScoreAdapter;
     private LinearLayoutManager mLinearLayoutManager;
+    private View mRootView;
+
+
+    public ScoreDetailFragment() {
+        // Required empty public constructor
+    }
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_all_score);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        mRootView = inflater.inflate(R.layout.fragment_score_detail, container, false);
 
-        //Create Intent
-        Intent intent = getIntent();
-        //Getting the arrayList parse to it
-        if (intent != null){
-            if (intent.hasExtra("scoreArray")){
-                mScore = intent.getParcelableArrayListExtra("scoreArray");
-            }
+        if (savedInstanceState != null){
+            mScore = savedInstanceState.getParcelableArrayList(ARG_PARAM1);
         }
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView_score);
+        mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.recyclerView_score);
 
-        mLinearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,
+        mLinearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,
                 false);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mRecyclerView.setHasFixedSize(true);
-        mAllScoreAdapter = new AllScoreAdapter(mAllScore, this);
+        mAllScoreAdapter = new AllScoreAdapter(mAllScore, getContext());
         mRecyclerView.setAdapter(mAllScoreAdapter);
 
         new FetchAllScore().execute();
 
+        return mRootView;
     }
 
-    public class FetchAllScore extends AsyncTask<String, Void, ArrayList<AllScore>>{
+
+    public class FetchAllScore extends AsyncTask<String, Void, ArrayList<AllScore>> {
 
         @Override
         protected void onPreExecute() {
@@ -120,4 +131,16 @@ public class AllScoreActivity extends AppCompatActivity {
             super.onPostExecute(allScores);
         }
     }
+
+    public void setmScore(ArrayList<ScoreHome> mScore) {
+        this.mScore = mScore;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList(ARG_PARAM1, mScore);
+    }
+
 }

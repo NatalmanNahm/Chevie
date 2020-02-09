@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.chevie.AllScoreActivity;
+import com.example.chevie.MainActivity;
 import com.example.chevie.Models.TimeFrame;
 import com.example.chevie.Models.ScoreHome;
 import com.example.chevie.Models.TeamCard;
@@ -84,7 +84,7 @@ public class ScoreHomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //create an intent and parse data to the allScoreActivity
-                Intent intent = new Intent(getActivity(), AllScoreActivity.class);
+                Intent intent = new Intent(getActivity(), MainActivity.class);
                 intent.putParcelableArrayListExtra("scoreArray", mScore);
                 startActivity(intent);
 

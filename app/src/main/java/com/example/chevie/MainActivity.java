@@ -16,8 +16,10 @@ import android.widget.FrameLayout;
 
 import com.example.chevie.Adapters.NewsDetailPagerAdapter;
 import com.example.chevie.Fragments.ScheduleDetailFragment;
+import com.example.chevie.Fragments.ScoreDetailFragment;
 import com.example.chevie.Fragments.TeamAllFragment;
 import com.example.chevie.Models.News;
+import com.example.chevie.Models.ScoreHome;
 import com.example.chevie.Utilities.ZoomOutPageTransformer;
 import com.google.android.material.navigation.NavigationView;
 
@@ -41,6 +43,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     //For Teams
     private TeamAllFragment mTeamAllFragmant;
+
+    //For Scores
+    private ScoreDetailFragment mScoreDetailFragment;
+    ArrayList<ScoreHome> mScore = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +86,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if (intent.hasExtra("OpenTeams")){
                 navigationView.setCheckedItem(R.id.teams);
                 openTeamFragment();
+            }
+
+            if (intent.hasExtra("scoreArray")){
+                mScore = intent.getParcelableArrayListExtra("scoreArray");
+                navigationView.setCheckedItem(R.id.scores);
+                openScoreFragment();
             }
         }
 
@@ -156,7 +168,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .commit();
     }
 
+    /**
+     * helper method to open all Scores
+     */
+    private void openScoreFragment(){
+        //get rid of the ViewPager
+        mViewPager.setVisibility(View.GONE);
 
+        //Show Fragment
+        mFrameLayout.setVisibility(View.VISIBLE);
+
+        //Open Fragment
+        mScoreDetailFragment = new ScoreDetailFragment();
+        mScoreDetailFragment.setmScore(mScore);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_all, mScoreDetailFragment)
+                .commit();
+    }
+
+
+    /**
+     * This is to handle what happens when an item is clicked on the menu bar
+     * @param menuItem
+     * @return
+     */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
@@ -169,6 +204,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.teams:
                 openTeamFragment();
+                break;
+            case R.id.scores:
+                openScoreFragment();
                 break;
 
         }
