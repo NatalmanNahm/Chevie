@@ -12,9 +12,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 
 import com.example.chevie.Adapters.NewsDetailPagerAdapter;
+import com.example.chevie.Auth.LoginActivity;
 import com.example.chevie.Fragments.ScheduleDetailFragment;
 import com.example.chevie.Fragments.ScoreDetailFragment;
 import com.example.chevie.Fragments.TeamAllFragment;
@@ -22,6 +24,7 @@ import com.example.chevie.Models.News;
 import com.example.chevie.Models.ScoreHome;
 import com.example.chevie.Utilities.ZoomOutPageTransformer;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
@@ -31,6 +34,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout mDrawer;
     private FrameLayout mFrameLayout;
     private ViewPager mViewPager;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
+    private Button mLogOutBtn;
 
     //for news
     private int mNewsPostion;
@@ -61,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = findViewById(R.id.nav_draw);
         mFrameLayout = findViewById(R.id.fragment_all);
         mViewPager = findViewById(R.id.viewPager_main);
+        mLogOutBtn = (Button) findViewById(R.id.logOut_btn);
 
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -100,6 +106,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        mLogOutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

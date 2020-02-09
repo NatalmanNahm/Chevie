@@ -174,10 +174,14 @@
 
         <Button
             android:id="@+id/logOut_btn"
+            android:background="@color/colorPrimary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Log Out"
+            android:paddingRight="4dp"
+            android:paddingLeft="4dp"
+            android:drawableLeft="@drawable/ic_log_out"
+            android:text="@string/log_out"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"

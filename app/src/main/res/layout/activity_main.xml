@@ -43,6 +43,21 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
-        app:menu="@menu/drawer_menu" />
+        app:menu="@menu/drawer_menu" >
+
+        <Button
+            android:background="@color/colorPrimary"
+            android:id="@+id/logOut_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:paddingRight="4dp"
+            android:paddingLeft="4dp"
+            android:layout_gravity="bottom|center_horizontal"
+            android:drawableLeft="@drawable/ic_log_out"
+            android:text="@string/log_out"
+            />
+
+    </com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>
