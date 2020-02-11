@@ -30,4 +30,12 @@ public class User {
     public String getmEmail() {
         return mEmail;
     }
+
+    public void setmName(String mName) {
+        this.mName = mName;
+    }
+
+    public void setmEmail(String mEmail) {
+        this.mEmail = mEmail;
+    }
 }

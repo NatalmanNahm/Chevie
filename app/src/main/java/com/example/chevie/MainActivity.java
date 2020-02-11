@@ -10,10 +10,12 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.example.chevie.Adapters.NewsDetailPagerAdapter;
 import com.example.chevie.Auth.LoginActivity;
@@ -22,9 +24,16 @@ import com.example.chevie.Fragments.ScoreDetailFragment;
 import com.example.chevie.Fragments.TeamAllFragment;
 import com.example.chevie.Models.News;
 import com.example.chevie.Models.ScoreHome;
+import com.example.chevie.Models.User;
 import com.example.chevie.Utilities.ZoomOutPageTransformer;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -36,6 +45,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ViewPager mViewPager;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private Button mLogOutBtn;
+
+    private FirebaseDatabase mFirebaseDatabase;
+    private FirebaseAuth mFirebaseAuth;
+    private DatabaseReference mDatabaseRef;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private User mUser;
+    private String mUserId;
+    private static final String TAG = MainActivity.class.getSimpleName();
+
+    private TextView mName, mEmail;
 
     //for news
     private int mNewsPostion;
@@ -67,6 +86,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mFrameLayout = findViewById(R.id.fragment_all);
         mViewPager = findViewById(R.id.viewPager_main);
         mLogOutBtn = (Button) findViewById(R.id.logOut_btn);
+        mName = (TextView) findViewById(R.id.name_of_user);
+        mEmail = (TextView) findViewById(R.id.email_of_user);
+
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mDatabaseRef = mFirebaseDatabase.getReference();
+        FirebaseUser user = mFirebaseAuth.getCurrentUser();
+        mUserId = user.getUid();
+
+
+        //Getting back user info saved in the database
+        mDatabaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // Get User object and use the values to update the UI
+                showData(dataSnapshot);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Getting User failed, log a message
+                Log.w(TAG, "loadUser:onCancelled", databaseError.toException());
+            }
+        });
+//        mName.setText(mUser.getmName());
+//        mEmail.setText(mUser.getmEmail());
 
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -199,6 +245,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_all, mScoreDetailFragment)
                 .commit();
+    }
+
+    /**
+     * Heloer method to get user data from the database
+     * and display it on the UI
+     * @param dataSnapshot
+     */
+    public void showData (DataSnapshot dataSnapshot){
+        for (DataSnapshot ds: dataSnapshot.getChildren()){
+            mUser = new User();
+            mUser.setmName(ds.child(mUserId).getValue(User.class).getmName());
+            mUser.setmEmail(ds.child(mUserId).getValue(User.class).getmEmail());
+
+            mName.setText(mUser.getmName());
+            mEmail.setText(mUser.getmEmail());
+        }
     }
 
 
