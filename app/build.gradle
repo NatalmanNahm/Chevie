@@ -64,6 +64,9 @@ dependencies {
     implementation 'com.jakewharton:butterknife:7.0.1'
     annotationProcessor 'com.jakewharton:butterknife:7.0.1'
 
+    //Implementation of cardView
+    implementation "androidx.cardview:cardview:1.0.0"
+
     //multidex implementation
     implementation "androidx.multidex:multidex:2.0.1"
 
@@ -74,6 +77,7 @@ dependencies {
     implementation files('libs/CircleImageView-master/gradle/wrapper/gradle-wrapper.jar')
     implementation 'de.hdodenhof:circleimageview:3.0.0'
 
+    //Implementation Svg Loader
     implementation 'com.squareup.okhttp3:okhttp:3.12.1'
     implementation 'com.pixplicity.sharp:library:1.1.0'
 }
