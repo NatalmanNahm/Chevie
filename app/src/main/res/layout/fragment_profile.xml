@@ -59,7 +59,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="My Team"
+                        android:text="@string/my_team"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
                     <TextView
@@ -83,7 +83,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Sport"
+                        android:text="@string/sport"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
                     <TextView
@@ -176,7 +176,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="My Team"
+                android:text="@string/my_team"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textStyle="bold" />
 
@@ -199,7 +199,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="My News"
+                android:text="@string/my_news"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textStyle="bold" />
 
@@ -223,7 +223,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Schedules"
+                android:text="@string/event_label"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textStyle="bold" />
 
@@ -233,8 +233,7 @@
                 android:src="@drawable/ic_schedule_card" />
 
         </LinearLayout>
-
-
+        
     </LinearLayout>
 
 </LinearLayout>

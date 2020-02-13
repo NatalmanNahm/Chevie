@@ -2,6 +2,9 @@
     <string name="app_name">Chevie</string>
     <string name="profile">Profile</string>
     <string name="log_out">Log Out</string>
+    <string name="my_team">My Team</string>
+    <string name="sport">My Sport</string>
+    <string name="my_news">My News</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
