@@ -26,6 +26,7 @@
                 android:src="@drawable/ic_profile" />
 
             <TextView
+                android:id="@+id/user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -69,7 +70,7 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         android:textColor="@color/colorAccent"
                         android:textStyle="bold"
-                        tools:text="Vikings" />
+                        android:text="Vikings" />
 
                 </LinearLayout>
 
@@ -93,7 +94,7 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         android:textColor="@color/colorAccent"
                         android:textStyle="bold"
-                        tools:text="NFL" />
+                        android:text="@string/nfl" />
 
                 </LinearLayout>
 
@@ -122,6 +123,7 @@
                 android:src="@drawable/ic_person_black_24dp" />
 
             <TextView
+                android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -144,6 +146,7 @@
                 android:src="@drawable/ic_email_black_24dp" />
 
             <TextView
+                android:id="@+id/email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -233,7 +236,7 @@
                 android:src="@drawable/ic_schedule_card" />
 
         </LinearLayout>
-        
+
     </LinearLayout>
 
 </LinearLayout>

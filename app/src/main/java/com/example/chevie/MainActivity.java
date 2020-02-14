@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.chevie.Adapters.NewsDetailPagerAdapter;
 import com.example.chevie.Auth.LoginActivity;
+import com.example.chevie.Fragments.ProfileFragment;
 import com.example.chevie.Fragments.ScheduleDetailFragment;
 import com.example.chevie.Fragments.ScoreDetailFragment;
 import com.example.chevie.Fragments.TeamAllFragment;
@@ -70,7 +71,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     //For Scores
     private ScoreDetailFragment mScoreDetailFragment;
-    ArrayList<ScoreHome> mScore = new ArrayList<>();
+    private ArrayList<ScoreHome> mScore = new ArrayList<>();
+
+    //For Profile
+    private ProfileFragment mProfileFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,8 +115,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Log.w(TAG, "loadUser:onCancelled", databaseError.toException());
             }
         });
-//        mName.setText(mUser.getmName());
-//        mEmail.setText(mUser.getmEmail());
+
 
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -248,7 +251,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     /**
-     * Heloer method to get user data from the database
+     * Helper Method to open Profile Fragment
+     */
+    public void openProfileFragment(){
+        //get rid of the ViewPager
+        mViewPager.setVisibility(View.GONE);
+
+        //Show Fragment
+        mFrameLayout.setVisibility(View.VISIBLE);
+
+        //Open Fragment
+        mProfileFragment = new ProfileFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_all, mProfileFragment)
+                .commit();
+    }
+
+    /**
+     * Helper method to get user data from the database
      * and display it on the UI
      * @param dataSnapshot
      */
@@ -262,7 +282,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mEmail.setText(mUser.getmEmail());
         }
     }
-
 
     /**
      * This is to handle what happens when an item is clicked on the menu bar
@@ -285,6 +304,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.scores:
                 openScoreFragment();
                 break;
+            case R.id.profile:
+                openProfileFragment();
 
         }
 
