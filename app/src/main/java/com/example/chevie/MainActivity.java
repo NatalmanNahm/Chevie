@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -24,8 +25,12 @@ import com.example.chevie.Fragments.ScheduleDetailFragment;
 import com.example.chevie.Fragments.ScoreDetailFragment;
 import com.example.chevie.Fragments.TeamAllFragment;
 import com.example.chevie.Models.News;
+import com.example.chevie.Models.NewsInfo;
+import com.example.chevie.Models.PlayerProfile;
 import com.example.chevie.Models.ScoreHome;
+import com.example.chevie.Models.TimeFrame;
 import com.example.chevie.Models.User;
+import com.example.chevie.Utilities.NetworkUtils;
 import com.example.chevie.Utilities.ZoomOutPageTransformer;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -72,6 +77,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //For Scores
     private ScoreDetailFragment mScoreDetailFragment;
     private ArrayList<ScoreHome> mScore = new ArrayList<>();
+    private ArrayList<TimeFrame> mCurrent = new ArrayList<>();
+    private String mCurrentSeason;
 
     //For Profile
     private ProfileFragment mProfileFragment;
@@ -98,6 +105,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDatabaseRef = mFirebaseDatabase.getReference();
         FirebaseUser user = mFirebaseAuth.getCurrentUser();
         mUserId = user.getUid();
+
+        //Fetch Current Season
+        new FetchCurrentSeason().execute();
 
 
         //Getting back user info saved in the database
@@ -293,7 +303,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (menuItem.getItemId()){
             case R.id.news:
-                setNewsViewPager();
+                if (mNews == null || mNews.isEmpty()){
+                    mNewsPostion = 0;
+
+                    //Fetch news data then display it on the UI
+                    FetchNewsData newsData = (FetchNewsData) new FetchNewsData(new NewsAsyncResponse() {
+                        @Override
+                        public void processFinish(ArrayList<News> output) {
+                            mNews = output;
+                            setNewsViewPager();
+                        }
+                    }).execute();
+                }
                 break;
             case R.id.schedule:
                 openScheduleFragment();
@@ -302,7 +323,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 openTeamFragment();
                 break;
             case R.id.scores:
-                openScoreFragment();
+
+                if (mScore == null || mScore.isEmpty()){
+                    //Fetch Score data then display it on UI
+                    FetchScore fetchScore = (FetchScore) new FetchScore(new ScoreInterface() {
+                        @Override
+                        public void processFinish(ArrayList<ScoreHome> output) {
+                            mScore = output;
+                            openScoreFragment();
+                        }
+                    }).execute();
+                }
                 break;
             case R.id.profile:
                 openProfileFragment();
@@ -311,5 +342,139 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         mDrawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+
+    /**
+     * AsyncTask to get news Data
+     */
+    public class FetchNewsData extends AsyncTask<String, Void, ArrayList<News>> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        //call back the interface
+        public NewsAsyncResponse delegate;
+
+        //Constructor assigning callback
+        public FetchNewsData(NewsAsyncResponse delegate){
+            this.delegate = delegate;
+        }
+
+        @Override
+        protected ArrayList<News> doInBackground(String... strings) {
+            //Just getting the news info
+            ArrayList<NewsInfo> mInfoArray = NetworkUtils.fetchNews();
+
+            //Iterating through the arraylist of news info
+            //Then create a news Arraylist
+            for (int i = 0; i < 5; i++){
+                NewsInfo newsInfo = mInfoArray.get(i);
+                int  mPlayerId = newsInfo.getmNewsPlayerId();
+                String mSource = newsInfo.getmSource();
+                String mTime = newsInfo.getmTimeShared();
+                String mContent = newsInfo.getmContent();
+                String mTitle = newsInfo.getmTitle();
+
+                //getting player profile info
+                ArrayList<PlayerProfile> mPlayerProf = NetworkUtils.fetchPlayerProfile(mPlayerId);
+                PlayerProfile playerProfile = mPlayerProf.get(0);
+                String mPhotoUrl = playerProfile.getmPlayerImg();
+                String mShortName = playerProfile.getmShortName();
+
+                mNews.add(new News(mPlayerId, mShortName, mSource, mTime,
+                        mTitle, mContent, mPhotoUrl));
+
+            }
+
+            return mNews;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<News> news) {
+            delegate.processFinish(news);
+        }
+    }
+
+    /**
+     * Interface to get the News arraylist out of the asynctask.
+     */
+    public interface NewsAsyncResponse {
+        void processFinish(ArrayList<News> output);
+    }
+
+
+    /**
+     * This asyncTask class is to get the current time frame then get our current season.
+     */
+    public class FetchCurrentSeason extends AsyncTask<String, Void, ArrayList<TimeFrame>>{
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected ArrayList<TimeFrame> doInBackground(String... strings) {
+            mCurrent = NetworkUtils.fetchCurrentTimeFrame();
+            TimeFrame timeFrame = mCurrent.get(0);
+            mCurrentSeason = timeFrame.getmCurrentSeason();
+
+            return mCurrent;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<TimeFrame> timeFrames) {
+            super.onPostExecute(timeFrames);
+        }
+    }
+
+    /**
+     * This asynsTask class is to get score data
+     */
+    public class FetchScore extends AsyncTask<String, Void, ArrayList<ScoreHome>>{
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        //call back the interface
+        public ScoreInterface delegate;
+
+        //Constructor assigning callback
+        public FetchScore (ScoreInterface delegate){
+            this.delegate = delegate;
+        }
+
+        @Override
+        protected ArrayList<ScoreHome> doInBackground(String... strings) {
+            mScore = NetworkUtils.fetchScoreHome(mCurrentSeason);
+
+            //if the Current season hasn't started yet
+            //then use Data from previous season
+            if (mScore.size() == 0){
+                ArrayList<TimeFrame> mPrevious = NetworkUtils.fetchPreviousTimeFrame();
+                TimeFrame timeFrame = mPrevious.get(0);
+                String mPreviousSeason = timeFrame.getmCurrentSeason();
+                mScore = NetworkUtils.fetchScoreHome(mPreviousSeason);
+            }
+            return mScore;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<ScoreHome> scoreHomes) {
+            delegate.processFinish(scoreHomes);
+
+        }
+    }
+
+    /**
+     * Interface to get the Score arraylist out of the asynctask.
+     */
+    public interface ScoreInterface {
+        void processFinish(ArrayList<ScoreHome> output);
     }
 }
