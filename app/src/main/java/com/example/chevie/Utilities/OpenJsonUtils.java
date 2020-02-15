@@ -129,7 +129,7 @@ public class OpenJsonUtils {
 
                 String currentSeason = jsonObject.getString("ApiSeason");
                 Log.d("SEASON", currentSeason);
-                int currentWeek =jsonObject.getInt("Week");
+                int currentWeek =jsonObject.optInt("Week", 0);
 
                 timeFrame.add(new TimeFrame(currentSeason, currentWeek));
             }

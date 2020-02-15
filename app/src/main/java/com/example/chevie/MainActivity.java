@@ -66,10 +66,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private int mNewsPostion;
     private ArrayList<News> mNews = new ArrayList<>();
     private NewsDetailPagerAdapter mNewsDetailPagerAdapter;
+    private static final String POSITION = "news Position";
 
 
     //For Schedule
     private ScheduleDetailFragment mSchDetailFragment;
+    private static final String SCH_FRAG = "Schedule Fragment";
 
     //For Teams
     private TeamAllFragment mTeamAllFragmant;
@@ -87,6 +89,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //See id there is a fragment saved then retrieve that or create a new one
+        if (savedInstanceState == null){
+            //create a new instance fragment
+            mScoreDetailFragment = new ScoreDetailFragment();
+            mProfileFragment = new ProfileFragment();
+            mTeamAllFragmant = new TeamAllFragment();
+            mSchDetailFragment = new ScheduleDetailFragment();
+
+        }
 
         //Set default toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -218,7 +230,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mFrameLayout.setVisibility(View.VISIBLE);
 
         //Open fragment
-        mSchDetailFragment = new ScheduleDetailFragment();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_all, mSchDetailFragment)
                 .commit();
@@ -236,7 +247,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mFrameLayout.setVisibility(View.VISIBLE);
 
         //Open Fragment
-        mTeamAllFragmant = new TeamAllFragment();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_all, mTeamAllFragmant)
                 .commit();
@@ -253,7 +263,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mFrameLayout.setVisibility(View.VISIBLE);
 
         //Open Fragment
-        mScoreDetailFragment = new ScoreDetailFragment();
         mScoreDetailFragment.setmScore(mScore);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_all, mScoreDetailFragment)
@@ -271,7 +280,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mFrameLayout.setVisibility(View.VISIBLE);
 
         //Open Fragment
-        mProfileFragment = new ProfileFragment();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_all, mProfileFragment)
                 .commit();
@@ -304,7 +312,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (menuItem.getItemId()){
             case R.id.news:
                 if (mNews == null || mNews.isEmpty()){
-                    mNewsPostion = 0;
 
                     //Fetch news data then display it on the UI
                     FetchNewsData newsData = (FetchNewsData) new FetchNewsData(new NewsAsyncResponse() {
@@ -314,6 +321,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             setNewsViewPager();
                         }
                     }).execute();
+                } else {
+                    setNewsViewPager();
                 }
                 break;
             case R.id.schedule:
@@ -333,6 +342,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             openScoreFragment();
                         }
                     }).execute();
+                } else {
+                    openScoreFragment();
                 }
                 break;
             case R.id.profile:
@@ -477,4 +488,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public interface ScoreInterface {
         void processFinish(ArrayList<ScoreHome> output);
     }
+
+    
+
 }

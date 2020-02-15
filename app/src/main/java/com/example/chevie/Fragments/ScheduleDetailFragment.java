@@ -4,10 +4,12 @@ package com.example.chevie.Fragments;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +37,8 @@ public class ScheduleDetailFragment extends Fragment {
     private ArrayList<TimeFrame> mTimeFrame = new ArrayList<>();
     private ArrayList<EventHome> mEventHome = new ArrayList<>();
     private ArrayList<TeamCard> mTeamCard = new ArrayList<>();
+    private static final String ARRAY_SCH = "Schedule Arraylist";
+    private Parcelable mSavedLinearlayoutLayoutManager;
     private String mCurrentSeason;
     private View mRootView;
 
@@ -47,6 +51,8 @@ public class ScheduleDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        setRetainInstance(true);
+
         // Inflate the layout for this fragment
         mRootView = inflater.inflate(R.layout.fragment_schedule_detail, container, false);
 
@@ -57,6 +63,11 @@ public class ScheduleDetailFragment extends Fragment {
 
         mAdapter = new ScheduleDetailAdapter(mScheduleDetail, getContext());
         mRecycler.setAdapter(mAdapter);
+
+        if (savedInstanceState != null){
+            mSavedLinearlayoutLayoutManager = savedInstanceState.getParcelable(ARRAY_SCH);
+            mLayoutManager.onRestoreInstanceState(mSavedLinearlayoutLayoutManager);
+        }
 
         new FetchTimeFrame().execute();
         new FetchScheduleDetail().execute();
@@ -146,4 +157,11 @@ public class ScheduleDetailFragment extends Fragment {
 
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putParcelable(ARRAY_SCH, mLayoutManager.onSaveInstanceState());
+
+    }
 }

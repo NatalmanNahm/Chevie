@@ -57,6 +57,9 @@ public class ScoreDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        setRetainInstance(true);
+
         // Inflate the layout for this fragment
         mRootView = inflater.inflate(R.layout.fragment_score_detail, container, false);
 

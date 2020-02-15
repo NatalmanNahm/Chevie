@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Parcelable;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,16 +36,20 @@ public class TeamAllFragment extends Fragment implements AllTeamsAdapter.TeamsOn
     private ArrayList<Teams> mTeams = new ArrayList<>();
     private GridLayoutManager mGridLayoutManager;
     private View mRootview;
+    private static final String ARRAY_TEAMS = "teams Arraylist";
+    private Parcelable mSavedGridlayoutLayoutManager;
 
 
     public TeamAllFragment() {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        setRetainInstance(true);
+
+
         // Inflate the layout for this fragment
         mRootview = inflater.inflate(R.layout.fragment_team_all, container, false);
 
@@ -56,6 +62,11 @@ public class TeamAllFragment extends Fragment implements AllTeamsAdapter.TeamsOn
 
         mAdapter = new AllTeamsAdapter(mTeams, getContext(), this);
         mRecyclerView.setAdapter(mAdapter);
+
+        if (savedInstanceState != null){
+            mSavedGridlayoutLayoutManager = savedInstanceState.getParcelable(ARRAY_TEAMS);
+            mGridLayoutManager.onRestoreInstanceState(mSavedGridlayoutLayoutManager);
+        }
 
         new FetchAllTeams().execute();
 
@@ -112,4 +123,10 @@ public class TeamAllFragment extends Fragment implements AllTeamsAdapter.TeamsOn
         startActivity(intent);
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putParcelable(ARRAY_TEAMS, mGridLayoutManager.onSaveInstanceState());
+    }
 }

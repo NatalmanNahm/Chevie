@@ -1,9 +1,12 @@
 package com.example.chevie.Models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Schedule detail model
  */
-public class ScheduleDetail {
+public class ScheduleDetail implements Parcelable {
 
     private String mHomeTeam;
     private String mAwayTeam;
@@ -57,6 +60,56 @@ public class ScheduleDetail {
     }
 
     //Getters
+
+    protected ScheduleDetail(Parcel in) {
+        mHomeTeam = in.readString();
+        mAwayTeam = in.readString();
+        mDate = in.readString();
+        mTime = in.readString();
+        mStadium = in.readString();
+        mTeamOneLogo = in.readString();
+        mOneOffensiveSch = in.readString();
+        mOneDefensiveSch = in.readString();
+        mOneByeWeek = in.readInt();
+        mTeamTwoLogo = in.readString();
+        mTwoOffensiveSch = in.readString();
+        mTwoDefensiveSch = in.readString();
+        mTwoByeWeek = in.readInt();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mHomeTeam);
+        dest.writeString(mAwayTeam);
+        dest.writeString(mDate);
+        dest.writeString(mTime);
+        dest.writeString(mStadium);
+        dest.writeString(mTeamOneLogo);
+        dest.writeString(mOneOffensiveSch);
+        dest.writeString(mOneDefensiveSch);
+        dest.writeInt(mOneByeWeek);
+        dest.writeString(mTeamTwoLogo);
+        dest.writeString(mTwoOffensiveSch);
+        dest.writeString(mTwoDefensiveSch);
+        dest.writeInt(mTwoByeWeek);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<ScheduleDetail> CREATOR = new Creator<ScheduleDetail>() {
+        @Override
+        public ScheduleDetail createFromParcel(Parcel in) {
+            return new ScheduleDetail(in);
+        }
+
+        @Override
+        public ScheduleDetail[] newArray(int size) {
+            return new ScheduleDetail[size];
+        }
+    };
 
     public String getmHomeTeam() {
         return mHomeTeam;
