@@ -16,5 +16,7 @@ To instal and run you will have to create an account with at [Sport data](https:
 - Firebase RealTime Data
 - ButterKnife
 - Picasso
+- Svg Loader
+
 # Why this project
 This is a final project (Capstone project) I am working on to complete my final and get my Android Developer nanodegree. I chose to build this project because it challenges me as new android developer to learn more about how to implement various features in the app and build something that is use-ready. Not only that It covers most of the things I learned throughout my program, but also things I have discoverd on my onw.
