@@ -7,6 +7,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
@@ -14,12 +15,15 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.chevie.Adapters.PlayerAdapter;
 import com.example.chevie.Models.PlayerProfile;
@@ -27,6 +31,13 @@ import com.example.chevie.Models.Teams;
 import com.example.chevie.R;
 import com.example.chevie.Utilities.NetworkUtils;
 import com.example.chevie.Utilities.SvgLoaderUtil;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -56,6 +67,13 @@ public class TeamDetailFragment extends Fragment {
     private RecyclerView mPlayerRecyclerView;
     private PlayerAdapter mPlayerAdapter;
     private GridLayoutManager mGridLayoutManager;
+    private ImageView mMyTeamTag;
+    private Button mBtnAsMyTeam;
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mDatabaseRef;
+    private String mUserId;
+    private static final String TAG = TeamDetailFragment.class.getSimpleName();
 
     public TeamDetailFragment() {
         // Required empty public constructor
@@ -103,11 +121,50 @@ public class TeamDetailFragment extends Fragment {
         mSpecialCoach = (TextView) mRootView.findViewById(R.id.special_coach);
         mCdrDef = (TextView) mRootView.findViewById(R.id.def_coord);
         mCdrOff = (TextView) mRootView.findViewById(R.id.off_coord);
+        mMyTeamTag = (ImageView) mRootView.findViewById(R.id.my_team_tag);
+        mBtnAsMyTeam = (Button) mRootView.findViewById(R.id.btn_add_team);
+
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mDatabaseRef = mFirebaseDatabase.getReference();
+        FirebaseUser user = mFirebaseAuth.getCurrentUser();
+        mUserId = user.getUid();
+        final DatabaseReference myTeamRef = mDatabaseRef.child("Users").child(mUserId).child("Teams");
 
 
         //Get the current Item
-        Teams team = mTeams.get(mPosition);
+        final Teams team = mTeams.get(mPosition);
         mTeamKey = team.getmTeamKey();
+
+
+        //Adding my unique team to the datase only if there is not
+        // already a team saved in the database.
+        mBtnAsMyTeam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                myTeamRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()){
+                            Toast.makeText(getActivity(),"You already have a team saved",
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+                            myTeamRef.setValue(team);
+                            mMyTeamTag.setVisibility(View.VISIBLE);
+                            mBtnAsMyTeam.setVisibility(View.GONE);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        // Getting User failed, log a message
+                        Log.w(TAG, "loadUser:onCancelled", databaseError.toException());
+                    }
+                });
+
+            }
+        });
 
         SvgLoaderUtil.fetchSvg(mContext, team.getmTeamLogo(), mTeamLogo);
         mLogoLayout.setBackgroundColor(Color.parseColor("#" + team.getmPrimaryColor()));
@@ -135,6 +192,29 @@ public class TeamDetailFragment extends Fragment {
         mPlayerRecyclerView.setHasFixedSize(true);
         mPlayerAdapter = new PlayerAdapter(mPlayerprofile, mContext);
         mPlayerRecyclerView.setAdapter(mPlayerAdapter);
+
+        //Check if this is the team saved. if it is then set the text and the imageView
+        // accordingly.
+        myTeamRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+
+                    String teamKey = dataSnapshot.child("mTeamKey").getValue(String.class);
+
+                    if (teamKey.equals(team.getmTeamKey())){
+                        mMyTeamTag.setVisibility(View.VISIBLE);
+                        mBtnAsMyTeam.setVisibility(View.GONE);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Getting User failed, log a message
+                Log.w(TAG, "loadUser:onCancelled", databaseError.toException());
+            }
+        });
 
         new FetchPlayerByTeam().execute();
 
