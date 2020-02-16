@@ -10,11 +10,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.chevie.MainActivity;
 import com.example.chevie.Models.User;
 import com.example.chevie.R;
+import com.example.chevie.Utilities.SvgLoaderUtil;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -35,8 +37,9 @@ public class ProfileFragment extends Fragment {
     private User mUser;
     private String mUserId;
     private static final String TAG = ProfileFragment.class.getSimpleName();
-    private TextView mName, mUserName, mEmail;
+    private TextView mName, mUserName, mEmail, mMyTeamName;
     private View mRootView;
+    private ImageView mMyTeamImg;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -52,12 +55,15 @@ public class ProfileFragment extends Fragment {
         mName = (TextView) mRootView.findViewById(R.id.name);
         mUserName = (TextView) mRootView.findViewById(R.id.user_name);
         mEmail = (TextView) mRootView.findViewById(R.id.email);
+        mMyTeamImg = (ImageView) mRootView.findViewById(R.id.my_team_img);
+        mMyTeamName = (TextView) mRootView.findViewById(R.id.my_team_name);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mDatabaseRef = mFirebaseDatabase.getReference();
         FirebaseUser user = mFirebaseAuth.getCurrentUser();
         mUserId = user.getUid();
+        final DatabaseReference myTeamRef = mDatabaseRef.child("Users").child(mUserId).child("Teams");
 
         //Getting back user info saved in the database
         mDatabaseRef.addValueEventListener(new ValueEventListener() {
@@ -72,6 +78,26 @@ public class ProfileFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Getting User failed, log a message
                 Log.w(TAG, "loadUser:onCancelled", databaseError.toException());
+            }
+        });
+
+        //Get data needed from the database and set them to their
+        //appropriate views.
+        myTeamRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    String name = dataSnapshot.child("mTeamName").getValue(String.class);
+                    String imgString = dataSnapshot.child("mTeamLogo").getValue(String.class);
+
+                    mMyTeamName.setText(name);
+                    SvgLoaderUtil.fetchSvg(getContext(), imgString, mMyTeamImg);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
 
