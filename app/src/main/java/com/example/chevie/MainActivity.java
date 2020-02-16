@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ArrayList<News> mNews = new ArrayList<>();
     private NewsDetailPagerAdapter mNewsDetailPagerAdapter;
     private static final String POSITION = "news Position";
+    private static final String ARRAY_NEWS = "news Arraylist";
 
 
     //For Schedule
@@ -97,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mProfileFragment = new ProfileFragment();
             mTeamAllFragmant = new TeamAllFragment();
             mSchDetailFragment = new ScheduleDetailFragment();
+            mNewsDetailPagerAdapter = new NewsDetailPagerAdapter(getSupportFragmentManager(), mNews);
 
         }
 
@@ -137,7 +139,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Log.w(TAG, "loadUser:onCancelled", databaseError.toException());
             }
         });
-
 
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -213,7 +214,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mViewPager.setVisibility(View.VISIBLE);
 
         //Open the NewsPager with its Fragment
-        mNewsDetailPagerAdapter = new NewsDetailPagerAdapter(getSupportFragmentManager(), mNews);
         mViewPager.setAdapter(mNewsDetailPagerAdapter);
         mViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
         mViewPager.setCurrentItem(mNewsPostion);
@@ -234,7 +234,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .replace(R.id.fragment_all, mSchDetailFragment)
                 .commit();
     }
-
 
     /**
      * Helper method to open all Team Fragment
@@ -354,8 +353,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDrawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-
 
     /**
      * AsyncTask to get news Data
@@ -488,7 +485,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public interface ScoreInterface {
         void processFinish(ArrayList<ScoreHome> output);
     }
-
-    
-
 }
