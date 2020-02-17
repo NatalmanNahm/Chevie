@@ -97,7 +97,8 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                // Getting User failed, log a message
+                Log.w(TAG, "loadUser:onCancelled", databaseError.toException());
             }
         });
 

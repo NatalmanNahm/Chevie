@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,7 +68,7 @@ public class TeamDetailFragment extends Fragment {
     private RecyclerView mPlayerRecyclerView;
     private PlayerAdapter mPlayerAdapter;
     private GridLayoutManager mGridLayoutManager;
-    private ImageView mMyTeamTag;
+    private ImageButton mMyTeamTag;
     private Button mBtnAsMyTeam;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseDatabase mFirebaseDatabase;
@@ -121,7 +122,7 @@ public class TeamDetailFragment extends Fragment {
         mSpecialCoach = (TextView) mRootView.findViewById(R.id.special_coach);
         mCdrDef = (TextView) mRootView.findViewById(R.id.def_coord);
         mCdrOff = (TextView) mRootView.findViewById(R.id.off_coord);
-        mMyTeamTag = (ImageView) mRootView.findViewById(R.id.my_team_tag);
+        mMyTeamTag = (ImageButton) mRootView.findViewById(R.id.my_team_tag);
         mBtnAsMyTeam = (Button) mRootView.findViewById(R.id.btn_add_team);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -147,12 +148,14 @@ public class TeamDetailFragment extends Fragment {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()){
-                            Toast.makeText(getActivity(),"You already have a team saved",
+                            Toast.makeText(mContext,"You already have a team saved",
                                     Toast.LENGTH_SHORT).show();
                         } else {
                             myTeamRef.setValue(team);
                             mMyTeamTag.setVisibility(View.VISIBLE);
                             mBtnAsMyTeam.setVisibility(View.GONE);
+                            Toast.makeText(mContext, "Your Team has been added",
+                                    Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -163,6 +166,30 @@ public class TeamDetailFragment extends Fragment {
                     }
                 });
 
+            }
+        });
+
+        //Delete my Team from the database
+        mMyTeamTag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myTeamRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()){
+                            myTeamRef.removeValue();
+                            Toast.makeText(mContext, "My Team has been removed"
+                                    , Toast.LENGTH_SHORT).show();
+                            mBtnAsMyTeam.setVisibility(View.VISIBLE);
+                            mMyTeamTag.setVisibility(View.GONE);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Log.w(TAG, "loadUser:onCancelled", databaseError.toException());
+                    }
+                });
             }
         });
 
@@ -262,5 +289,6 @@ public class TeamDetailFragment extends Fragment {
             noOfColumns = 4;
         return noOfColumns;
     }
+
 
 }
