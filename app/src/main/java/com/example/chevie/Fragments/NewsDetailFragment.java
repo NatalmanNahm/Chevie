@@ -121,11 +121,12 @@ public class NewsDetailFragment extends Fragment {
         Picasso.get().load(playerPic).into(mPlayerPic);
 
 
+        //Add news to the database only if the data is not in the database
         mSaveImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                newsSavedRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                newsSavedRef.orderByChild("mNewsId").equalTo(newsId).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -133,16 +134,8 @@ public class NewsDetailFragment extends Fragment {
                             newsSavedRef.push().setValue(news);
                             mSaved.setVisibility(View.VISIBLE);
                         } else {
-                            for (DataSnapshot newsDataSnap: dataSnapshot.getChildren()){
-
-                                if (newsDataSnap.child(String.valueOf(newsId)).exists()){
-                                    Toast.makeText(mContext, "News is already saved"
-                                            , Toast.LENGTH_SHORT).show();
-                                } else {
-                                    newsSavedRef.push().setValue(news);
-                                    mSaved.setVisibility(View.VISIBLE);
-                                }
-                            }
+                            Toast.makeText(mContext, "News is already saved"
+                                    , Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -157,13 +150,11 @@ public class NewsDetailFragment extends Fragment {
 
 
         //Checking the news if it is already saved inside the database
-        newsSavedRef.addValueEventListener(new ValueEventListener() {
+        newsSavedRef.orderByChild("mNewsId").equalTo(newsId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot newsDataSnap: dataSnapshot.getChildren()){
-                    if (newsDataSnap.child(String.valueOf(newsId)).exists()){
-                        mSaved.setVisibility(View.VISIBLE);
-                    }
+                if (dataSnapshot.exists()){
+                    mSaved.setVisibility(View.VISIBLE);
                 }
             }
 
