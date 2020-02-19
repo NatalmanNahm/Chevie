@@ -10,10 +10,10 @@
         android:id="@+id/team_logo"
         android:layout_width="90dp"
         android:layout_height="90dp"
-        android:scaleType="centerInside"
         android:background="@drawable/circular_background"
+        android:contentDescription="@string/team_img"
         android:elevation="4dp"
-        />
+        android:scaleType="centerInside" />
     <TextView
         android:id="@+id/team_name"
         android:layout_gravity="center"

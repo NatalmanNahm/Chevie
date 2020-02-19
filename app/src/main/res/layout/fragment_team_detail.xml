@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,6 +22,7 @@
                 android:id="@+id/logo"
                 android:layout_width="130dp"
                 android:layout_height="130dp"
+                android:contentDescription="@string/team_img"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -49,6 +50,7 @@
                 android:layout_marginEnd="140dp"
                 android:layout_marginRight="140dp"
                 android:background="@null"
+                android:contentDescription="@string/saved_my_team"
                 android:src="@drawable/ic_team_white"
                 android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -122,6 +124,7 @@
                 android:layout_marginStart="116dp"
                 android:layout_marginLeft="116dp"
                 android:layout_marginTop="8dp"
+                android:contentDescription="@string/loc_icon"
                 android:src="@drawable/ic_action_location"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/team_name" />
@@ -312,6 +315,7 @@
                 android:layout_marginStart="124dp"
                 android:layout_marginLeft="124dp"
                 android:layout_marginTop="8dp"
+                android:contentDescription="@string/loc_icon"
                 android:src="@drawable/ic_action_location"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/std_name_label" />
@@ -409,6 +413,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="8dp"
+                android:contentDescription="@string/person_icon"
                 android:src="@drawable/ic_perm_identity"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/head_coach_label" />
@@ -455,6 +460,7 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginTop="8dp"
+                android:contentDescription="@string/person_icon"
                 android:src="@drawable/ic_perm_identity"
                 app:layout_constraintEnd_toStartOf="@+id/def_coord"
                 app:layout_constraintTop_toBottomOf="@+id/def_coord_label" />
@@ -479,6 +485,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="8dp"
+                android:contentDescription="@string/person_icon"
                 android:src="@drawable/ic_perm_identity"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/special_coach_label" />
@@ -527,6 +534,7 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginTop="8dp"
+                android:contentDescription="@string/person_icon"
                 android:src="@drawable/ic_perm_identity"
                 app:layout_constraintEnd_toStartOf="@+id/off_coord"
                 app:layout_constraintTop_toBottomOf="@+id/off_coord_label" />

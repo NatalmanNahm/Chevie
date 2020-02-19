@@ -8,6 +8,14 @@
     <string name="nfl">NFL</string>
     <string name="saved_my_team">Make my Team</string>
     <string name="delete_team">Delete Team</string>
+    <string name="profile_image">Profile Image</string>
+    <string name="name_icon">name icon</string>
+    <string name="email_icon">email icon</string>
+    <string name="my_team_img">my team image</string>
+    <string name="my_news_icon">my news icon</string>
+    <string name="schedule_icon">schedule icon</string>
+    <string name="loc_icon">location icon</string>
+    <string name="email">E-mail</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -85,5 +93,16 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="saved_news_icon">saved icon</string>
+    <string name="team_img">team img</string>
+    <string name="person_icon">person icon</string>
+    <string name="vs_img">vs Img</string>
+    <string name="password">Password</string>
+    <string name="go_to_registration">Don\'t have an account? Register here!</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="register">Register</string>
+    <string name="go_to_login">Login Here! If you already have an account!</string>
+    <string name="name">Name</string>
+    <string name="sign_in">Sign In</string>
 
 </resources>

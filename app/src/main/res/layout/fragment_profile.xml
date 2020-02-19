@@ -23,6 +23,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="35dp"
                 android:background="@drawable/circular_background"
+                android:contentDescription="@string/profile_image"
                 android:src="@drawable/ic_profile" />
 
             <TextView
@@ -48,7 +49,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:weightSum="2">
+                android:weightSum="2"
+                android:baselineAligned="false">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -121,6 +123,7 @@
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
+                android:contentDescription="@string/name_icon"
                 android:src="@drawable/ic_person_black_24dp" />
 
             <TextView
@@ -144,6 +147,7 @@
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
+                android:contentDescription="@string/email_icon"
                 android:src="@drawable/ic_email_black_24dp" />
 
             <TextView
@@ -188,6 +192,7 @@
                 android:id="@+id/my_team_img"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:contentDescription="@string/my_team_img"
                 android:src="@drawable/ic_team" />
         </LinearLayout>
 
@@ -211,6 +216,7 @@
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:contentDescription="@string/my_news_icon"
                 android:src="@drawable/ic_card_news" />
 
         </LinearLayout>
@@ -235,6 +241,7 @@
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:contentDescription="@string/schedule_icon"
                 android:src="@drawable/ic_schedule_card" />
 
         </LinearLayout>

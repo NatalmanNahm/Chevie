@@ -6,6 +6,14 @@ repositories {
 }
 
 android {
+    signingConfigs {
+        config {
+            storeFile file('$rootdir/SingnigKey')
+            storePassword 'Password'
+            keyPassword 'Password'
+            keyAlias = 'chevieKey'
+        }
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.chevie"
@@ -20,6 +28,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
     buildTypes.each {
