@@ -50,13 +50,13 @@ public class LoginActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
                 if (mFirebaseUser != null){
-                    Toast.makeText(mContext, "Login successful", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, getString(R.string.login_success), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(mContext, HomeActivity.class);
                     startActivity(intent);
                 }
 
                 else {
-                    Toast.makeText(mContext, "Please Login", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, getString(R.string.login_error_message), Toast.LENGTH_SHORT).show();
                 }
             }
         };
@@ -68,18 +68,18 @@ public class LoginActivity extends AppCompatActivity {
                 String pwd = mPassword.getText().toString().trim();
 
                 if (email.isEmpty()) {
-                    mEmail.setError("Please enter a Valid Email");
+                    mEmail.setError(getString(R.string.validate_email));
                     mEmail.requestFocus();
                 }
 
                 else if (pwd.isEmpty()) {
-                    mPassword.setError("Please Enter Password");
+                    mPassword.setError(getString(R.string.validate_password));
                     mPassword.requestFocus();
                 }
 
 
                 else if (email.isEmpty() && pwd.isEmpty()){
-                    Toast.makeText(mContext, "Fields are Empty! Please Enter Info!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, getString(R.string.info_required), Toast.LENGTH_SHORT).show();
                     mEmail.requestFocus();
                 }
 
@@ -90,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<AuthResult> task) {
                                             if (!task.isSuccessful()){
-                                                Toast.makeText(mContext, "Enter Correct Email and password and Try again", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(mContext, getString(R.string.wrong_password), Toast.LENGTH_SHORT).show();
                                             }
 
                                             else {
@@ -102,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 else {
-                    Toast.makeText(mContext, "Error Occurred, Please again", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, getString(R.string.error_please_try_again), Toast.LENGTH_SHORT).show();
                 }
             }
         });

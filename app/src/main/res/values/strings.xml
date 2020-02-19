@@ -104,5 +104,19 @@
     <string name="go_to_login">Login Here! If you already have an account!</string>
     <string name="name">Name</string>
     <string name="sign_in">Sign In</string>
+    <string name="login_success">Login successful</string>
+    <string name="login_error_message">Please Login</string>
+    <string name="validate_email">Please enter a Valid Email</string>
+    <string name="validate_password">Please Enter Password</string>
+    <string name="info_required">Fields are Empty! Please Enter Info!</string>
+    <string name="wrong_password">Enter Correct Email and password and Try again</string>
+    <string name="error_please_try_again">Error Occurred, Please again</string>
+    <string name="enter_name">Please enter Your Name</string>
+    <string name="please_confirm_password">Please confirm your password</string>
+    <string name="field_empty">Fields are Empty! Please Enter Info!</string>
+    <string name="password_wrong">Passwords don\'t match</string>
+    <string name="unsuccessful_registration">Unsuccessful Registration, Please try again</string>
+    <string name="registration">User registration Complition</string>
+    <string name="registration_success">User registration failed</string>
 
 </resources>

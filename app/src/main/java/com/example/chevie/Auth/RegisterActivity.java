@@ -57,32 +57,32 @@ public class RegisterActivity extends AppCompatActivity {
                 String pwdConf = mConfPassword.getText().toString().trim();
 
                 if (name.isEmpty()){
-                    mName.setError("Please enter Your Name");
+                    mName.setError(getString(R.string.enter_name));
                     mName.requestFocus();
                 }
 
                 else if (email.isEmpty()) {
-                    mEmail.setError("Please enter a Valid Email");
+                    mEmail.setError(getString(R.string.validate_email));
                     mEmail.requestFocus();
                 }
 
                 else if (pwd.isEmpty()) {
-                    mPassword.setError("Please Enter Password");
+                    mPassword.setError(getString(R.string.validate_password));
                     mPassword.requestFocus();
                 }
 
                 else if (pwdConf.isEmpty()) {
-                    mConfPassword.setError("Please confirm your password");
+                    mConfPassword.setError(getString(R.string.please_confirm_password));
                     mConfPassword.requestFocus();
                 }
 
                 else if (name.isEmpty() && email.isEmpty() && pwd.isEmpty() && pwdConf.isEmpty()){
-                    Toast.makeText(mContext, "Fields are Empty! Please Enter Info!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, getString(R.string.field_empty), Toast.LENGTH_SHORT).show();
                     mName.requestFocus();
                 }
 
                 else if (!pwd.equals(pwdConf)){
-                    mConfPassword.setError("Passwords don't match");
+                    mConfPassword.setError(getString(R.string.password_wrong));
                     mConfPassword.requestFocus();
                 }
 
@@ -93,7 +93,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (!task.isSuccessful()){
                                         Toast.makeText(mContext,
-                                                "Unsuccessful Registration, Please try again",
+                                                getString(R.string.unsuccessful_registration),
                                                 Toast.LENGTH_SHORT).show();
                                     }
 
@@ -109,11 +109,11 @@ public class RegisterActivity extends AppCompatActivity {
                                                     public void onComplete(@NonNull Task<Void> task) {
                                                         if (task.isSuccessful()){
                                                             Toast.makeText(RegisterActivity.this,
-                                                                    "User registration Complition",
+                                                                    getString(R.string.registration),
                                                                     Toast.LENGTH_LONG).show();
                                                         } else {
                                                             Toast.makeText(RegisterActivity.this,
-                                                                    "User registration failed",
+                                                                    getString(R.string.registration_success),
                                                                     Toast.LENGTH_LONG).show();
                                                         }
                                                     }
@@ -126,7 +126,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 else {
-                    Toast.makeText(mContext, "Error Occurred, Please again", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, getString(R.string.error_please_try_again), Toast.LENGTH_SHORT).show();
                 }
             }
         });
