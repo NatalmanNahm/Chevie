@@ -61,12 +61,13 @@ public class OpenJsonUtils {
             for (int i = 0; i < rootJson.length(); i++){
                 JSONObject jsonObject = rootJson.getJSONObject(i);
 
+                int newsId = jsonObject.getInt("NewsID");
                 String source = jsonObject.getString("Source");
                 String timeAgo = jsonObject.getString("TimeAgo");
                 String title = jsonObject.getString("Title");
                 String content = jsonObject.getString("Content");
                 int playerId = jsonObject.optInt("PlayerID",6);
-                newsInfoArraylist.add(new NewsInfo(playerId, source, timeAgo, title, content));
+                newsInfoArraylist.add(new NewsInfo(newsId, playerId, source, timeAgo, title, content));
             }
 
         } catch (JSONException e) {

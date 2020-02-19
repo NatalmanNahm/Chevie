@@ -6,6 +6,7 @@ package com.example.chevie.Models;
 
 public class NewsInfo {
 
+    private int mNewsId;
     private int mNewsPlayerId;
     private String mSource;
     private String mTimeShared;
@@ -20,12 +21,17 @@ public class NewsInfo {
      * @param title
      * @param content
      */
-    public NewsInfo(int playerId, String source, String time, String title, String content){
+    public NewsInfo(int newsId ,int playerId, String source, String time, String title, String content){
+        mNewsId = newsId;
         mNewsPlayerId = playerId;
         mSource = source;
         mTimeShared = time;
         mTitle = title;
         mContent = content;
+    }
+
+    public int getmNewsId() {
+        return mNewsId;
     }
 
     public int getmNewsPlayerId() {

@@ -10,6 +10,7 @@ import android.os.Parcelable;
 public class News implements Parcelable {
 
     //Initializers
+    private int mNewsId;
     private int mNewsPlayerId;
     private String mPlayerShortName;
     private String mSource;
@@ -29,7 +30,8 @@ public class News implements Parcelable {
      * @param content
      * @param playerPic
      */
-    public News(int playerId, String shortName, String source, String timeShared, String title, String content, String playerPic){
+    public News(int newsId, int playerId, String shortName, String source, String timeShared, String title, String content, String playerPic){
+        mNewsId = newsId;
         mNewsPlayerId = playerId;
         mPlayerShortName = shortName;
         mSource = source;
@@ -41,6 +43,7 @@ public class News implements Parcelable {
 
     //Read from Parcel
     private News (Parcel parcel){
+        mNewsId = parcel.readInt();
         mNewsPlayerId = parcel.readInt();
         mPlayerShortName = parcel.readString();
         mSource = parcel.readString();
@@ -48,6 +51,10 @@ public class News implements Parcelable {
         mTitle = parcel.readString();
         mContent = parcel.readString();
         mPlayerPic = parcel.readString();
+    }
+
+    public int getmNewsId() {
+        return mNewsId;
     }
 
     public int getmNewsPlayerId() {
@@ -86,6 +93,7 @@ public class News implements Parcelable {
     //Write to parcel
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(mNewsId);
         dest.writeInt(mNewsPlayerId);
         dest.writeString(mPlayerShortName);
         dest.writeString(mSource);

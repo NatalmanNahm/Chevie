@@ -41,6 +41,7 @@ public class NewsFragment extends Fragment implements NewsAdapter.NewsAdapterOnC
     private ArrayList<NewsInfo> mInfoArray;
     private ArrayList<PlayerProfile> mPlayerProf;
     int mPlayerId;
+    int mNewsId;
     String mContent;
     String mTitle;
     String mTime;
@@ -136,6 +137,7 @@ public class NewsFragment extends Fragment implements NewsAdapter.NewsAdapterOnC
             //Then create a news Arraylist
             for (int i = 0; i < 5; i++){
                 NewsInfo newsInfo = mInfoArray.get(i);
+                mNewsId = newsInfo.getmNewsId();
                 mPlayerId = newsInfo.getmNewsPlayerId();
                 mSource = newsInfo.getmSource();
                 mTime = newsInfo.getmTimeShared();
@@ -148,7 +150,7 @@ public class NewsFragment extends Fragment implements NewsAdapter.NewsAdapterOnC
                 mPhotoUrl = playerProfile.getmPlayerImg();
                 mShortName = playerProfile.getmShortName();
 
-                mNewsArrayList.add(new News(mPlayerId, mShortName, mSource, mTime,
+                mNewsArrayList.add(new News(mNewsId, mPlayerId, mShortName, mSource, mTime,
                         mTitle, mContent, mPhotoUrl));
 
             }

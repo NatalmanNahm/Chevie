@@ -68,7 +68,7 @@ public class TeamDetailFragment extends Fragment {
     private RecyclerView mPlayerRecyclerView;
     private PlayerAdapter mPlayerAdapter;
     private GridLayoutManager mGridLayoutManager;
-    private ImageButton mMyTeamTag;
+    private ImageView mMyTeamTag;
     private Button mBtnAsMyTeam;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseDatabase mFirebaseDatabase;
@@ -122,7 +122,7 @@ public class TeamDetailFragment extends Fragment {
         mSpecialCoach = (TextView) mRootView.findViewById(R.id.special_coach);
         mCdrDef = (TextView) mRootView.findViewById(R.id.def_coord);
         mCdrOff = (TextView) mRootView.findViewById(R.id.off_coord);
-        mMyTeamTag = (ImageButton) mRootView.findViewById(R.id.my_team_tag);
+        mMyTeamTag = (ImageView) mRootView.findViewById(R.id.my_team_tag);
         mBtnAsMyTeam = (Button) mRootView.findViewById(R.id.btn_add_team);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -169,29 +169,29 @@ public class TeamDetailFragment extends Fragment {
             }
         });
 
-        //Delete my Team from the database
-        mMyTeamTag.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myTeamRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()){
-                            myTeamRef.removeValue();
-                            Toast.makeText(mContext, "My Team has been removed"
-                                    , Toast.LENGTH_SHORT).show();
-                            mBtnAsMyTeam.setVisibility(View.VISIBLE);
-                            mMyTeamTag.setVisibility(View.GONE);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        Log.w(TAG, "loadUser:onCancelled", databaseError.toException());
-                    }
-                });
-            }
-        });
+//        //Delete my Team from the database
+//        mMyTeamTag.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                myTeamRef.addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                        if (dataSnapshot.exists()){
+//                            myTeamRef.removeValue();
+//                            Toast.makeText(mContext, "My Team has been removed"
+//                                    , Toast.LENGTH_SHORT).show();
+//                            mBtnAsMyTeam.setVisibility(View.VISIBLE);
+//                            mMyTeamTag.setVisibility(View.GONE);
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//                        Log.w(TAG, "loadUser:onCancelled", databaseError.toException());
+//                    }
+//                });
+//            }
+//        });
 
         SvgLoaderUtil.fetchSvg(mContext, team.getmTeamLogo(), mTeamLogo);
         mLogoLayout.setBackgroundColor(Color.parseColor("#" + team.getmPrimaryColor()));
