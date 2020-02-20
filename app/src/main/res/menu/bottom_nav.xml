@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/my_team"
+        android:icon="@drawable/ic_team_blue"
+        android:title="@string/my_team"/>
+
+    <item
+        android:id="@+id/my_news"
+        android:icon="@drawable/ic_card_news"
+        android:title="@string/my_news"/>
+
+    <item
+        android:id="@+id/schedule"
+        android:icon="@drawable/ic_schedule_card"
+        android:title="@string/sch"/>
+
+
+</menu>

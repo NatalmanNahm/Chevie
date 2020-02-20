@@ -164,6 +164,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/my_team_layout"
         android:layout_width="350dp"
         android:layout_height="150dp"
         android:layout_gravity="center"
@@ -197,6 +198,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/my_news_layout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="4dp"
@@ -222,6 +224,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/schdule_Layout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="4dp"

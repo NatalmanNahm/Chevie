@@ -118,5 +118,6 @@
     <string name="unsuccessful_registration">Unsuccessful Registration, Please try again</string>
     <string name="registration">User registration Complition</string>
     <string name="registration_success">User registration failed</string>
+    <string name="sch">Schedules</string>
 
 </resources>
