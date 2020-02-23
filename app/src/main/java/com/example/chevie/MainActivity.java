@@ -59,6 +59,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private User mUser;
     private String mUserId;
     private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String ERROR = "loadUser:onCancelled";
+    private static final String NEWSPOSITION = "positionNews";
+    private static final String NEWSARRAY = "newsArray";
+    private static final String OPENSCH = "OpenSchedule";
+    private static final String OPENTEAM = "OpenTeams";
+    private static final String SCOREARRY = "scoreArray";
+
 
     private TextView mName, mEmail;
 
@@ -135,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Getting User failed, log a message
-                Log.w(TAG, "loadUser:onCancelled", databaseError.toException());
+                Log.w(TAG, ERROR, databaseError.toException());
             }
         });
 
@@ -146,27 +153,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (intent != null){
             //Getting the values parse from the newsFragment
-            if (intent.hasExtra("positionNews")){
-                mNewsPostion = intent.getIntExtra("positionNews", 0);
-                mNews = intent.getParcelableArrayListExtra("newsArray");
+            if (intent.hasExtra(NEWSPOSITION)){
+                mNewsPostion = intent.getIntExtra(NEWSPOSITION, 0);
+                mNews = intent.getParcelableArrayListExtra(NEWSARRAY);
                 navigationView.setCheckedItem(R.id.news);
                 setNewsViewPager();
             }
 
             //Open Schedule detail Fragment
-            if (intent.hasExtra("OpenSchedule")){
+            if (intent.hasExtra(OPENSCH)){
                 navigationView.setCheckedItem(R.id.schedule);
                 openScheduleFragment();
             }
 
             //Open All Team Fragment
-            if (intent.hasExtra("OpenTeams")){
+            if (intent.hasExtra(OPENTEAM)){
                 navigationView.setCheckedItem(R.id.teams);
                 openTeamFragment();
             }
 
-            if (intent.hasExtra("scoreArray")){
-                mScore = intent.getParcelableArrayListExtra("scoreArray");
+            if (intent.hasExtra(SCOREARRY)){
+                mScore = intent.getParcelableArrayListExtra(SCOREARRY);
                 navigationView.setCheckedItem(R.id.scores);
                 openScoreFragment();
             }

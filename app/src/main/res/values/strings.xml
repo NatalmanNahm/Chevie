@@ -119,5 +119,9 @@
     <string name="registration">User registration Complition</string>
     <string name="registration_success">User registration failed</string>
     <string name="sch">Schedules</string>
+    <string name="hash_tag">#</string>
+    <string name="already_saved">News is already saved</string>
+    <string name="team_exist">You already have a team saved</string>
+    <string name="added_team">Your Team has been added</string>
 
 </resources>

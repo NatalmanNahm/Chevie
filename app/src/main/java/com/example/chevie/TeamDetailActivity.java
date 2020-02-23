@@ -14,7 +14,7 @@ import com.example.chevie.Utilities.ZoomOutPageTransformer;
 import java.util.ArrayList;
 
 /**
- * Activity that holds Viewpager with detail of eache Teams
+ * Activity that holds Viewpager with detail of each Teams
  */
 
 public class TeamDetailActivity extends AppCompatActivity {
@@ -24,6 +24,8 @@ public class TeamDetailActivity extends AppCompatActivity {
     private ArrayList<Teams> mTeams = new ArrayList<>();
     private TeamDetailPagerAdapter mAdapter;
     private ViewPager mViewPager;
+    private static final String POSITION = "position";
+    private static final String TEAMARRAY = "TeamsArray";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +36,9 @@ public class TeamDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         if (intent != null){
-            if (intent.hasExtra("position")){
-                mPosition = intent.getIntExtra("position", 0);
-                mTeams = intent.getParcelableArrayListExtra("TeamsArray");
+            if (intent.hasExtra(POSITION)){
+                mPosition = intent.getIntExtra(POSITION, 0);
+                mTeams = intent.getParcelableArrayListExtra(TEAMARRAY);
             }
         }
 

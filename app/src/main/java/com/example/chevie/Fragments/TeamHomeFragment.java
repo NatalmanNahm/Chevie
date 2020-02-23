@@ -38,6 +38,7 @@ public class TeamHomeFragment extends Fragment {
     TextView mCoach, mCity;
     TextView mDefense, mOffense;
     TextView mStadium;
+    private static final String OPENTEAM = "OpenTeams";
 
     public TeamHomeFragment() {
         // Required empty public constructor
@@ -67,7 +68,7 @@ public class TeamHomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), MainActivity.class);
-                intent.putExtra("OpenTeams", true);
+                intent.putExtra(OPENTEAM, true);
                 startActivity(intent);
             }
         });

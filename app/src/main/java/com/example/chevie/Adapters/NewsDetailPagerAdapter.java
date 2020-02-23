@@ -23,7 +23,8 @@ public class NewsDetailPagerAdapter extends FragmentStatePagerAdapter {
 
     //Initializer
     private ArrayList<News> mNewsDetail;
-
+    private static final String POSITION = "page";
+    private static final String NEWS = "news";
 
     public NewsDetailPagerAdapter(@NonNull FragmentManager fm, ArrayList<News> newsDetail) {
         super(fm);
@@ -35,9 +36,8 @@ public class NewsDetailPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         NewsDetailFragment newsDetailFragment = new NewsDetailFragment();
         Bundle mNewsBundle = new Bundle();
-        mNewsBundle.putInt("page", position);
-        Log.d("POSITION1", String.valueOf(position));
-        mNewsBundle.putParcelableArrayList("news", mNewsDetail);
+        mNewsBundle.putInt(POSITION, position);
+        mNewsBundle.putParcelableArrayList(NEWS, mNewsDetail);
         newsDetailFragment.setArguments(mNewsBundle);
 
         return newsDetailFragment;

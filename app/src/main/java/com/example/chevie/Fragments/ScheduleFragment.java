@@ -50,6 +50,7 @@ public class ScheduleFragment extends Fragment {
     private String mOffOne, mOffTwo;
     private String mDefOne, mDefTwo;
     private int mByeWeekOne, mByeWeekTwo;
+    private static final String OPENSCHEDULE = "OpenSchedule";
 
 
 
@@ -82,7 +83,7 @@ public class ScheduleFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), MainActivity.class);
-                intent.putExtra("OpenSchedule", true);
+                intent.putExtra(OPENSCHEDULE, true);
                 startActivity(intent);
             }
         });

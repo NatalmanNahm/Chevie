@@ -20,6 +20,8 @@ public class TeamDetailPagerAdapter extends FragmentStatePagerAdapter {
 
     //Initializer
     ArrayList<Teams> mTeam = new ArrayList<>();
+    private static final String POSITION = "position";
+    private static final String TEAMARRAY = "TeamsArray";
 
 
     public TeamDetailPagerAdapter(@NonNull FragmentManager fm, ArrayList<Teams> teams) {
@@ -32,8 +34,8 @@ public class TeamDetailPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         TeamDetailFragment teamDetailFragment = new TeamDetailFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt("position", position);
-        bundle.putParcelableArrayList("TeamsArray", mTeam);
+        bundle.putInt(POSITION, position);
+        bundle.putParcelableArrayList(TEAMARRAY, mTeam);
         teamDetailFragment.setArguments(bundle);
         return teamDetailFragment;
     }

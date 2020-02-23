@@ -44,6 +44,7 @@ public class NetworkUtils {
     private static final String SCHEDULES = "Schedules";
     private static final String SCORE_BY_SEASON = "Scores";
     private static final String PREVIOUS = "completed";
+    private static final String ERROR = "Problem making the HTTP request";
 
     //all Api calls key
     private static String NFL_KEY = BuildConfig.nfl2SportDataIoApiKey;
@@ -302,7 +303,7 @@ public class NetworkUtils {
             jsonResponseNews = getResponseFromHttpUrl(urlNews);
 
         } catch (IOException e) {
-            Log.e(TAG, "Problem making the HTTP request", e);
+            Log.e(TAG, ERROR, e);
         }
 
         ArrayList<NewsInfo> newsInfos = OpenJsonUtils.extractNewsJson(jsonResponseNews);
@@ -323,7 +324,7 @@ public class NetworkUtils {
         try {
             jsonReponse = getResponseFromHttpUrl(playerUrl);
         } catch (IOException e) {
-            Log.e(TAG, "Problem making the HTTP request", e);
+            Log.e(TAG, ERROR, e);
         }
 
         ArrayList<PlayerProfile> playerProfile = OpenJsonUtils.playerProfile(jsonReponse);
@@ -344,7 +345,7 @@ public class NetworkUtils {
         try {
             jsonReponse = getResponseFromHttpUrl(playerUrl);
         } catch (IOException e) {
-            Log.e(TAG, "Problem making the HTTP request", e);
+            Log.e(TAG, ERROR, e);
         }
 
         ArrayList<PlayerProfile> playerProfile = OpenJsonUtils.playerProfile(jsonReponse);
@@ -365,7 +366,7 @@ public class NetworkUtils {
         try {
             jsonReponse = getResponseFromHttpUrl(url);
         } catch (IOException e) {
-            Log.e(TAG, "Problem making the HTTP request", e);
+            Log.e(TAG, ERROR, e);
         }
 
         ArrayList<TeamCard> teamCard = OpenJsonUtils.extractTeamCard(jsonReponse, team1, team2);
@@ -385,7 +386,7 @@ public class NetworkUtils {
         try {
             jsonResponse = getResponseFromHttpUrl(url);
         } catch (IOException e) {
-            Log.e(TAG, "Problem making the HTTP request", e);
+            Log.e(TAG, ERROR, e);
         }
 
         Log.d("URL", jsonResponse);
@@ -407,7 +408,7 @@ public class NetworkUtils {
         try {
             jsonResponse = getResponseFromHttpUrl(url);
         } catch (IOException e) {
-            Log.e(TAG, "Problem making the HTTP request", e);
+            Log.e(TAG, ERROR, e);
         }
 
         Log.d("URL", jsonResponse);
@@ -431,7 +432,7 @@ public class NetworkUtils {
         try {
             jsonResponse = getResponseFromHttpUrl(url);
         } catch (IOException e) {
-            Log.e(TAG, "Problem making the HTTP request", e);
+            Log.e(TAG, ERROR, e);
         }
 
         ArrayList<EventHome> eventHome = OpenJsonUtils.extractEventHome(jsonResponse);
@@ -453,7 +454,7 @@ public class NetworkUtils {
         try {
             jsonResponse = getResponseFromHttpUrl(url);
         } catch (IOException e) {
-            Log.e(TAG, "Problem making the HTTP request", e);
+            Log.e(TAG, ERROR, e);
         }
 
         ArrayList<EventHome> eventHome = OpenJsonUtils.extractAllEventHome(jsonResponse);
@@ -474,7 +475,7 @@ public class NetworkUtils {
         try {
             jsonResponse = getResponseFromHttpUrl(url);
         } catch (IOException e) {
-            Log.e(TAG, "Problem making the HTTP request", e);
+            Log.e(TAG, ERROR, e);
         }
 
         ArrayList<TeamHome> teamHomes = OpenJsonUtils.extractTeamHome(jsonResponse);
@@ -495,7 +496,7 @@ public class NetworkUtils {
         try {
             jsonResponse = getResponseFromHttpUrl(url);
         } catch (IOException e) {
-            Log.e(TAG, "Problem making the HTTP request", e);
+            Log.e(TAG, ERROR, e);
         }
         ArrayList<ScoreHome> score = OpenJsonUtils.extractScoreHome(jsonResponse);
 
@@ -513,7 +514,7 @@ public class NetworkUtils {
         try {
             jsonResponse = getResponseFromHttpUrl(url);
         } catch (IOException e) {
-            Log.e(TAG, "Problem making the HTTP request", e);
+            Log.e(TAG, ERROR, e);
         }
         ArrayList<Teams> teams = OpenJsonUtils.extractTeams(jsonResponse);
         return teams;

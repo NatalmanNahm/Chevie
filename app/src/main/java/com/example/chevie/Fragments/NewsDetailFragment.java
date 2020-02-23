@@ -51,6 +51,12 @@ public class NewsDetailFragment extends Fragment {
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseRef;
     private String mUserId;
+    private static final String POSITION = "page";
+    private static final String NEWS = "news";
+    private static final String USER = "Users";
+    private static final String NEWSKEY = "News";
+    private static final String NEWSID = "mNewsId";
+    private static final String ERROR_MESSAGE = "loadUser:onCancelled";
 
     private ArrayList<News> mNews = new ArrayList<>();
     private int mPosition;
@@ -69,8 +75,8 @@ public class NewsDetailFragment extends Fragment {
         Bundle detailBundle = this.getArguments();
 
         if (detailBundle != null){
-            mPosition = detailBundle.getInt("page");
-            mNews = detailBundle.getParcelableArrayList("news");
+            mPosition = detailBundle.getInt(POSITION);
+            mNews = detailBundle.getParcelableArrayList(NEWS);
         }
 
     }
@@ -100,7 +106,7 @@ public class NewsDetailFragment extends Fragment {
         FirebaseUser user = mFirebaseAuth.getCurrentUser();
         mUserId = user.getUid();
         final DatabaseReference newsSavedRef =
-                mDatabaseRef.child("Users").child(mUserId).child("News");
+                mDatabaseRef.child(USER).child(mUserId).child(NEWSKEY);
 
         //Getting current data
         final News news = mNews.get(mPosition);
@@ -126,7 +132,7 @@ public class NewsDetailFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                newsSavedRef.orderByChild("mNewsId").equalTo(newsId).addListenerForSingleValueEvent(new ValueEventListener() {
+                newsSavedRef.orderByChild(NEWSID).equalTo(newsId).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -134,7 +140,7 @@ public class NewsDetailFragment extends Fragment {
                             newsSavedRef.push().setValue(news);
                             mSaved.setVisibility(View.VISIBLE);
                         } else {
-                            Toast.makeText(mContext, "News is already saved"
+                            Toast.makeText(mContext, getString(R.string.already_saved)
                                     , Toast.LENGTH_SHORT).show();
                         }
 
@@ -142,7 +148,7 @@ public class NewsDetailFragment extends Fragment {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-                        Log.w(TAG, "loadUser:onCancelled", databaseError.toException());
+                        Log.w(TAG, ERROR_MESSAGE, databaseError.toException());
                     }
                 });
             }
@@ -150,7 +156,7 @@ public class NewsDetailFragment extends Fragment {
 
 
         //Checking the news if it is already saved inside the database
-        newsSavedRef.orderByChild("mNewsId").equalTo(newsId).addValueEventListener(new ValueEventListener() {
+        newsSavedRef.orderByChild(NEWSID).equalTo(newsId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
@@ -160,7 +166,7 @@ public class NewsDetailFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.w(TAG, "loadUser:onCancelled", databaseError.toException());
+                Log.w(TAG, ERROR_MESSAGE, databaseError.toException());
             }
         });
 

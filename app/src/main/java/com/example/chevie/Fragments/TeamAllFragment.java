@@ -38,6 +38,8 @@ public class TeamAllFragment extends Fragment implements AllTeamsAdapter.TeamsOn
     private View mRootview;
     private static final String ARRAY_TEAMS = "teams Arraylist";
     private Parcelable mSavedGridlayoutLayoutManager;
+    private static final String POSITION = "position";
+    private static final String TEAMARRAY = "TeamsArray";
 
 
     public TeamAllFragment() {
@@ -118,8 +120,8 @@ public class TeamAllFragment extends Fragment implements AllTeamsAdapter.TeamsOn
 
         //Creating a new intent to parse data from this activity to the teamDetailActivity
         Intent intent = new Intent(getContext(), TeamDetailActivity.class);
-        intent.putExtra("position", position);
-        intent.putParcelableArrayListExtra("TeamsArray", teams);
+        intent.putExtra(POSITION, position);
+        intent.putParcelableArrayListExtra(ARRAY_TEAMS, teams);
         startActivity(intent);
     }
 

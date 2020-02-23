@@ -75,6 +75,13 @@ public class TeamDetailFragment extends Fragment {
     private DatabaseReference mDatabaseRef;
     private String mUserId;
     private static final String TAG = TeamDetailFragment.class.getSimpleName();
+    private static final String POSITION = "position";
+    private static final String TEAMARRAY = "TeamsArray";
+    private static final String USER = "Users";
+    private static final String TEAMS = "Teams";
+    private static final String ERROR_MESSAGE = "loadUser:onCancelled";
+    private static final String TEAMKEY = "mTeamKey";
+
 
     public TeamDetailFragment() {
         // Required empty public constructor
@@ -91,8 +98,8 @@ public class TeamDetailFragment extends Fragment {
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            mPosition = bundle.getInt("position");
-            mTeams = bundle.getParcelableArrayList("TeamsArray");
+            mPosition = bundle.getInt(POSITION);
+            mTeams = bundle.getParcelableArrayList(TEAMARRAY);
         }
     }
 
@@ -130,7 +137,7 @@ public class TeamDetailFragment extends Fragment {
         mDatabaseRef = mFirebaseDatabase.getReference();
         FirebaseUser user = mFirebaseAuth.getCurrentUser();
         mUserId = user.getUid();
-        final DatabaseReference myTeamRef = mDatabaseRef.child("Users").child(mUserId).child("Teams");
+        final DatabaseReference myTeamRef = mDatabaseRef.child(USER).child(mUserId).child(TEAMS);
 
 
         //Get the current Item
@@ -148,13 +155,13 @@ public class TeamDetailFragment extends Fragment {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()){
-                            Toast.makeText(mContext,"You already have a team saved",
+                            Toast.makeText(mContext,getString(R.string.team_exist),
                                     Toast.LENGTH_SHORT).show();
                         } else {
                             myTeamRef.setValue(team);
                             mMyTeamTag.setVisibility(View.VISIBLE);
                             mBtnAsMyTeam.setVisibility(View.GONE);
-                            Toast.makeText(mContext, "Your Team has been added",
+                            Toast.makeText(mContext, getString(R.string.added_team),
                                     Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -162,39 +169,15 @@ public class TeamDetailFragment extends Fragment {
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
                         // Getting User failed, log a message
-                        Log.w(TAG, "loadUser:onCancelled", databaseError.toException());
+                        Log.w(TAG, ERROR_MESSAGE, databaseError.toException());
                     }
                 });
 
             }
         });
 
-//        //Delete my Team from the database
-//        mMyTeamTag.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                myTeamRef.addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                        if (dataSnapshot.exists()){
-//                            myTeamRef.removeValue();
-//                            Toast.makeText(mContext, "My Team has been removed"
-//                                    , Toast.LENGTH_SHORT).show();
-//                            mBtnAsMyTeam.setVisibility(View.VISIBLE);
-//                            mMyTeamTag.setVisibility(View.GONE);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError databaseError) {
-//                        Log.w(TAG, "loadUser:onCancelled", databaseError.toException());
-//                    }
-//                });
-//            }
-//        });
-
         SvgLoaderUtil.fetchSvg(mContext, team.getmTeamLogo(), mTeamLogo);
-        mLogoLayout.setBackgroundColor(Color.parseColor("#" + team.getmPrimaryColor()));
+        mLogoLayout.setBackgroundColor(Color.parseColor(getString(R.string.hash_tag) + team.getmPrimaryColor()));
         mTeamName.setText(team.getmTeamName());
         mTeamInitial.setText(team.getmTeamKey());
         mTeamLocation.setText((team.getmTeamCity() + ", " + team.getmStadiumState()));
@@ -227,7 +210,7 @@ public class TeamDetailFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
 
-                    String teamKey = dataSnapshot.child("mTeamKey").getValue(String.class);
+                    String teamKey = dataSnapshot.child(TEAMKEY).getValue(String.class);
 
                     if (teamKey.equals(team.getmTeamKey())){
                         mMyTeamTag.setVisibility(View.VISIBLE);
@@ -239,7 +222,7 @@ public class TeamDetailFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Getting User failed, log a message
-                Log.w(TAG, "loadUser:onCancelled", databaseError.toException());
+                Log.w(TAG, ERROR_MESSAGE, databaseError.toException());
             }
         });
 

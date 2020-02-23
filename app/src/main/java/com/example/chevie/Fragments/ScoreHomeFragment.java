@@ -46,6 +46,7 @@ public class ScoreHomeFragment extends Fragment {
     TextView mDate, mWeek;
     String mCurrentSeason, mPreviousSeason;
     String mHomeKey, mAwayKey;
+    private static final String SCOREARRAY = "scoreArray";
 
     public ScoreHomeFragment() {
         // Required empty public constructor
@@ -85,7 +86,7 @@ public class ScoreHomeFragment extends Fragment {
             public void onClick(View v) {
                 //create an intent and parse data to the allScoreActivity
                 Intent intent = new Intent(getActivity(), MainActivity.class);
-                intent.putParcelableArrayListExtra("scoreArray", mScore);
+                intent.putParcelableArrayListExtra(SCOREARRAY, mScore);
                 startActivity(intent);
 
             }

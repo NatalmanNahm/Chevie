@@ -48,6 +48,8 @@ public class NewsFragment extends Fragment implements NewsAdapter.NewsAdapterOnC
     String mSource;
     String mPhotoUrl;
     String mShortName;
+    private static final String POSITION = "positionNews";
+    private static final String NEWSARRAY = "newsArray";
 
 
     public NewsFragment() {
@@ -113,8 +115,8 @@ public class NewsFragment extends Fragment implements NewsAdapter.NewsAdapterOnC
 
         //Creating intent and opening NewsDetailActivity
         Intent intent = new Intent(getActivity(), destinationClass);
-        intent.putExtra("positionNews", position);
-        intent.putParcelableArrayListExtra("newsArray", news);
+        intent.putExtra(POSITION, position);
+        intent.putParcelableArrayListExtra(NEWSARRAY, news);
         startActivity(intent);
 
     }

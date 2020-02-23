@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.chevie.MainActivity;
@@ -40,6 +41,12 @@ public class ProfileFragment extends Fragment {
     private TextView mName, mUserName, mEmail, mMyTeamName;
     private View mRootView;
     private ImageView mMyTeamImg;
+    private LinearLayout mTeamLinear, mNewsLiniear, mScheduleLiniear;
+    private static final String TEAMNAME = "mTeamName";
+    private static final String TEAMLOGO = " mTeamLogo";
+    private static final String USER = "Users";
+    private static final String TEAMS = "Teams";
+    private static final String ERROR_MESSAGE = "loadUser:onCancelled";
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -57,13 +64,16 @@ public class ProfileFragment extends Fragment {
         mEmail = (TextView) mRootView.findViewById(R.id.email);
         mMyTeamImg = (ImageView) mRootView.findViewById(R.id.my_team_img);
         mMyTeamName = (TextView) mRootView.findViewById(R.id.my_team_name);
+        mNewsLiniear = (LinearLayout) mRootView.findViewById(R.id.my_news_layout);
+        mTeamLinear = (LinearLayout) mRootView.findViewById(R.id.my_team_layout);
+        mScheduleLiniear = (LinearLayout) mRootView.findViewById(R.id.schdule_Layout);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mDatabaseRef = mFirebaseDatabase.getReference();
         FirebaseUser user = mFirebaseAuth.getCurrentUser();
         mUserId = user.getUid();
-        final DatabaseReference myTeamRef = mDatabaseRef.child("Users").child(mUserId).child("Teams");
+        final DatabaseReference myTeamRef = mDatabaseRef.child(USER).child(mUserId).child(TEAMS);
 
         //Getting back user info saved in the database
         mDatabaseRef.addValueEventListener(new ValueEventListener() {
@@ -77,7 +87,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Getting User failed, log a message
-                Log.w(TAG, "loadUser:onCancelled", databaseError.toException());
+                Log.w(TAG, ERROR_MESSAGE, databaseError.toException());
             }
         });
 
@@ -87,8 +97,8 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
-                    String name = dataSnapshot.child("mTeamName").getValue(String.class);
-                    String imgString = dataSnapshot.child("mTeamLogo").getValue(String.class);
+                    String name = dataSnapshot.child(TEAMNAME).getValue(String.class);
+                    String imgString = dataSnapshot.child(TEAMLOGO).getValue(String.class);
 
                     mMyTeamName.setText(name);
                     SvgLoaderUtil.fetchSvg(getContext(), imgString, mMyTeamImg);
@@ -98,7 +108,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Getting User failed, log a message
-                Log.w(TAG, "loadUser:onCancelled", databaseError.toException());
+                Log.w(TAG, ERROR_MESSAGE, databaseError.toException());
             }
         });
 
