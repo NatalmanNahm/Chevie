@@ -123,5 +123,7 @@
     <string name="already_saved">News is already saved</string>
     <string name="team_exist">You already have a team saved</string>
     <string name="added_team">Your Team has been added</string>
+    <string name="appwidget_text">Chevie News</string>
+    <string name="add_widget">Add widget</string>
 
 </resources>

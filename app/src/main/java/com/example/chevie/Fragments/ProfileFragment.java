@@ -1,6 +1,7 @@
 package com.example.chevie.Fragments;
 
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -47,6 +48,7 @@ public class ProfileFragment extends Fragment {
     private static final String USER = "Users";
     private static final String TEAMS = "Teams";
     private static final String ERROR_MESSAGE = "loadUser:onCancelled";
+    private Context mContext;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -67,6 +69,7 @@ public class ProfileFragment extends Fragment {
         mNewsLiniear = (LinearLayout) mRootView.findViewById(R.id.my_news_layout);
         mTeamLinear = (LinearLayout) mRootView.findViewById(R.id.my_team_layout);
         mScheduleLiniear = (LinearLayout) mRootView.findViewById(R.id.schdule_Layout);
+        mContext = mRootView.getContext();
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
@@ -101,7 +104,7 @@ public class ProfileFragment extends Fragment {
                     String imgString = dataSnapshot.child(TEAMLOGO).getValue(String.class);
 
                     mMyTeamName.setText(name);
-                    SvgLoaderUtil.fetchSvg(getContext(), imgString, mMyTeamImg);
+                    SvgLoaderUtil.fetchSvg(mContext, imgString, mMyTeamImg);
                 }
             }
 
