@@ -3,7 +3,7 @@
     android:initialKeyguardLayout="@layout/news_widget"
     android:initialLayout="@layout/news_widget"
     android:minWidth="250dp"
-    android:minHeight="180dp"
+    android:minHeight="74dp"
     android:previewImage="@drawable/ic_news"
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="86400000"

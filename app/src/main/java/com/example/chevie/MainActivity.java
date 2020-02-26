@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static final String OPENSCH = "OpenSchedule";
     private static final String OPENTEAM = "OpenTeams";
     private static final String SCOREARRY = "scoreArray";
+    private static final String OPENMAIN = "Open news Fragment";
 
 
     private TextView mName, mEmail;
@@ -152,6 +153,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Intent intent = getIntent();
 
         if (intent != null){
+
+            if (intent.hasExtra(OPENMAIN)){
+                new FetchNewsData(new NewsAsyncResponse() {
+                    @Override
+                    public void processFinish(ArrayList<News> output) {
+                        mNews = output;
+                        setNewsViewPager();
+                    }
+                }).execute();
+            }
+
             //Getting the values parse from the newsFragment
             if (intent.hasExtra(NEWSPOSITION)){
                 mNewsPostion = intent.getIntExtra(NEWSPOSITION, 0);

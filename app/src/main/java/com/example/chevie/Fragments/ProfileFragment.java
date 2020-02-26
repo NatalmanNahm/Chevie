@@ -103,8 +103,14 @@ public class ProfileFragment extends Fragment {
                     String name = dataSnapshot.child(TEAMNAME).getValue(String.class);
                     String imgString = dataSnapshot.child(TEAMLOGO).getValue(String.class);
 
-                    mMyTeamName.setText(name);
-                    SvgLoaderUtil.fetchSvg(mContext, imgString, mMyTeamImg);
+
+                    if (name.isEmpty()){
+                        mMyTeamName.setText("");
+
+                    } else {
+                        mMyTeamName.setText(name);
+                        SvgLoaderUtil.fetchSvg(mContext, imgString, mMyTeamImg);
+                    }
                 }
             }
 

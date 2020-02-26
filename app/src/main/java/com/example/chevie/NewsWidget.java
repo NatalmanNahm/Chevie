@@ -6,6 +6,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.RemoteViews;
 
@@ -21,6 +22,7 @@ import java.util.ArrayList;
  * Implementation of App Widget functionality.
  */
 public class NewsWidget extends AppWidgetProvider {
+    private static final String OPENMAIN = "Open news Fragment";
     //initializer
     private int mNewsId;
     private int mPlayerId;
@@ -49,6 +51,11 @@ public class NewsWidget extends AppWidgetProvider {
 
             //Open News onClick
             Intent appIntent = new Intent(context, MainActivity.class);
+            Bundle extras = new Bundle();
+            extras.putInt(OPENMAIN, 0);
+            appIntent.putExtras(extras);
+            appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, appIntent,
                     PendingIntent.FLAG_UPDATE_CURRENT);
             views.setOnClickPendingIntent(R.id.widget_container, pendingIntent);
