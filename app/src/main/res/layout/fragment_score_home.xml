@@ -7,6 +7,7 @@
     tools:context=".Fragments.ScoreHomeFragment">
 
     <LinearLayout
+        android:id="@+id/score_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -436,6 +437,30 @@
                 tools:text="3" />
 
         </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:visibility="invisible"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/empty_score_frag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_gravity="center_horizontal"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/score_board"/>
+        <TextView
+            android:gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_margin="16dp"
+            android:text="@string/no_available_score"/>
 
     </LinearLayout>
 

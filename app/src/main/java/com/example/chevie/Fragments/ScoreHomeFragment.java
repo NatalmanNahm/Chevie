@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.chevie.MainActivity;
@@ -36,6 +37,7 @@ public class ScoreHomeFragment extends Fragment {
     ArrayList<TeamCard> mTeamCard = new ArrayList<>();
     ArrayList<TimeFrame> mCurrent = new ArrayList<>();
     ArrayList<TimeFrame> mPrevious = new ArrayList<>();
+    LinearLayout mScoreContainer, mEmptyScoreContainer;
     TextView mHomeName, mAwayName;
     ImageView mHomeLogo, mAwayLogo;
     TextView mHomeScore, mAwayScore;
@@ -76,6 +78,8 @@ public class ScoreHomeFragment extends Fragment {
         mAwayQtr4 = (TextView) mRootView.findViewById(R.id.away_qtr_4);
         mDate = (TextView) mRootView.findViewById(R.id.date);
         mWeek = (TextView) mRootView.findViewById(R.id.week);
+        mScoreContainer = (LinearLayout) mRootView.findViewById(R.id.score_container);
+        mEmptyScoreContainer = (LinearLayout) mRootView.findViewById(R.id.empty_score_frag);
 
         new FetchCurrentSeason().execute();
         new FetchScore().execute();
@@ -143,9 +147,11 @@ public class ScoreHomeFragment extends Fragment {
                 mPreviousSeason = timeFrame.getmCurrentSeason();
                 mScore = NetworkUtils.fetchScoreHome(mPreviousSeason);
 
-                ScoreHome randomScore = mScore.get(mScore.size() - 1);
-                mHomeKey = randomScore.getmHomeTeam();
-                mAwayKey = randomScore.getmAwayTeam();
+                if (mScore.size() != 0){
+                    ScoreHome randomScore = mScore.get(mScore.size() - 1);
+                    mHomeKey = randomScore.getmHomeTeam();
+                    mAwayKey = randomScore.getmAwayTeam();
+                }
 
             }else {
                 ScoreHome randomScore = mScore.get(mScore.size() - 1);
@@ -159,26 +165,32 @@ public class ScoreHomeFragment extends Fragment {
         protected void onPostExecute(ArrayList<ScoreHome> scoreHomes) {
             super.onPostExecute(scoreHomes);
 
-            //Pull the most recent score
-            ScoreHome randomScore = scoreHomes.get(scoreHomes.size() - 1);
+            if (scoreHomes != null && !scoreHomes.isEmpty()){
+                //Pull the most recent score
+                ScoreHome randomScore = scoreHomes.get(scoreHomes.size() - 1);
 
-            //Then bind views to the most recent data pulled
-            mHomeName.setText(mHomeKey);
-            mHomeScore.setText(String.valueOf(randomScore.getmHomeScore()));
-            mHomeQtr1.setText(String.valueOf(randomScore.getmHomeQtr1()));
-            mHomeQtr2.setText(String.valueOf(randomScore.getmHomeQtr2()));
-            mHomeQtr3.setText(String.valueOf(randomScore.getmHomeQtr3()));
-            mHomeQtr4.setText(String.valueOf(randomScore.getmHomeQtr4()));
+                //Then bind views to the most recent data pulled
+                mHomeName.setText(mHomeKey);
+                mHomeScore.setText(String.valueOf(randomScore.getmHomeScore()));
+                mHomeQtr1.setText(String.valueOf(randomScore.getmHomeQtr1()));
+                mHomeQtr2.setText(String.valueOf(randomScore.getmHomeQtr2()));
+                mHomeQtr3.setText(String.valueOf(randomScore.getmHomeQtr3()));
+                mHomeQtr4.setText(String.valueOf(randomScore.getmHomeQtr4()));
 
-            mAwayName.setText(mAwayKey);
-            mAwayScore.setText(String.valueOf(randomScore.getmAwayScore()));
-            mAwayQtr1.setText(String.valueOf(randomScore.getmAwayQtr1()));
-            mAwayQtr2.setText(String.valueOf(randomScore.getmAwayQtr2()));
-            mAwayQtr3.setText(String.valueOf(randomScore.getmAwayQtr3()));
-            mAwayQtr4.setText(String.valueOf(randomScore.getmAwayQtr4()));
+                mAwayName.setText(mAwayKey);
+                mAwayScore.setText(String.valueOf(randomScore.getmAwayScore()));
+                mAwayQtr1.setText(String.valueOf(randomScore.getmAwayQtr1()));
+                mAwayQtr2.setText(String.valueOf(randomScore.getmAwayQtr2()));
+                mAwayQtr3.setText(String.valueOf(randomScore.getmAwayQtr3()));
+                mAwayQtr4.setText(String.valueOf(randomScore.getmAwayQtr4()));
 
-            mDate.setText(randomScore.getmDate());
-            mWeek.setText(String.valueOf(randomScore.getmWeek()));
+                mDate.setText(randomScore.getmDate());
+                mWeek.setText(String.valueOf(randomScore.getmWeek()));
+                
+            } else {//Show this if there is no data to show
+                mScoreContainer.setVisibility(View.GONE);
+                mEmptyScoreContainer.setVisibility(View.VISIBLE);
+            }
 
         }
     }
@@ -203,11 +215,13 @@ public class ScoreHomeFragment extends Fragment {
         protected void onPostExecute(ArrayList<TeamCard> teamCards) {
             super.onPostExecute(teamCards);
 
-            //Get the data need to display Team logo
-            TeamCard team1 = teamCards.get(0);
-            SvgLoaderUtil.fetchSvg(getContext(), team1.getmTeamLogo(), mHomeLogo);
-            TeamCard team2 = teamCards.get(1);
-            SvgLoaderUtil.fetchSvg(getContext(),team2.getmTeamLogo(), mAwayLogo);
+            if (teamCards != null && !teamCards.isEmpty()){
+                //Get the data need to display Team logo
+                TeamCard team1 = teamCards.get(0);
+                SvgLoaderUtil.fetchSvg(getContext(), team1.getmTeamLogo(), mHomeLogo);
+                TeamCard team2 = teamCards.get(1);
+                SvgLoaderUtil.fetchSvg(getContext(),team2.getmTeamLogo(), mAwayLogo);
+            }
         }
     }
 

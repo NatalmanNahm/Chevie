@@ -125,5 +125,6 @@
     <string name="added_team">Your Team has been added</string>
     <string name="appwidget_text">Chevie News</string>
     <string name="add_widget">Add widget</string>
+    <string name="no_available_score">No Available Score</string>
 
 </resources>
