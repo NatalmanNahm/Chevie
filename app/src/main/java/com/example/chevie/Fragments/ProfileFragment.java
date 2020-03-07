@@ -44,7 +44,7 @@ public class ProfileFragment extends Fragment {
     private ImageView mMyTeamImg;
     private LinearLayout mTeamLinear, mNewsLiniear, mScheduleLiniear;
     private static final String TEAMNAME = "mTeamName";
-    private static final String TEAMLOGO = " mTeamLogo";
+    private static final String TEAMLOGO = "mTeamLogo";
     private static final String USER = "Users";
     private static final String TEAMS = "Teams";
     private static final String ERROR_MESSAGE = "loadUser:onCancelled";
@@ -101,10 +101,12 @@ public class ProfileFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
                     String name = dataSnapshot.child(TEAMNAME).getValue(String.class);
+                    Log.d("NAMETEAM", name);
                     String imgString = dataSnapshot.child(TEAMLOGO).getValue(String.class);
+                    Log.d("IMGURL", imgString);
 
 
-                    if (name.isEmpty()){
+                    if (name == null){
                         mMyTeamName.setText("");
 
                     } else {

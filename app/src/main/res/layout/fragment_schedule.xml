@@ -18,53 +18,31 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="invisible"
-        android:paddingBottom="4dp">
+        android:paddingBottom="16dp">
 
         <TextView
             android:id="@+id/event_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:padding="16dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
             android:text="@string/event_error_message"
-            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="67dp"
-            android:layout_height="55dp"
-            android:layout_marginStart="110dp"
-            android:layout_marginLeft="110dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:contentDescription="@string/score_home_label"
-            android:src="@drawable/ic_directions_run"
-            app:layout_constraintEnd_toStartOf="@+id/imageView2"
-            app:layout_constraintHorizontal_bias="1.0"
+            android:src="@drawable/schdule_board"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/event_message" />
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="54dp"
-            android:layout_height="27dp"
-            android:layout_marginTop="20dp"
-            android:contentDescription="@string/schedule_icon"
-            android:src="@drawable/ic_arrow_forward"
-            app:layout_constraintEnd_toStartOf="@+id/imageView3"
-            app:layout_constraintTop_toBottomOf="@+id/event_message" />
-
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="58dp"
-            android:layout_height="60dp"
-            android:layout_marginEnd="110dp"
-            android:layout_marginRight="110dp"
-            android:contentDescription="@string/schedule_icon"
-            android:src="@drawable/ic_schedule"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/event_message" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

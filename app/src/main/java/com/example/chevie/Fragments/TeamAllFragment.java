@@ -121,7 +121,7 @@ public class TeamAllFragment extends Fragment implements AllTeamsAdapter.TeamsOn
         //Creating a new intent to parse data from this activity to the teamDetailActivity
         Intent intent = new Intent(getContext(), TeamDetailActivity.class);
         intent.putExtra(POSITION, position);
-        intent.putParcelableArrayListExtra(ARRAY_TEAMS, teams);
+        intent.putParcelableArrayListExtra(TEAMARRAY, teams);
         startActivity(intent);
     }
 
