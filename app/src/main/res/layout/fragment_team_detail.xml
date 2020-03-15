@@ -60,9 +60,9 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#F8F8F8"
+            android:background="@drawable/radius"
             android:elevation="4dp"
-            android:layout_margin="4dp">
+            android:layout_margin="8dp">
 
 
             <TextView
@@ -277,9 +277,9 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#F8F8F8"
+            android:background="@drawable/radius"
             android:elevation="4dp"
-            android:layout_margin="4dp">
+            android:layout_margin="8dp">
 
 
             <TextView
@@ -389,9 +389,9 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#F8F8F8"
+            android:background="@drawable/radius"
             android:elevation="4dp"
-            android:layout_margin="4dp">
+            android:layout_margin="8dp">
 
             <TextView
                 android:id="@+id/head_coach_label"
