@@ -252,7 +252,7 @@ public class TeamDetailFragment extends Fragment {
         protected void onPostExecute(ArrayList<PlayerProfile> playerProfiles) {
             super.onPostExecute(playerProfiles);
 
-            if (playerProfiles != null){
+            if (playerProfiles != null && !playerProfiles.isEmpty()){
                 mPlayerAdapter.setmPlayers(playerProfiles);
             }
         }
