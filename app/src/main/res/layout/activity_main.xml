@@ -74,10 +74,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
             android:layout_margin="8dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@drawable/button_radius"
             android:drawableLeft="@drawable/ic_log_out"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
             android:text="@string/log_out" />
 
     </com.google.android.material.navigation.NavigationView>
