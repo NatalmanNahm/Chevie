@@ -47,7 +47,7 @@ public class NetworkUtils {
     private static final String ERROR = "Problem making the HTTP request";
 
     //all Api calls key
-    private static String NFL_KEY = BuildConfig.nfl1SportDataIoApiKey;
+    private static String NFL_KEY = BuildConfig.nfl2SportDataIoApiKey;
 
     /**
      * Helper method to simplify the need of trying to build the Url
