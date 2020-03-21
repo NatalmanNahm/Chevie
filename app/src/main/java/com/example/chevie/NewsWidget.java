@@ -34,12 +34,6 @@ public class NewsWidget extends AppWidgetProvider {
     private String mShortName;
     private ArrayList<News> mNewsArrayList = new ArrayList<>();
 
-
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                int appWidgetId) {
-
-    }
-
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
