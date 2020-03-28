@@ -1,5 +1,6 @@
 package com.example.chevie.widget;
 
+import android.app.PendingIntent;
 import android.app.Service;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
@@ -58,21 +59,24 @@ public class UpdateService extends Service {
         appIntent.putExtras(extras);
         appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
+        //Creating a pending intent so that onClick we can open the Activity with news.
+        PendingIntent pendingIntent = PendingIntent.getActivity(
+                getApplicationContext(),0, appIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
         //Open Main Activity on Click
-        views.setOnClickFillInIntent(R.id.widget_container, appIntent);
+        views.setOnClickPendingIntent(R.id.widget_container, pendingIntent);
 
         ComponentName widget = new ComponentName(this, NewsWidget.class);
         AppWidgetManager manager = AppWidgetManager.getInstance(this);
 
         new FetchNewsData(views, manager, widget).execute();
-
         manager.updateAppWidget(widget, views);
 
         return super.onStartCommand(intent, flags, startId);
 
     }
 
-        /**
+    /**
      * AsyncTask to get news Data
      */
     public class FetchNewsData extends AsyncTask<String, Void, ArrayList<News>> {
