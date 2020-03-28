@@ -15,7 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.chevie.Adapters.ScheduleDetailAdapter;
+import com.example.chevie.AsyncTask.ScheduleAsyncTask;
 import com.example.chevie.Models.EventHome;
+import com.example.chevie.Models.Schedule;
 import com.example.chevie.Models.ScheduleDetail;
 import com.example.chevie.Models.TeamCard;
 import com.example.chevie.Models.TimeFrame;
@@ -33,10 +35,8 @@ public class ScheduleDetailFragment extends Fragment {
     private RecyclerView mRecycler;
     private LinearLayoutManager mLayoutManager;
     private ScheduleDetailAdapter mAdapter;
-    private ArrayList<ScheduleDetail> mScheduleDetail = new ArrayList<>();
+    private ArrayList<Schedule> mScheduleDetail = new ArrayList<>();
     private ArrayList<TimeFrame> mTimeFrame = new ArrayList<>();
-    private ArrayList<EventHome> mEventHome = new ArrayList<>();
-    private ArrayList<TeamCard> mTeamCard = new ArrayList<>();
     private static final String ARRAY_SCH = "Schedule Arraylist";
     private Parcelable mSavedLinearlayoutLayoutManager;
     private String mCurrentSeason;
@@ -103,7 +103,7 @@ public class ScheduleDetailFragment extends Fragment {
     /**
      * AsyncTask to get data needed do build am arraylist of ScheduleDetail
      */
-    public class FetchScheduleDetail extends AsyncTask<String, Void, ArrayList<ScheduleDetail>> {
+    public class FetchScheduleDetail extends AsyncTask<String, Void, ArrayList<Schedule>> {
 
         @Override
         protected void onPreExecute() {
@@ -111,44 +111,13 @@ public class ScheduleDetailFragment extends Fragment {
         }
 
         @Override
-        protected ArrayList<ScheduleDetail> doInBackground(String... strings) {
-            mEventHome = NetworkUtils.fetchAllEventData(mCurrentSeason);
-
-            //Going through the arraylist to get team name Then use that
-            //To fetch team card for each event
-            for (int i = 0; i < mEventHome.size(); i++) {
-                EventHome eventHome = mEventHome.get(i);
-                String mTeamOneName = eventHome.getmHomeTeam();
-                String mTeamTwoName = eventHome.getmAwayTeam();
-                String mStadium = eventHome.getmStadium();
-                String mDate = eventHome.getmDate();
-                String time = eventHome.getmTime();
-
-                mTeamCard = NetworkUtils.fetchTeamCard(mTeamOneName, mTeamTwoName);
-                //Get all data for the home Team
-                TeamCard team1 = mTeamCard.get(0);
-                String mTeamOneLogo = team1.getmTeamLogo();
-                String mOffOne = team1.getmOneOffensiveSch();
-                String mDefOne = team1.getmDeffensiveSch();
-                int mByeWeekOne = team1.getmOneByeWeek();
-
-                //Get all data for away Team
-                TeamCard team2 = mTeamCard.get(1);
-                String mTeamTwoLogo = team2.getmTeamLogo();
-                String mOffTwo = team2.getmOneOffensiveSch();
-                String mDefTwo = team2.getmDeffensiveSch();
-                int mByeWeekTwo = team2.getmOneByeWeek();
-
-                mScheduleDetail.add(new ScheduleDetail(mTeamOneName, mTeamTwoName, mDate, time,
-                        mStadium, mTeamOneLogo, mOffOne, mDefOne, mByeWeekOne, mTeamTwoLogo,
-                        mOffTwo, mDefTwo, mByeWeekTwo));
-
-            }
+        protected ArrayList<Schedule> doInBackground(String... strings) {
+            new ScheduleAsyncTask().doInBackgroundScheduleTask(mCurrentSeason, mScheduleDetail);
             return mScheduleDetail;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<ScheduleDetail> schedules) {
+        protected void onPostExecute(ArrayList<Schedule> schedules) {
             super.onPostExecute(schedules);
             if (schedules != null && !schedules.isEmpty()) {
                 mAdapter.setmScheduleDetail(schedules);

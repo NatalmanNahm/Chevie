@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.chevie.Models.Schedule;
 import com.example.chevie.Models.ScheduleDetail;
 import com.example.chevie.R;
 import com.example.chevie.Utilities.SvgLoaderUtil;
@@ -27,7 +28,7 @@ import butterknife.ButterKnife;
 public class ScheduleDetailAdapter extends RecyclerView.Adapter<ScheduleDetailAdapter.ScheduleHolder> {
 
     //Initializer
-    ArrayList<ScheduleDetail> mScheduleDetail = new ArrayList<>();
+    ArrayList<Schedule> mScheduleDetail = new ArrayList<>();
     Context mContext;
 
     /**
@@ -35,7 +36,7 @@ public class ScheduleDetailAdapter extends RecyclerView.Adapter<ScheduleDetailAd
      * @param mScheduleDetail
      * @param mContext
      */
-    public ScheduleDetailAdapter(ArrayList<ScheduleDetail> mScheduleDetail, Context mContext) {
+    public ScheduleDetailAdapter(ArrayList<Schedule> mScheduleDetail, Context mContext) {
         this.mScheduleDetail = mScheduleDetail;
         this.mContext = mContext;
     }
@@ -63,7 +64,7 @@ public class ScheduleDetailAdapter extends RecyclerView.Adapter<ScheduleDetailAd
         return mScheduleDetail.size();
     }
 
-    public void setmScheduleDetail(ArrayList<ScheduleDetail> mScheduleDetail) {
+    public void setmScheduleDetail(ArrayList<Schedule> mScheduleDetail) {
         this.mScheduleDetail = mScheduleDetail;
         notifyDataSetChanged();
     }
@@ -90,23 +91,23 @@ public class ScheduleDetailAdapter extends RecyclerView.Adapter<ScheduleDetailAd
             ButterKnife.bind(this, itemView);
         }
 
-        public void bindScheduleDetail(ScheduleDetail scheduleDetail){
+        public void bindScheduleDetail(Schedule scheduleDetail){
 
-            SvgLoaderUtil.fetchSvg(mContext, scheduleDetail.getmTeamOneLogo(), mHomeLogo);
-            SvgLoaderUtil.fetchSvg(mContext, scheduleDetail.getmTeamTwoLogo(), mAwayLogo);
-            mDate.setText(scheduleDetail.getmDate());
-            mTime.setText(scheduleDetail.getmTime());
-            mHomeName.setText(scheduleDetail.getmHomeTeam());
-            mAwayName.setText(scheduleDetail.getmAwayTeam());
-            mHomeDef.setText(scheduleDetail.getmOneDefensiveSch());
-            mAwayDef.setText(scheduleDetail.getmTwoDefensiveSch());
-            mHomeOff.setText(scheduleDetail.getmOneOffensiveSch());
-            mAwayOff.setText(scheduleDetail.getmTwoOffensiveSch());
+            SvgLoaderUtil.fetchSvg(mContext, scheduleDetail.getmTeamCardOne().getmTeamLogo(), mHomeLogo);
+            SvgLoaderUtil.fetchSvg(mContext, scheduleDetail.getmTeamCardTwo().getmTeamLogo(), mAwayLogo);
+            mDate.setText(scheduleDetail.getmEventHome().getmDate());
+            mTime.setText(scheduleDetail.getmEventHome().getmTime());
+            mHomeName.setText(scheduleDetail.getmEventHome().getmHomeTeam());
+            mAwayName.setText(scheduleDetail.getmEventHome().getmAwayTeam());
+            mHomeDef.setText(scheduleDetail.getmTeamCardOne().getmDeffensiveSch());
+            mAwayDef.setText(scheduleDetail.getmTeamCardTwo().getmDeffensiveSch());
+            mHomeOff.setText(scheduleDetail.getmTeamCardOne().getmOneOffensiveSch());
+            mAwayOff.setText(scheduleDetail.getmTeamCardTwo().getmOneOffensiveSch());
             mHomeByeWeek.setText(itemView.getContext().getResources().
-                    getString(R.string.week_sch, scheduleDetail.getmOneByeWeek()));
+                    getString(R.string.week_sch, scheduleDetail.getmTeamCardOne().getmOneByeWeek()));
             mAwayByeWeek.setText(itemView.getContext().getResources().
-                    getString(R.string.week_sch, scheduleDetail.getmTwoByeWeek()));
-            mStadiumName.setText(scheduleDetail.getmStadium());
+                    getString(R.string.week_sch, scheduleDetail.getmTeamCardTwo().getmOneByeWeek()));
+            mStadiumName.setText(scheduleDetail.getmEventHome().getmStadium());
 
         }
     }

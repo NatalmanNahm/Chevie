@@ -37,20 +37,11 @@ public class ScheduleFragment extends Fragment {
     private View mRootView;
     private RecyclerView mRecyclerView;
     private ConstraintLayout mErrorLayout;
-    private ArrayList<EventHome> mEventHome = new ArrayList<>();
     private ArrayList<TimeFrame> mTimeFrame = new ArrayList<>();
     private ArrayList<Schedule> mSchedule = new ArrayList<>();
-    private ArrayList<TeamCard> mTeamCard = new ArrayList<>();
     private ScheduleAdapter mEventAdapter;
     private LinearLayoutManager mLayoutManager;
     private String mCurrentSeason;
-    private String mTeamOneName, mTeamTwoName;
-    private String mTeamOneLogo, mTeamTwoLogo;
-    private String mDate, mStadium, mForecastDesc;
-    private int mLow, mHigh;
-    private String mOffOne, mOffTwo;
-    private String mDefOne, mDefTwo;
-    private int mByeWeekOne, mByeWeekTwo;
     private static final String OPENSCHEDULE = "OpenSchedule";
 
 

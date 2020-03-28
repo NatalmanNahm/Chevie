@@ -1,10 +1,13 @@
 package com.example.chevie.Models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Model for an event object
  */
 
-public class EventHome {
+public class EventHome implements Parcelable {
 
     private String mHomeTeam;
     private String mAwayTeam;
@@ -38,6 +41,29 @@ public class EventHome {
         mTime = time;
     }
 
+    protected EventHome(Parcel in) {
+        mHomeTeam = in.readString();
+        mAwayTeam = in.readString();
+        mDate = in.readString();
+        mForcastDesc = in.readString();
+        mHigh = in.readInt();
+        mLow = in.readInt();
+        mStadium = in.readString();
+        mTime = in.readString();
+    }
+
+    public static final Creator<EventHome> CREATOR = new Creator<EventHome>() {
+        @Override
+        public EventHome createFromParcel(Parcel in) {
+            return new EventHome(in);
+        }
+
+        @Override
+        public EventHome[] newArray(int size) {
+            return new EventHome[size];
+        }
+    };
+
     public String getmHomeTeam() {
         return mHomeTeam;
     }
@@ -68,5 +94,22 @@ public class EventHome {
 
     public String getmTime() {
         return mTime;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mHomeTeam);
+        dest.writeString(mAwayTeam);
+        dest.writeString(mDate);
+        dest.writeString(mForcastDesc);
+        dest.writeInt(mHigh);
+        dest.writeInt(mLow);
+        dest.writeString(mStadium);
+        dest.writeString(mTime);
     }
 }
