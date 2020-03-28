@@ -16,10 +16,7 @@ import android.view.ViewGroup;
 
 import com.example.chevie.Adapters.ScheduleDetailAdapter;
 import com.example.chevie.AsyncTask.ScheduleAsyncTask;
-import com.example.chevie.Models.EventHome;
 import com.example.chevie.Models.Schedule;
-import com.example.chevie.Models.ScheduleDetail;
-import com.example.chevie.Models.TeamCard;
 import com.example.chevie.Models.TimeFrame;
 import com.example.chevie.R;
 import com.example.chevie.Utilities.NetworkUtils;
@@ -64,7 +61,7 @@ public class ScheduleDetailFragment extends Fragment {
         mAdapter = new ScheduleDetailAdapter(mScheduleDetail, getContext());
         mRecycler.setAdapter(mAdapter);
 
-        if (savedInstanceState != null){
+        if (savedInstanceState != null) {
             mSavedLinearlayoutLayoutManager = savedInstanceState.getParcelable(ARRAY_SCH);
             mLayoutManager.onRestoreInstanceState(mSavedLinearlayoutLayoutManager);
         }
