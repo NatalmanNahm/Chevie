@@ -40,14 +40,6 @@ public class NewsFragment extends Fragment implements NewsAdapter.NewsAdapterOnC
     private ArrayList<News> mNewsArrayList;
     private ArrayList<NewsInfo> mInfoArray;
     private ArrayList<PlayerProfile> mPlayerProf;
-    int mPlayerId;
-    int mNewsId;
-    String mContent;
-    String mTitle;
-    String mTime;
-    String mSource;
-    String mPhotoUrl;
-    String mShortName;
     private static final String POSITION = "positionNews";
     private static final String NEWSARRAY = "newsArray";
 
@@ -139,21 +131,14 @@ public class NewsFragment extends Fragment implements NewsAdapter.NewsAdapterOnC
             //Then create a news Arraylist
             for (int i = 0; i < 5; i++){
                 NewsInfo newsInfo = mInfoArray.get(i);
-                mNewsId = newsInfo.getmNewsId();
-                mPlayerId = newsInfo.getmNewsPlayerId();
-                mSource = newsInfo.getmSource();
-                mTime = newsInfo.getmTimeShared();
-                mContent = newsInfo.getmContent();
-                mTitle = newsInfo.getmTitle();
-
+                int playerId = newsInfo.getmNewsPlayerId();
                 //getting player profile info
-                mPlayerProf = NetworkUtils.fetchPlayerProfile(mPlayerId);
+                mPlayerProf = NetworkUtils.fetchPlayerProfile(playerId);
                 PlayerProfile playerProfile = mPlayerProf.get(0);
-                mPhotoUrl = playerProfile.getmPlayerImg();
-                mShortName = playerProfile.getmShortName();
+                String photoUrl = playerProfile.getmPlayerImg();
+                String shortName = playerProfile.getmShortName();
 
-                mNewsArrayList.add(new News(mNewsId, mPlayerId, mShortName, mSource, mTime,
-                        mTitle, mContent, mPhotoUrl));
+                mNewsArrayList.add(new News(newsInfo, shortName, photoUrl));
 
             }
 

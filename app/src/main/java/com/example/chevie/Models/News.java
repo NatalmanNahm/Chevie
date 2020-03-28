@@ -10,112 +10,62 @@ import android.os.Parcelable;
 public class News implements Parcelable {
 
     //Initializers
-    private int mNewsId;
-    private int mNewsPlayerId;
+    private  NewsInfo mNewsInfo;
     private String mPlayerShortName;
-    private String mSource;
-    private String mTimeShared;
-    private String mTitle;
-    private String mContent;
     private String mPlayerPic;
 
     /**
-     * Constructor for the news
-     * Object
-     * @param playerId
-     * @param shortName
-     * @param source
-     * @param timeShared
-     * @param title
-     * @param content
-     * @param playerPic
+     * Constructor fo the News Model
+     * @param mNewsInfo
+     * @param mPlayerShortName
+     * @param mPlayerPic
      */
-    public News(int newsId, int playerId, String shortName, String source, String timeShared, String title, String content, String playerPic){
-        mNewsId = newsId;
-        mNewsPlayerId = playerId;
-        mPlayerShortName = shortName;
-        mSource = source;
-        mTimeShared = timeShared;
-        mTitle = title;
-        mContent = content;
-        mPlayerPic = playerPic;
+    public News(NewsInfo mNewsInfo, String mPlayerShortName, String mPlayerPic) {
+        this.mNewsInfo = mNewsInfo;
+        this.mPlayerShortName = mPlayerShortName;
+        this.mPlayerPic = mPlayerPic;
     }
 
-    //Read from Parcel
-    private News (Parcel parcel){
-        mNewsId = parcel.readInt();
-        mNewsPlayerId = parcel.readInt();
-        mPlayerShortName = parcel.readString();
-        mSource = parcel.readString();
-        mTimeShared = parcel.readString();
-        mTitle = parcel.readString();
-        mContent = parcel.readString();
-        mPlayerPic = parcel.readString();
+    protected News(Parcel in) {
+        mNewsInfo = in.readParcelable(NewsInfo.class.getClassLoader());
+        mPlayerShortName = in.readString();
+        mPlayerPic = in.readString();
     }
 
-    public int getmNewsId() {
-        return mNewsId;
-    }
+    public static final Creator<News> CREATOR = new Creator<News>() {
+        @Override
+        public News createFromParcel(Parcel in) {
+            return new News(in);
+        }
 
-    public int getmNewsPlayerId() {
-        return mNewsPlayerId;
-    }
-
-    public String getmPlayerShortName() {
-        return mPlayerShortName;
-    }
-
-    public String getmSource() {
-        return mSource;
-    }
-
-    public String getmTimeShared() {
-        return mTimeShared;
-    }
-
-    public String getmTitle() {
-        return mTitle;
-    }
-
-    public String getmContent() {
-        return mContent;
-    }
-
-    public String getmPlayerPic() {
-        return mPlayerPic;
-    }
+        @Override
+        public News[] newArray(int size) {
+            return new News[size];
+        }
+    };
 
     @Override
     public int describeContents() {
         return 0;
     }
 
-    //Write to parcel
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(mNewsId);
-        dest.writeInt(mNewsPlayerId);
+        dest.writeParcelable(mNewsInfo, flags);
         dest.writeString(mPlayerShortName);
-        dest.writeString(mSource);
-        dest.writeString(mTimeShared);
-        dest.writeString(mTitle);
-        dest.writeString(mContent);
         dest.writeString(mPlayerPic);
     }
 
-    /**
-     * Creating a parcel to be used to in case we need to use it on saveInstance
-     */
-    public static Parcelable.Creator<News> CREATOR = new Parcelable.Creator<News>(){
 
-        @Override
-        public News createFromParcel(Parcel source) {
-            return new News(source);
-        }
+    public NewsInfo getmNewsInfo() {
+        return mNewsInfo;
+    }
 
-        @Override
-        public News[] newArray(int size) {
-            return new News[0];
-        }
-    };
+    public String getmPlayerShortName() {
+        return mPlayerShortName;
+    }
+
+    public String getmPlayerPic() {
+        return mPlayerPic;
+    }
 }
