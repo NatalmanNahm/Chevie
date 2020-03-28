@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.chevie.Adapters.ScheduleAdapter;
+import com.example.chevie.AsyncTask.ScheduleAsyncTask;
 import com.example.chevie.MainActivity;
 import com.example.chevie.Models.TimeFrame;
 import com.example.chevie.Models.EventHome;
@@ -148,39 +149,7 @@ public class ScheduleFragment extends Fragment {
 
         @Override
         protected ArrayList<Schedule> doInBackground(String... strings) {
-            mEventHome = NetworkUtils.fetchEventData(mCurrentSeason);
-
-            //Going through the arraylist to get team name Then use that
-            //To fetch team card for each event
-            for (int i =0; i < mEventHome.size(); i++){
-                EventHome eventHome = mEventHome.get(i);
-                mTeamOneName = eventHome.getmHomeTeam();
-                mTeamTwoName = eventHome.getmAwayTeam();
-                mLow = eventHome.getmLow();
-                mHigh = eventHome.getmHigh();
-                mStadium = eventHome.getmStadium();
-                mDate = eventHome.getmDate();
-                mForecastDesc = eventHome.getmForcastDesc();
-
-                mTeamCard = NetworkUtils.fetchTeamCard(mTeamOneName, mTeamTwoName);
-                //Get all data for the home Team
-                TeamCard team1 = mTeamCard.get(0);
-                mTeamOneLogo = team1.getmTeamLogo();
-                mOffOne = team1.getmOneOffensiveSch();
-                mDefOne = team1.getmDeffensiveSch();
-                mByeWeekOne = team1.getmOneByeWeek();
-
-                //Get all data for away Team
-                TeamCard team2 = mTeamCard.get(1);
-                mTeamTwoLogo = team2.getmTeamLogo();
-                mOffTwo = team2.getmOneOffensiveSch();
-                mDefTwo = team2.getmDeffensiveSch();
-                mByeWeekTwo = team2.getmOneByeWeek();
-
-                mSchedule.add(new Schedule(eventHome, mStadium, mTeamOneLogo, mOffOne, mDefOne, mByeWeekOne,
-                        mTeamTwoLogo, mOffTwo, mDefTwo, mByeWeekTwo));
-
-            }
+            new ScheduleAsyncTask().doInBackgroundScheduleTask(mCurrentSeason, mSchedule);
             return mSchedule;
         }
 

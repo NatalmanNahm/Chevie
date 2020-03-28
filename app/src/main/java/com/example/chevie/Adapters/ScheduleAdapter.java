@@ -29,7 +29,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.EventH
     Context mContext;
 
     /**
-     * Constructor for Homme Adapter
+     * Constructor for Home Adapter
      * @param eventHome
      * @param context
      */
@@ -97,15 +97,15 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.EventH
             mDate.setText(schedule.getmEventHome().getmDate());
             mHigh.setText(String.valueOf(schedule.getmEventHome().getmHigh()));
             mLow.setText(String.valueOf(schedule.getmEventHome().getmLow()));
-            mStadium.setText(schedule.getmStadium());
-            SvgLoaderUtil.fetchSvg(mContext, schedule.getmTeamOneLogo(), mLogoOne);
-            SvgLoaderUtil.fetchSvg(mContext, schedule.getmTeamTwoLogo(), mLogoTwo);
-            mOffOne.setText(schedule.getmOneOffensiveSch());
-            mOffTwo.setText(schedule.getmTwoOffensiveSch());
-            mDefOne.setText(schedule.getmOneDefensiveSch());
-            mDefTwo.setText(schedule.getmTwoDefensiveSch());
-            mByeWeekOne.setText(String.valueOf(schedule.getmOneByeWeek()));
-            mByeWeekTwo.setText(String.valueOf(schedule.getmTwoByeWeek()));
+            mStadium.setText(schedule.getmEventHome().getmStadium());
+            SvgLoaderUtil.fetchSvg(mContext, schedule.getmTeamCardOne().getmTeamLogo(), mLogoOne);
+            SvgLoaderUtil.fetchSvg(mContext, schedule.getmTeamCardTwo().getmTeamLogo(), mLogoTwo);
+            mOffOne.setText(schedule.getmTeamCardOne().getmOneOffensiveSch());
+            mOffTwo.setText(schedule.getmTeamCardTwo().getmOneOffensiveSch());
+            mDefOne.setText(schedule.getmTeamCardOne().getmDeffensiveSch());
+            mDefTwo.setText(schedule.getmTeamCardTwo().getmDeffensiveSch());
+            mByeWeekOne.setText(String.valueOf(schedule.getmTeamCardOne().getmOneByeWeek()));
+            mByeWeekTwo.setText(String.valueOf(schedule.getmTeamCardTwo().getmOneByeWeek()));
 
         }
     }
