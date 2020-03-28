@@ -177,8 +177,7 @@ public class ScheduleFragment extends Fragment {
                 mDefTwo = team2.getmDeffensiveSch();
                 mByeWeekTwo = team2.getmOneByeWeek();
 
-                mSchedule.add(new Schedule(mTeamOneName, mTeamTwoName, mDate, mForecastDesc,
-                        mHigh, mLow, mStadium, mTeamOneLogo, mOffOne, mDefOne, mByeWeekOne,
+                mSchedule.add(new Schedule(eventHome, mStadium, mTeamOneLogo, mOffOne, mDefOne, mByeWeekOne,
                         mTeamTwoLogo, mOffTwo, mDefTwo, mByeWeekTwo));
 
             }

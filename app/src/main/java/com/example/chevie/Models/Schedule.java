@@ -5,12 +5,7 @@ package com.example.chevie.Models;
  */
 public class Schedule {
 
-    private String mHomeTeam;
-    private String mAwayTeam;
-    private String mDate;
-    private String mForcastDesc;
-    private int mHigh;
-    private int mLow;
+    private EventHome mEventHome;
     private String mStadium;
     private String mTeamOneLogo;
     private String mOneOffensiveSch;
@@ -22,13 +17,8 @@ public class Schedule {
     private int mTwoByeWeek;
 
     /**
-     * Constructor for the Schedule model
-     * @param mHomeTeam
-     * @param mAwayTeam
-     * @param mDate
-     * @param mForcastDesc
-     * @param mHigh
-     * @param mLow
+     * Constructor for Schedule Object
+     * @param mEventHome
      * @param mStadium
      * @param mTeamOneLogo
      * @param mOneOffensiveSch
@@ -39,16 +29,11 @@ public class Schedule {
      * @param mTwoDefensiveSch
      * @param mTwoByeWeek
      */
-    public Schedule(String mHomeTeam, String mAwayTeam, String mDate, String mForcastDesc,
-                    int mHigh, int mLow, String mStadium, String mTeamOneLogo, String mOneOffensiveSch,
-                    String mOneDefensiveSch, int mOneByeWeek,String mTeamTwoLogo,
-                    String mTwoOffensiveSch, String mTwoDefensiveSch, int mTwoByeWeek) {
-        this.mHomeTeam = mHomeTeam;
-        this.mAwayTeam = mAwayTeam;
-        this.mDate = mDate;
-        this.mForcastDesc = mForcastDesc;
-        this.mHigh = mHigh;
-        this.mLow = mLow;
+    public Schedule(EventHome mEventHome, String mStadium, String mTeamOneLogo,
+                    String mOneOffensiveSch, String mOneDefensiveSch, int mOneByeWeek,
+                    String mTeamTwoLogo, String mTwoOffensiveSch, String mTwoDefensiveSch,
+                    int mTwoByeWeek) {
+        this.mEventHome = mEventHome;
         this.mStadium = mStadium;
         this.mTeamOneLogo = mTeamOneLogo;
         this.mOneOffensiveSch = mOneOffensiveSch;
@@ -60,30 +45,8 @@ public class Schedule {
         this.mTwoByeWeek = mTwoByeWeek;
     }
 
-    //Getter
-
-    public String getmHomeTeam() {
-        return mHomeTeam;
-    }
-
-    public String getmAwayTeam() {
-        return mAwayTeam;
-    }
-
-    public String getmDate() {
-        return mDate;
-    }
-
-    public String getmForcastDesc() {
-        return mForcastDesc;
-    }
-
-    public int getmHigh() {
-        return mHigh;
-    }
-
-    public int getmLow() {
-        return mLow;
+    public EventHome getmEventHome() {
+        return mEventHome;
     }
 
     public String getmStadium() {

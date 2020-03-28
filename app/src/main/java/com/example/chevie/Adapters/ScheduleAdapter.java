@@ -91,12 +91,12 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.EventH
         }
 
         public void bindEventHome(Schedule schedule){
-            mTeamOneName.setText(schedule.getmHomeTeam());
-            mTeamTwoName.setText(schedule.getmAwayTeam());
-            mForecast.setText(schedule.getmForcastDesc());
-            mDate.setText(schedule.getmDate());
-            mHigh.setText(String.valueOf(schedule.getmHigh()));
-            mLow.setText(String.valueOf(schedule.getmLow()));
+            mTeamOneName.setText(schedule.getmEventHome().getmHomeTeam());
+            mTeamTwoName.setText(schedule.getmEventHome().getmAwayTeam());
+            mForecast.setText(schedule.getmEventHome().getmForcastDesc());
+            mDate.setText(schedule.getmEventHome().getmDate());
+            mHigh.setText(String.valueOf(schedule.getmEventHome().getmHigh()));
+            mLow.setText(String.valueOf(schedule.getmEventHome().getmLow()));
             mStadium.setText(schedule.getmStadium());
             SvgLoaderUtil.fetchSvg(mContext, schedule.getmTeamOneLogo(), mLogoOne);
             SvgLoaderUtil.fetchSvg(mContext, schedule.getmTeamTwoLogo(), mLogoTwo);
