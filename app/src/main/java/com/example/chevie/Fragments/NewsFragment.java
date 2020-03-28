@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.chevie.Adapters.NewsAdapter;
+import com.example.chevie.AsyncTask.NewsAsyncTask;
 import com.example.chevie.MainActivity;
 import com.example.chevie.Models.News;
 import com.example.chevie.Models.NewsInfo;
@@ -124,24 +125,8 @@ public class NewsFragment extends Fragment implements NewsAdapter.NewsAdapterOnC
 
         @Override
         protected ArrayList<News> doInBackground(String... strings) {
-            //Just getting the news info
-            mInfoArray = NetworkUtils.fetchNews();
-
-            //Iterating through the arraylist of news info
-            //Then create a news Arraylist
-            for (int i = 0; i < 5; i++){
-                NewsInfo newsInfo = mInfoArray.get(i);
-                int playerId = newsInfo.getmNewsPlayerId();
-                //getting player profile info
-                mPlayerProf = NetworkUtils.fetchPlayerProfile(playerId);
-                PlayerProfile playerProfile = mPlayerProf.get(0);
-                String photoUrl = playerProfile.getmPlayerImg();
-                String shortName = playerProfile.getmShortName();
-
-                mNewsArrayList.add(new News(newsInfo, shortName, photoUrl));
-
-            }
-
+            //Do all needed for the background task
+            new NewsAsyncTask().doInTheBackgroundNewsTask(mNewsArrayList);
             return mNewsArrayList;
         }
 

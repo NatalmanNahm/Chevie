@@ -19,6 +19,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.example.chevie.Adapters.NewsDetailPagerAdapter;
+import com.example.chevie.AsyncTask.NewsAsyncTask;
 import com.example.chevie.Auth.LoginActivity;
 import com.example.chevie.Fragments.ProfileFragment;
 import com.example.chevie.Fragments.ScheduleDetailFragment;
@@ -392,25 +393,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         @Override
         protected ArrayList<News> doInBackground(String... strings) {
-            //Just getting the news info
-            ArrayList<NewsInfo> mInfoArray = NetworkUtils.fetchNews();
-
-            //Iterating through the arraylist of news info
-            //Then create a news Arraylist
-            for (int i = 0; i < 5; i++){
-                NewsInfo newsInfo = mInfoArray.get(i);
-                int  mPlayerId = newsInfo.getmNewsPlayerId();
-
-                //getting player profile info
-                ArrayList<PlayerProfile> mPlayerProf = NetworkUtils.fetchPlayerProfile(mPlayerId);
-                PlayerProfile playerProfile = mPlayerProf.get(0);
-                String mPhotoUrl = playerProfile.getmPlayerImg();
-                String mShortName = playerProfile.getmShortName();
-
-                mNews.add(new News(newsInfo, mShortName, mPhotoUrl));
-
-            }
-
+            //Do all needed in the background.
+            new NewsAsyncTask().doInTheBackgroundNewsTask(mNews);
             return mNews;
         }
 

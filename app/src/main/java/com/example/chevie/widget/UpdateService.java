@@ -13,6 +13,7 @@ import android.widget.RemoteViews;
 
 import androidx.annotation.Nullable;
 
+import com.example.chevie.AsyncTask.NewsAsyncTask;
 import com.example.chevie.MainActivity;
 import com.example.chevie.Models.News;
 import com.example.chevie.Models.NewsInfo;
@@ -26,14 +27,6 @@ public class UpdateService extends Service {
 
     //initializer
     private static final String OPENMAIN = "Open news Fragment";
-    private int mNewsId;
-    private int mPlayerId;
-    private String mSource;
-    private String mTime;
-    private String mContent;
-    private String mTitle;
-    private String mPhotoUrl;
-    private String mShortName;
     private ArrayList<News> mNewsArrayList = new ArrayList<>();
     private static final String TAG = "UpdateService";
 
@@ -97,26 +90,8 @@ public class UpdateService extends Service {
 
         @Override
         protected ArrayList<News> doInBackground(String... strings) {
-
-            //Just getting the news info
-            ArrayList<NewsInfo> mInfoArray = NetworkUtils.fetchNews();
-
-            NewsInfo newsInfo = mInfoArray.get(0);
-            mNewsId = newsInfo.getmNewsId();
-            mPlayerId = newsInfo.getmNewsPlayerId();
-            mSource = newsInfo.getmSource();
-            mTime = newsInfo.getmTimeShared();
-            mContent = newsInfo.getmContent();
-            mTitle = newsInfo.getmTitle();
-
-            //getting player profile info
-            ArrayList<PlayerProfile> mPlayerProf = NetworkUtils.fetchPlayerProfile(mPlayerId);
-            PlayerProfile playerProfile = mPlayerProf.get(0);
-            mPhotoUrl = playerProfile.getmPlayerImg();
-            mShortName = playerProfile.getmShortName();
-
-            mNewsArrayList.add(new News(newsInfo, mShortName, mPhotoUrl));
-
+            //Do all needed in the background tasks
+            new NewsAsyncTask().doInTheBackgroundNewsTask(mNewsArrayList);
             return mNewsArrayList;
         }
 
