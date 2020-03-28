@@ -110,13 +110,13 @@ public class NewsDetailFragment extends Fragment {
 
         //Getting current data
         final News news = mNews.get(mPosition);
-        String title = news.getmTitle();
-        final int newsId = news.getmNewsId();
+        String title = news.getmNewsInfo().getmTitle();
+        final int newsId = news.getmNewsInfo().getmNewsId();
         String playerPic = news.getmPlayerPic();
         String name = news.getmPlayerShortName();
-        String time = news.getmTimeShared();
-        String source = news.getmSource();
-        String content = news.getmContent();
+        String time = news.getmNewsInfo().getmTimeShared();
+        String source = news.getmNewsInfo().getmSource();
+        String content = news.getmNewsInfo().getmContent();
 
         //Binding views to their current data
         mTitle.setText(title);

@@ -115,8 +115,7 @@ public class UpdateService extends Service {
             mPhotoUrl = playerProfile.getmPlayerImg();
             mShortName = playerProfile.getmShortName();
 
-            mNewsArrayList.add(new News(mNewsId, mPlayerId, mShortName, mSource, mTime,
-                    mTitle, mContent, mPhotoUrl));
+            mNewsArrayList.add(new News(newsInfo, mShortName, mPhotoUrl));
 
             return mNewsArrayList;
         }
@@ -127,10 +126,10 @@ public class UpdateService extends Service {
 
             News wdNews = news.get(0);
 
-            views.setTextViewText(R.id.news_title, wdNews.getmTitle());
+            views.setTextViewText(R.id.news_title, wdNews.getmNewsInfo().getmTitle());
             Log.d("TITLENEWS", "string");
-            views.setTextViewText(R.id.news_time_shared, wdNews.getmTimeShared());
-            views.setTextViewText(R.id.source, wdNews.getmSource());
+            views.setTextViewText(R.id.news_time_shared, wdNews.getmNewsInfo().getmTimeShared());
+            views.setTextViewText(R.id.source, wdNews.getmNewsInfo().getmSource());
             WidgetManager.updateAppWidget(widget, views);
         }
     }

@@ -32,7 +32,6 @@ public class NewsWidget extends AppWidgetProvider {
     //initializer
     private  PendingIntent pendingIntent;
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
@@ -47,11 +46,13 @@ public class NewsWidget extends AppWidgetProvider {
                     PendingIntent.FLAG_CANCEL_CURRENT);
         }
 
-        alarmManager.setExact(AlarmManager.RTC,3600000, pendingIntent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP,
+                    1800000, pendingIntent);
+        }
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onEnabled(Context context) {
         // Enter relevant functionality for when the first widget is created

@@ -400,11 +400,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             for (int i = 0; i < 5; i++){
                 NewsInfo newsInfo = mInfoArray.get(i);
                 int  mPlayerId = newsInfo.getmNewsPlayerId();
-                int newsId = newsInfo.getmNewsId();
-                String mSource = newsInfo.getmSource();
-                String mTime = newsInfo.getmTimeShared();
-                String mContent = newsInfo.getmContent();
-                String mTitle = newsInfo.getmTitle();
 
                 //getting player profile info
                 ArrayList<PlayerProfile> mPlayerProf = NetworkUtils.fetchPlayerProfile(mPlayerId);
@@ -412,8 +407,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 String mPhotoUrl = playerProfile.getmPlayerImg();
                 String mShortName = playerProfile.getmShortName();
 
-                mNews.add(new News(newsId, mPlayerId, mShortName, mSource, mTime,
-                        mTitle, mContent, mPhotoUrl));
+                mNews.add(new News(newsInfo, mShortName, mPhotoUrl));
 
             }
 

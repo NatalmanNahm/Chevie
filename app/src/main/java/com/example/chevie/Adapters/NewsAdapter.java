@@ -105,9 +105,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewholder
 
         //This is to populate texts and image for the news UI
         public void bindNews(News news){
-            mNewsTitle.setText(news.getmTitle());
-            mTime.setText(news.getmTimeShared());
-            mSource.setText(news.getmSource());
+            mNewsTitle.setText(news.getmNewsInfo().getmTitle());
+            mTime.setText(news.getmNewsInfo().getmTimeShared());
+            mSource.setText(news.getmNewsInfo().getmSource());
             mPlayerShortName.setText(news.getmPlayerShortName());
             Picasso.get().load(news.getmPlayerPic()).into(mPlayerImg);
 
