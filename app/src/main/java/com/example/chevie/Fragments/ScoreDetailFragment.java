@@ -33,15 +33,6 @@ public class ScoreDetailFragment extends Fragment {
     private ArrayList<ScoreHome> mScore = new ArrayList<>();
     private ArrayList<AllScore> mAllScore = new ArrayList<>();
     private ArrayList<TeamCard> mTeamCard = new ArrayList<>();
-    private String mHomeName, mAwayName;
-    private String mHomeLogo, mAwayLogo;
-    private int mHomeScore, mAwayScore;
-    private int mHomeQtr1, mAwayQtr1;
-    private int mHomeQtr2, mAwayQtr2;
-    private int mHomeQtr3, mAwayQtr3;
-    private int mHomeQtr4, mAwayQtr4;
-    private int mWeek;
-    private String mDate;
 
     private RecyclerView mRecyclerView;
     private AllScoreAdapter mAllScoreAdapter;
@@ -93,33 +84,18 @@ public class ScoreDetailFragment extends Fragment {
         protected ArrayList<AllScore> doInBackground(String... strings) {
             for (int i = 0; i<mScore.size(); i++){
                 ScoreHome scoreHome = mScore.get(i);
-                mHomeName = scoreHome.getmHomeTeam();
-                mAwayName = scoreHome.getmAwayTeam();
+                String homeName = scoreHome.getmHomeTeam();
+                String awayName = scoreHome.getmAwayTeam();
 
-                mTeamCard = NetworkUtils.fetchTeamCard(mHomeName, mAwayName);
+                mTeamCard = NetworkUtils.fetchTeamCard(homeName, awayName);
 
                 TeamCard team1 = mTeamCard.get(0);
-                mHomeLogo = team1.getmTeamLogo();
-                mHomeQtr1 = scoreHome.getmHomeQtr1();
-                mHomeQtr2 = scoreHome.getmHomeQtr2();
-                mHomeQtr3 = scoreHome.getmHomeQtr3();
-                mHomeQtr4 = scoreHome.getmHomeQtr4();
-                mHomeScore = scoreHome.getmHomeScore();
+                String homeLogo = team1.getmTeamLogo();
 
                 TeamCard team2 = mTeamCard.get(1);
-                mAwayLogo = team2.getmTeamLogo();
-                mAwayQtr1 = scoreHome.getmAwayQtr1();
-                mAwayQtr2 = scoreHome.getmAwayQtr2();
-                mAwayQtr3 = scoreHome.getmAwayQtr3();
-                mAwayQtr4 = scoreHome.getmAwayQtr4();
-                mAwayScore = scoreHome.getmAwayScore();
+                String awayLogo = team2.getmTeamLogo();
 
-                mDate = scoreHome.getmDate();
-                mWeek = scoreHome.getmWeek();
-
-                mAllScore.add(new AllScore(mWeek, mHomeLogo, mAwayLogo, mDate, mHomeName, mAwayName,
-                        mHomeScore, mHomeQtr1, mHomeQtr2, mHomeQtr3, mHomeQtr4, mAwayScore,
-                        mAwayQtr1, mAwayQtr2, mAwayQtr3, mAwayQtr4));
+                mAllScore.add(new AllScore(scoreHome, homeLogo, awayLogo));
             }
 
             return mAllScore;

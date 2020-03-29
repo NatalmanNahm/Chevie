@@ -97,23 +97,23 @@ public class AllScoreAdapter extends RecyclerView.Adapter<AllScoreAdapter.AllSco
         //Bind data to their views
         public void bindAllScore(AllScore allScore){
             SvgLoaderUtil.fetchSvg(mContext, allScore.getHomeLogo(),mHomeLogo);
-            mHomeName.setText(allScore.getmHomeTeam());
-            mHome1st.setText(String.valueOf(allScore.getmHomeQtr1()));
-            mHome2nd.setText(String.valueOf(allScore.getmHomeQtr2()));
-            mHome3rd.setText(String.valueOf(allScore.getmHomeQtr3()));
-            mHome4th.setText(String.valueOf(allScore.getmHomeQtr4()));
-            mHomeFinScr.setText(String.valueOf(allScore.getmHomeScore()));
+            mHomeName.setText(allScore.getmScoreHome().getmHomeTeam());
+            mHome1st.setText(String.valueOf(allScore.getmScoreHome().getmHomeQtr1()));
+            mHome2nd.setText(String.valueOf(allScore.getmScoreHome().getmHomeQtr2()));
+            mHome3rd.setText(String.valueOf(allScore.getmScoreHome().getmHomeQtr3()));
+            mHome4th.setText(String.valueOf(allScore.getmScoreHome().getmHomeQtr4()));
+            mHomeFinScr.setText(String.valueOf(allScore.getmScoreHome().getmHomeScore()));
 
             SvgLoaderUtil.fetchSvg(mContext, allScore.getAwayLogo(), mAwayLogo);
-            mAwayName.setText(allScore.getmAwayTeam());
-            mAway1st.setText(String.valueOf(allScore.getmAwayQtr1()));
-            mAway2nd.setText(String.valueOf(allScore.getmAwayQtr2()));
-            mAway3rd.setText(String.valueOf(allScore.getmAwayQtr3()));
-            mAway4th.setText(String.valueOf(allScore.getmAwayQtr4()));
-            mAwayFinScr.setText(String.valueOf(allScore.getmAwayScore()));
+            mAwayName.setText(allScore.getmScoreHome().getmAwayTeam());
+            mAway1st.setText(String.valueOf(allScore.getmScoreHome().getmAwayQtr1()));
+            mAway2nd.setText(String.valueOf(allScore.getmScoreHome().getmAwayQtr2()));
+            mAway3rd.setText(String.valueOf(allScore.getmScoreHome().getmAwayQtr3()));
+            mAway4th.setText(String.valueOf(allScore.getmScoreHome().getmAwayQtr4()));
+            mAwayFinScr.setText(String.valueOf(allScore.getmScoreHome().getmAwayScore()));
 
-            mDate.setText(allScore.getmDate());
-            mWeek.setText(String.valueOf(allScore.getmWeek()));
+            mDate.setText(allScore.getmScoreHome().getmDate());
+            mWeek.setText(String.valueOf(allScore.getmScoreHome().getmWeek()));
         }
     }
 }

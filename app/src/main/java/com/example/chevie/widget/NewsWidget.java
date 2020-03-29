@@ -31,10 +31,14 @@ import java.util.ArrayList;
 public class NewsWidget extends AppWidgetProvider {
     //initializer
     private  PendingIntent pendingIntent;
+    int startTime;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
+
+        startTime = startTime + (1000 * 60 * 30);
 
         final AlarmManager alarmManager = (AlarmManager)
                 context.getSystemService(Context.ALARM_SERVICE);
@@ -46,10 +50,22 @@ public class NewsWidget extends AppWidgetProvider {
                     PendingIntent.FLAG_CANCEL_CURRENT);
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP,
-                    1800000, pendingIntent);
-        }
+        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, startTime, pendingIntent);
+
+
+//        if (Build.VERSION.SDK_INT < 23) {
+//            if (Build.VERSION.SDK_INT >= 19) {
+//                if(System.currentTimeMillis()<startTime)
+//                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, startTime, pendingIntent);
+//            } else {
+//                if(System.currentTimeMillis()<startTime)
+//                    alarmManager.set(AlarmManager.RTC_WAKEUP, startTime, pendingIntent);
+//            }
+//        } else {
+//            if(System.currentTimeMillis()<startTime)
+//                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, startTime, pendingIntent);
+//        }
+//    }
 
     }
 
