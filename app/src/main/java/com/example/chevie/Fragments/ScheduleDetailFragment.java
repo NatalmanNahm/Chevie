@@ -56,9 +56,9 @@ public class ScheduleDetailFragment extends Fragment {
         mRootView = inflater.inflate(R.layout.fragment_schedule_detail, container, false);
 
         mRecycler = (RecyclerView) mRootView.findViewById(R.id.sch_detail_recycler);
+        mErrorConatainer = (ConstraintLayout) mRootView.findViewById(R.id.Schedule_error_layout);
         mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mRecycler.setLayoutManager(mLayoutManager);
-        mErrorConatainer = (ConstraintLayout) mRootView.findViewById(R.id.Schedule_error_layout);
         mRecycler.setHasFixedSize(true);
 
         mAdapter = new ScheduleDetailAdapter(mScheduleDetail, getContext());

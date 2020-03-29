@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.example.chevie.Adapters.AllScoreAdapter;
 import com.example.chevie.Models.AllScore;
@@ -38,6 +39,7 @@ public class ScoreDetailFragment extends Fragment {
     private AllScoreAdapter mAllScoreAdapter;
     private LinearLayoutManager mLinearLayoutManager;
     private View mRootView;
+    private LinearLayout mLinearErrorLayout;
 
 
     public ScoreDetailFragment() {
@@ -59,6 +61,7 @@ public class ScoreDetailFragment extends Fragment {
         }
 
         mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.recyclerView_score);
+        mLinearErrorLayout = (LinearLayout) mRootView.findViewById(R.id.empty_score_frag);
 
         mLinearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,
                 false);
@@ -70,6 +73,27 @@ public class ScoreDetailFragment extends Fragment {
         new FetchAllScore().execute();
 
         return mRootView;
+    }
+
+
+    /**
+     * simple method to show Score data on the ui
+     */
+    private void showDataView() {
+        /* First, make sure the error is invisible */
+        mLinearErrorLayout.setVisibility(View.INVISIBLE);
+        /* Then, make sure the Score data is visible */
+        mRecyclerView.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * Simple method to show error when needed.
+     */
+    private void showErrorMessage() {
+        /* First, hide the currently visible data */
+        mRecyclerView.setVisibility(View.INVISIBLE);
+        /* Then, show the error */
+        mLinearErrorLayout.setVisibility(View.VISIBLE);
     }
 
 
@@ -104,7 +128,10 @@ public class ScoreDetailFragment extends Fragment {
         @Override
         protected void onPostExecute(ArrayList<AllScore> allScores) {
             if (allScores != null && !allScores.isEmpty()){
+                showDataView();
                 mAllScoreAdapter.setmAllScore(allScores);
+            } else {
+                showErrorMessage();
             }
 
             super.onPostExecute(allScores);
