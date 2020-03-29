@@ -176,7 +176,8 @@ public class TeamDetailFragment extends Fragment {
             }
         });
 
-        SvgLoaderUtil.fetchSvg(mContext, team.getmTeamLogo(), mTeamLogo);
+
+        SvgLoaderUtil.imageCheck(mTeamLogo, team.getmTeamLogo(), mContext);
         mLogoLayout.setBackgroundColor(Color.parseColor(getString(R.string.hash_tag) + team.getmPrimaryColor()));
         mTeamName.setText(team.getmTeamName());
         mTeamInitial.setText(team.getmTeamKey());

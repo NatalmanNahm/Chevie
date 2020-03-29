@@ -5,6 +5,7 @@ import android.widget.ImageView;
 
 import com.example.chevie.R;
 import com.pixplicity.sharp.Sharp;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -45,5 +46,20 @@ public class SvgLoaderUtil {
                 stream.close();
             }
         });
+    }
+
+    /**
+     * Check if the image is an svg or png then use the correct
+     * resource to load it into the container.
+     * @param container
+     * @param image
+     * @param context
+     */
+    public static void imageCheck (ImageView container, String image, Context context){
+        if (image.endsWith(".svg")){
+            SvgLoaderUtil.fetchSvg(context, image, container);
+        } else {
+            Picasso.get().load(image).into(container);
+        }
     }
 }

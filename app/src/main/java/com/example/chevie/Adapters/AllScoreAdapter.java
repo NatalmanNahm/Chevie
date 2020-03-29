@@ -15,6 +15,7 @@ import com.example.chevie.Models.Schedule;
 import com.example.chevie.Models.ScoreHome;
 import com.example.chevie.R;
 import com.example.chevie.Utilities.SvgLoaderUtil;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -96,7 +97,8 @@ public class AllScoreAdapter extends RecyclerView.Adapter<AllScoreAdapter.AllSco
 
         //Bind data to their views
         public void bindAllScore(AllScore allScore){
-            SvgLoaderUtil.fetchSvg(mContext, allScore.getHomeLogo(),mHomeLogo);
+
+            SvgLoaderUtil.imageCheck(mHomeLogo, allScore.getHomeLogo(), mContext);
             mHomeName.setText(allScore.getmScoreHome().getmHomeTeam());
             mHome1st.setText(String.valueOf(allScore.getmScoreHome().getmHomeQtr1()));
             mHome2nd.setText(String.valueOf(allScore.getmScoreHome().getmHomeQtr2()));
@@ -104,7 +106,7 @@ public class AllScoreAdapter extends RecyclerView.Adapter<AllScoreAdapter.AllSco
             mHome4th.setText(String.valueOf(allScore.getmScoreHome().getmHomeQtr4()));
             mHomeFinScr.setText(String.valueOf(allScore.getmScoreHome().getmHomeScore()));
 
-            SvgLoaderUtil.fetchSvg(mContext, allScore.getAwayLogo(), mAwayLogo);
+            SvgLoaderUtil.imageCheck(mAwayLogo, allScore.getAwayLogo(), mContext);
             mAwayName.setText(allScore.getmScoreHome().getmAwayTeam());
             mAway1st.setText(String.valueOf(allScore.getmScoreHome().getmAwayQtr1()));
             mAway2nd.setText(String.valueOf(allScore.getmScoreHome().getmAwayQtr2()));

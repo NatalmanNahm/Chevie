@@ -18,6 +18,7 @@ import com.example.chevie.Models.TeamHome;
 import com.example.chevie.R;
 import com.example.chevie.Utilities.NetworkUtils;
 import com.example.chevie.Utilities.SvgLoaderUtil;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -111,7 +112,7 @@ public class TeamHomeFragment extends Fragment {
             mDefense.setText(teamHome.getmDefensive());
             mOffense.setText(teamHome.getmOffensive());
             mStadium.setText(teamHome.getmStadium());
-            SvgLoaderUtil.fetchSvg(mContext, teamHome.getmLogo(), mLogo);
+            SvgLoaderUtil.imageCheck(mLogo, teamHome.getmLogo(), mContext);
 
         }
     }

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.chevie.Models.Teams;
 import com.example.chevie.R;
 import com.example.chevie.Utilities.SvgLoaderUtil;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -93,7 +94,8 @@ public class AllTeamsAdapter extends RecyclerView.Adapter<AllTeamsAdapter.AllTea
         }
 
         public void bindAllTeams(Teams teams){
-            SvgLoaderUtil.fetchSvg(mContext, teams.getmTeamLogo(), mTeamLogo);
+
+            SvgLoaderUtil.imageCheck(mTeamLogo, teams.getmTeamLogo(), mContext);
             mTeamName.setText(teams.getmTeamKey());
             mDefensive.setText(teams.getmDefensive());
             GradientDrawable drawable = (GradientDrawable) mTeamLogo.getBackground();
