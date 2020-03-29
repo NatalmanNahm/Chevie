@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,6 +39,7 @@ public class ScheduleDetailFragment extends Fragment {
     private Parcelable mSavedLinearlayoutLayoutManager;
     private String mCurrentSeason;
     private View mRootView;
+    private ConstraintLayout mErrorConatainer;
 
 
     public ScheduleDetailFragment() {
@@ -56,6 +58,7 @@ public class ScheduleDetailFragment extends Fragment {
         mRecycler = (RecyclerView) mRootView.findViewById(R.id.sch_detail_recycler);
         mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mRecycler.setLayoutManager(mLayoutManager);
+        mErrorConatainer = (ConstraintLayout) mRootView.findViewById(R.id.Schedule_error_layout);
         mRecycler.setHasFixedSize(true);
 
         mAdapter = new ScheduleDetailAdapter(mScheduleDetail, getContext());
@@ -70,6 +73,26 @@ public class ScheduleDetailFragment extends Fragment {
         new FetchScheduleDetail().execute();
 
         return mRootView;
+    }
+
+    /**
+     * simple method to show Schedule data on the ui
+     */
+    private void showDataView() {
+        /* First, make sure the error is invisible */
+        mErrorConatainer.setVisibility(View.INVISIBLE);
+        /* Then, make sure the data is visible */
+        mRecycler.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * Simple method to show error when needed.
+     */
+    private void showErrorMessage() {
+        /* First, hide the currently visible data */
+        mRecycler.setVisibility(View.INVISIBLE);
+        /* Then, show the error */
+        mErrorConatainer.setVisibility(View.VISIBLE);
     }
 
 
@@ -117,7 +140,10 @@ public class ScheduleDetailFragment extends Fragment {
         protected void onPostExecute(ArrayList<Schedule> schedules) {
             super.onPostExecute(schedules);
             if (schedules != null && !schedules.isEmpty()) {
+                showDataView();
                 mAdapter.setmScheduleDetail(schedules);
+            } else {
+                showErrorMessage();
             }
         }
 
