@@ -24,6 +24,7 @@ import com.example.chevie.Utilities.NetworkUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Implementation of App Widget functionality.
@@ -37,9 +38,12 @@ public class NewsWidget extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
+        //Getting calendar instance
+        Calendar calendar = Calendar.getInstance();
 
         startTime = startTime + (1000 * 60 * 30);
 
+        //Initializing our alarm manager
         final AlarmManager alarmManager = (AlarmManager)
                 context.getSystemService(Context.ALARM_SERVICE);
 
@@ -50,7 +54,10 @@ public class NewsWidget extends AppWidgetProvider {
                     PendingIntent.FLAG_CANCEL_CURRENT);
         }
 
-        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, startTime, pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
+                calendar.getTimeInMillis(), startTime, pendingIntent);
+
+        // alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, startTime, pendingIntent);
 
 
 //        if (Build.VERSION.SDK_INT < 23) {
